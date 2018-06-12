@@ -1,12 +1,12 @@
 # coding=utf-8
 
-from FunctionTest.func_lib import *
+from FunctionTest.func_script.func_lib import *
 
 
 class LogAnalyse(object):
     def catch_anr_and_crash(self):
-        for i in os.listdir(os.path.join(BASE_PATH, 'test_result/logs')):
-            with open(os.path.join(BASE_PATH, 'test_result/logs/' + i), 'rb') as f:
+        for i in os.listdir(os.path.join(BASE_PATH, 'test_result\\logs')):
+            with open(os.path.join(BASE_PATH, 'test_result\\logs\\' + i), 'rb') as f:
                 for j in f.readlines():
                     if b'anr in' in j:
                         with open(os.path.join(BASE_PATH, 'test_result/anr_log/anr.txt'),

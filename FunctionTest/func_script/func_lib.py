@@ -19,6 +19,9 @@ from appium.webdriver.webdriver import By  # for find toast
 from appium.webdriver.webdriver import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC  # for find toast
 
+sys_alert = True
+ap_alert = True
+
 
 class AppiumInit(object):
     """appium server"""
@@ -538,13 +541,11 @@ class PopupHandle(object):
     ele = FindElement()
     wait = Waiting()
     gf = GetInfo()
-    global sys_alert, ap_alert
-    sys_alert = 1
-    ap_alert = 1
 
     def sys_win_alert(self):
         """监控并处理系统弹窗"""
         print('thread-1 is working')
+        global sys_alert
         while sys_alert:
             alert = os.popen('adb shell dumpsys window|find "permission"')
             if "SYSTEM_ALERT_WINDOW" in alert.read():
@@ -562,6 +563,7 @@ class PopupHandle(object):
     def app_alert(self):
         """监控并处理应用弹窗"""
         print('thread-2 is working')
+        global ap_alert
         while ap_alert:
             if 'com.excelliance.dualaid:id/ll_dialog' in self.gf.get_xml():
                 if '64位' in self.gf.get_xml():
@@ -587,8 +589,10 @@ class CreateThread(object):
         thread.start()
 
     def stop_thread(self):
-        global sys_alert, a_alert
-        sys_alert = a_alert = 0
+        global sys_alert
+        global ap_alert
+        sys_alert = False
+        ap_alert = False
 
 
 class Log(object):
@@ -632,7 +636,7 @@ class Delete(object):
 
 # 设置基本路径
 getinfo = GetInfo()
-BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+BASE_PATH = os.path.abspath(os.path.dirname('main.py'))
 log_path = os.path.join(BASE_PATH, 'test_result\\logs\\')
 img_path = os.path.join(BASE_PATH, 'test_result\\error_img\\')
 report_path = os.path.join(BASE_PATH, 'test_result\\双开助手测试报告%s.html' % getinfo.get_time())

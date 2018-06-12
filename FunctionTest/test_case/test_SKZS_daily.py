@@ -2,7 +2,7 @@
 
 import unittest
 
-from FunctionTest.func_lib import *
+from FunctionTest.func_script.func_lib import *
 
 
 class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, FindElement,
