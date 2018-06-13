@@ -1,12 +1,12 @@
 # coding=utf-8
+import unittest
 from FunctionTest.func_script.HTMLTestRunner import HTMLTestRunner
 from FunctionTest.func_script.appium_server_check import AppiumServerCheck
 from FunctionTest.func_script.check_and_install_apk import FilePath
 from FunctionTest.func_script.log_analyse import *
-from FunctionTest.func_script.save_file import SaveFile
 from FunctionTest.func_script.send_email import EmailSending
 from FunctionTest.func_script.compression import Compression
-from FunctionTest.test_case.test_SKZS_daily import *
+from FunctionTest.test_case.test_SKZS_daily import Cases
 
 # 检测daily_review的包并安装
 apk_check = FilePath()
@@ -51,7 +51,3 @@ compress.compress_dir()
 # 发送测试邮件
 send_report = EmailSending()
 send_report.create_email()
-
-# 资料归档
-save = SaveFile()
-save.save_file()

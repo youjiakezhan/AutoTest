@@ -6,7 +6,7 @@ from FunctionTest.func_script.func_lib import getinfo
 
 
 class FilePath(object):
-    APK_PATH = 'Z:\daily_review_SKZS'
+    APK_PATH = r'Z:\daily_review_SKZS'
 
     def get_file_path(self):
         """获取daily review安装包路径"""

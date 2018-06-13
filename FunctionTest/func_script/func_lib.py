@@ -133,11 +133,11 @@ class GetInfo(object):
         return list1
 
     def get_time(self, display=1):
-        """获取当前时间并以格式（年 / 月 / 日_时：分：秒）返回"""
+        """获取当前时间并以自定义格式返回"""
         if display == 1:
-            now = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
+            now = time.strftime('%y%m%d%H%M%S')
         else:
-            now = time.strftime('%Y.%m.%d_%H:%M:%S', time.localtime(time.time()))
+            now = time.strftime('%Y.%m.%d_%H:%M:%S')
         return now
 
     def get_xml(self):
