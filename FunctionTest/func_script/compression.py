@@ -3,10 +3,10 @@ import os
 from zipfile import ZipFile, ZIP_DEFLATED
 
 
-class Zipping(object):
+class Compression(object):
     """压缩文件和文件夹"""
 
-    def zip_dir(self):
+    def compress_dir(self):
         dir_path = r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest\test_result'
         new_file = dir_path + '.zip'
         z = ZipFile(new_file, 'w', ZIP_DEFLATED)
@@ -17,5 +17,5 @@ class Zipping(object):
                 z.write(os.path.join(root, file))
         z.close()
 
-# zip = Zip()
-# zip.zip_dir()
+# zip = Compression()
+# zip.compress_dir()

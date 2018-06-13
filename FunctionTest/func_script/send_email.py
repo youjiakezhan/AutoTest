@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 class EmailSending(object):
 
     def get_latest_file(self):
-        report_path = r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest\test_result\report'
+        report_path = r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest\test_result'
         lists = os.listdir(report_path)  # 列出目录的下所有文件和文件夹保存到lists
         lists.sort(key=lambda x: os.path.getmtime(report_path + "\\" + x))  # 按时间排序
         latest = os.path.join(report_path, lists[-1])  # 获取最新的文件保存到file_new
@@ -22,8 +22,7 @@ class EmailSending(object):
         username = 'wangzhongchang@excelliance.cn'
         password = 'wzc6851498'
         sender = 'wangzhongchang@excelliance.cn'
-        receiver = '"黄杲"<huanggao@excelliance.cn>, "王志海"<wangzhihai@excelliance.cn>, "李敏德"<liminde@excelliance.cn>,\
-                   "葛志鹏"<gezhipeng@excelliance.cn>, "董创"<dongchuang@excean.com>, "许赫"<xuhe@excelliance.cn>,\
+        receiver = '"许赫"<xuhe@excelliance.cn>,\
                    "王喆"<wangzhe@excean.com>, "齐赵迪"<qizhaodi@excean.com>, "朱瑶"<zhuyao@excean.com>, \
                    "李先状"<lixianzhuang@excelliance.cn>, 771432505@qq.com'
 
@@ -43,7 +42,7 @@ class EmailSending(object):
         msg.attach(text_plain)
 
         # 构造附件
-        with open(self.get_latest_file(), 'rb') as file:
+        with open(r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest\test_result.zip', 'rb') as file:
             sendfile = file.read()
         text_att = MIMEText(sendfile, 'base64', 'utf-8')
         text_att["Content-Type"] = 'application/octet-stream'
@@ -61,5 +60,5 @@ class EmailSending(object):
         smtp.quit()
 
 
-email = EmailSending()
-email.create_email()
+# email = EmailSending()
+# email.create_email()

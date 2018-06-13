@@ -18,5 +18,5 @@ class LogAnalyse(object):
                             f2.write(str(j) + '\n')
 
 
-log_analyse = LogAnalyse()
-log_analyse.catch_anr_and_crash()
+# log_analyse = LogAnalyse()
+# log_analyse.catch_anr_and_crash()
