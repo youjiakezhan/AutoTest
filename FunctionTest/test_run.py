@@ -10,8 +10,8 @@ from FunctionTest.func_script.compression import Compression
 from FunctionTest.test_case.SKZS_daily_review import Cases
 
 # 检测daily_review的包并安装
-apk_check = FilePath()
-apk_check.monitor()
+# apk_check = FilePath()
+# apk_check.monitor()
 
 # 初始化appium连接
 ap_ser_che = AppiumServerCheck()
@@ -24,16 +24,16 @@ thread1 = thread.start_thread(popup_handle.sys_win_alert)
 thread2 = thread.start_thread(popup_handle.app_alert)
 
 # 装载测试用例
-suit = unittest.TestSuite()
-suit.addTest(unittest.TestLoader().loadTestsFromTestCase(Cases))
+# suit = unittest.TestSuite()
+# suit.addTest(unittest.TestLoader().loadTestsFromTestCase(Cases))
 
 # 设置生成测试报告路径
-testReport = os.path.join(BASE_PATH, 'test_result\\report\\双开助手测试报告%s.html' % getinfo.get_time())
+# testReport = os.path.join(BASE_PATH, 'test_result\\report\\双开助手测试报告%s.html' % getinfo.get_time())
 
 # 执行测试并记录测试报告
-with open(testReport, 'wb') as f:
-    runner = HTMLTestRunner(f, title='双开助手Daily Review自动化测试报告', description='测试结果饼状图展示')
-    runner.run(suit)
+# with open(testReport, 'wb') as f:
+#     runner = HTMLTestRunner(f, title='双开助手版本迭代自动化测试报告', description='测试结果饼状图展示')
+#     runner.run(suit)
 
 # 停止弹窗监控
 thread.stop_thread()
@@ -42,17 +42,19 @@ thread.stop_thread()
 ap_ser_che.stop_appium_server()
 
 # 测试用例执行完毕，分析log
-log_analyse = LogAnalyse()
-log_analyse.catch_anr_and_crash()
+# log_analyse = LogAnalyse()
+# log_analyse.catch_anr_and_crash()
 
 # 压缩并保存测试结果
-compress = Compression()
-compress.compress_dir()
+# compress = Compression()
+# compress.compress_dir()
 
 # 发送测试报告邮件
-send_report = EmailSending()
-send_report.create_email()
+# send_report = EmailSending()
+# send_report.create_email()
 
 # 初始化工作区
-cl = CleanWorkspace()
-cl.clean_test_result()
+ask = input('是否清空测试数据:(输入y/Y/yes/YES/Yes清除测试数据)')
+if ask == 'yes' or 'y' or 'Y' or 'YES' or 'Yes':
+    cl = CleanWorkspace()
+    cl.clean_test_result()

@@ -1,5 +1,6 @@
 # coding=utf-8
 import unittest
+
 from FunctionTest.func_script.func_lib import *
 
 
@@ -19,6 +20,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test001(self):
         """
+        导航栏自动展示
         1.清除数据后启动app
         2.等待导航图片自动展示
         3.点击“立即体验”按钮
@@ -37,6 +39,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test002(self):
         """
+        添加引导页选择微信,进入主界面,启动双开微信
         1.启动app至添加引导页
         2.只选择微信复选框
         3.点击“开启”按钮
@@ -85,6 +88,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test003(self):
         """
+        从主界面点击添加推荐应用(微信)并启动
         1.启动app至主界面
         2.点击主界面上的推荐添加应用微信
         3.选择微信并点击启动
@@ -121,6 +125,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test004(self):
         """
+        从主界面添加按钮进入添加应用列表页添加一款应用(微信)并从主界面启动
         1.启动app至主界面
         2.点击添加按钮
         3.选择微信并点击添加
@@ -171,6 +176,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test005(self):
         """
+        非VIP账号登录
         1.启动app至添加引导页
         2.点击登录/注册
         3.输入正确的非VIP账号
@@ -244,6 +250,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test006(self):
         """
+        退出登录
         1.启动app至已登陆状态的主界面
         2.点击个人中心图标
         3.点击头像图标
@@ -304,6 +311,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test007(self):
         """
+        登录VIP账户
         1.启动app至添加引导页
         2.点击登录/注册
         3.输入正确的VIP账号
@@ -381,6 +389,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test008(self):
         """
+        登录VIP账户后,单独添加应用(微信)至第二空间并启动
         1.启动app至状态（登陆VIP账号后的主界面）
         2.点击添加按钮
         3.选择微信并点击添加
@@ -440,6 +449,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test009(self):
         """
+        登录VIP账户后,在平铺界面添加一款应用(微信)并启动
         1.首次启动app至状态（登录VIP账号后的平铺界面）
         2.点击添加按钮
         3.选择微信并点击添加
@@ -486,6 +496,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test010(self):
         """
+        登录VIP账户,先后添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
         1.启动app至状态（登录VIP账号后的主界面）
         2.点击空间切换按钮
         3.点击添加按钮
@@ -579,6 +590,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test011(self):
         """
+        登录VIP账户,先后在平铺界面添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
         1.首次启动app至状态（登录VIP账号后的平铺界面）
         2.点击添加按钮
         3.选择微信并点击添加
@@ -654,6 +666,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test012(self):
         """
+        主界面添加一款应用(微信),长按弹出菜单的遍历
         1.首次启动app至状态(未登录账号的主界面)
         2.点击推荐添加应用微信图标
         3.点击back
@@ -802,6 +815,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test013(self):
         """
+        登录VIP账户后,在平铺界面添加一款应用(微信),长按该应用图标并拖动以遍历顶部三个隐藏功能区域
         1.首次启动app至状态(登录VIP账号后的平铺界面)
         2.长按微信图标
         3.拖动微信图标至删除区域
@@ -905,541 +919,560 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         finally:
             self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 2, '删除双开微信失败')
 
-    #
-    # def test014(self):
-    #     """
-    #     1.启动app至状态（未登录账号的主界面）
-    #     2.长按换机数据迁移图标
-    #     3.选择删除按钮并点击
-    #     """
-    #     try:
-    #         self.set_app_status2()
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'settingerror014.png')
-    #
-    #     # 对长按换机数据迁移图标的结果断言
-    #     self.long_press(self.find_elements('com.excelliance.dualaid:id/root')[3])
-    #     self.wait_for(3)
-    #     try:
-    #         self.assertTrue(self.find_element('com.excelliance.dualaid:id/tv_left').is_displayed())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error0114_1.png')
-    #     finally:
-    #         self.assertTrue(self.find_element('com.excelliance.dualaid:id/tv_left').is_displayed(),
-    #                         '长按换机数据迁移图标弹窗失败')
-    #
-    #     # 对点击删除按钮的结果断言
-    #     self.find_element('com.excelliance.dualaid:id/tv_left').click()
-    #     self.wait_for(3)
-    #     try:
-    #         self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3)
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error0114_2.png')
-    #     finally:
-    #         self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3, '点击删除按钮操作失败')
-    #
-    # def test015(self):
-    #     """
-    #     1.启动app至状态（登录非VIP账号的个人中心界面）
-    #     2.点击开通VIP会员按钮
-    #     3.点击确认支付按钮
-    #     """
-    #     try:
-    #         self.set_app_status5()
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'settingerror015.png')
-    #
-    #     # 对点击开通VIP会员按钮结果断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_open_vip').click()
-    #     self.wait_for(3)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/pay_nat_title', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error015_1.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/pay_nat_title', self.get_xml(), '点击开通VIP会员按钮跳转失败')
-    #
-    #     # 对点击确认支付的结果断言
-    #     self.find_element('com.excelliance.dualaid:id/tv_sure_for_pay').click()
-    #     self.wait_for(10)
-    #     try:
-    #         self.assertTrue(self.get_current_activity() != 'com.excelliance.kxqp.pay.ali.PayMoreCountsActivity')
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error015_2.png')
-    #     finally:
-    #         self.assertTrue(self.get_current_activity() != 'com.excelliance.kxqp.pay.ali.PayMoreCountsActivity',
-    #                         '点击确认支付跳转失败')
-    #
-    # def test016(self):
-    #     """
-    #     1.启动app至状态（登录非VIP账号的个人中心界面）
-    #     2.点击开通VIP会员按钮
-    #     3.下滑找到微信支付并选择该支付方式
-    #     4.点击确认支付按钮
-    #     """
-    #     try:
-    #         self.set_app_status5()
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'settingerror016.png')
-    #
-    #     # 对点击开通VIP会员按钮结果断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_open_vip').click()
-    #     self.wait_for(3)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/pay_nat_title' or '确认付款', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error016_1.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/pay_nat_title' or '确认付款', self.get_xml(), '点击开通VIP会员按钮跳转失败')
-    #
-    #     # 对上滑查找并选择微信支付方式的结果断言
-    #     self.swipe_up()
-    #     self.wait_for(2)
-    #     self.find_elements('com.excelliance.dualaid:id/iv_item')[1].click()
-    #     self.wait_for(1)
-    #     try:
-    #         self.assertTrue(self.find_elements('com.excelliance.dualaid:id/iv_item')[1].is_displayed())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error016_2.png')
-    #     finally:
-    #         self.assertTrue(self.find_elements('com.excelliance.dualaid:id/iv_item')[1].is_displayed(),
-    #                         '切换支付方式失败')
-    #
-    #     # 对点击确认支付的结果断言
-    #     self.find_element('com.excelliance.dualaid:id/tv_sure_for_pay').click()
-    #     self.wait_for(10)
-    #     try:
-    #         self.assertIn('登录' or '立即支付', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error016_3.png')
-    #     finally:
-    #         self.assertIn('登录' or '立即支付', self.get_xml(), '点击确认支付跳转失败')
-    #
-    # def test017(self):
-    #     """
-    #     1.启动app至状态（添加引导页）
-    #     2.点击登录/注册按钮
-    #     3.点击免注册登录
-    #     """
-    #     try:
-    #         self.set_app_status1()
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'settingerror017.png')
-    #
-    #     # 对点击登录/注册按钮后的结果断言
-    #     self.find_element('com.excelliance.dualaid:id/tv_login_in').click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertIn(
-    #             'com.excelliance.dualaid:id/btn_next_step' and 'com.excelliance.dualaid:id/tv_quick_login',
-    #             self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error017_1.png')
-    #     finally:
-    #         self.assertIn(
-    #             'com.excelliance.dualaid:id/btn_next_step' and 'com.excelliance.dualaid:id/tv_quick_login',
-    #             self.get_xml(), '点击登录/注册跳转失败')
-    #
-    #     # 对点击免注册登录按钮的结果断言
-    #     self.find_element('com.excelliance.dualaid:id/tv_quick_login').click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/umcsdk_smscode_btn' or '本机号码一键登录', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error017_2.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/umcsdk_smscode_btn' or '本机号码一键登录', self.get_xml(),
-    #                       '点击免注册登录跳转失败（可能没安装手机卡）')
-    #
-    # def test018(self):
-    #     """
-    #     1.启动app至状态（未登录时的个人中心页）
-    #     2.点击消息按钮
-    #     3.点击返回按钮
-    #     4.点击开通VIP会员
-    #     5.点击返回
-    #     6.点击我的优惠券
-    #     7.点击back
-    #     8.点击邀请与兑奖
-    #     9.点击返回
-    #     10.点击应用加锁
-    #     11.点击返回
-    #     12.点击内存管理
-    #     13.点击返回
-    #     14.点击一键全部修复
-    #     15.点击确认
-    #     16.点击一键全部修复
-    #     17.点击暂不
-    #     18.点击更多高级设置
-    #     19.点击返回
-    #     20.点击主题换肤
-    #     21.选择其他主题
-    #     22.点击返回
-    #     23.点击版本更新
-    #     24.点击返回
-    #     25.点击帮助与反馈
-    #     26.点击返回
-    #     27.点击关于
-    #     28.点击返回
-    #     """
-    #     try:
-    #         self.set_app_status2()
-    #         self.find_element('com.excelliance.dualaid:id/iv_icon').click()
-    #         self.wait_for(3)
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'settingerror018.png')
-    #
-    #     # 点击消息中心的断言
-    #     self.find_element('com.excelliance.dualaid:id/iv_notification_center').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_edit', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_1.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_edit', self.get_xml(), '点击消息中心跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/iv_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_2.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
-    #
-    #     # 点击开通VIP会员的断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_open_vip').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_free_trial', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_3.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_free_trial', self.get_xml(), '点击开通VIP会员跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/pay_nav_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_4.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
-    #
-    #     # 点击我的优惠券断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_my_ticket').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_5.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml(), '点击我的优惠券跳转失败')
-    #
-    #     # back操作的断言
-    #     self.back()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_6.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击back跳转失败')
-    #
-    #     # 点击邀请与兑奖的断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_share_prize').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/view_5', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_7.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/view_5', self.get_xml(), '点击邀请与兑奖跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/share_nav_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_8.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击back跳转失败')
-    #
-    #     # 点击应用加锁的断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_lock_manager').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_free_trial', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_9.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_free_trial', self.get_xml(), '点击应用加锁跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/pay_nav_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_10.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
-    #
-    #     # 点击内存管理的断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_task_manager').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/task_whiteList', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_11.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/task_whiteList', self.get_xml(), '点击内存管理跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/ib_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_12.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
-    #
-    #     # 点击一键全部修复的断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_one_key_repair').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_13.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml(), '点击一键全部修复操作失败')
-    #
-    #     # 点击暂不按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/tv_right').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_14.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击暂不按钮操作失败')
-    #
-    #     # 点击更多高级设置的断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_more_settings').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/set_private', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_15[%s].png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/set_private', self.get_xml(), '点击更多高级设置跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/more_setting_iv_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_16.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击暂不按钮操作失败')
-    #
-    #     # 点击主题换肤的断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_switch_style').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_selected', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_17.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_selected', self.get_xml(), '点击主题换肤跳转失败')
-    #
-    #     # 换肤+返回操作的断言
-    #     self.find_elements('com.excelliance.dualaid:id/textName')[1].click()
-    #     self.wait_for(1)
-    #     self.find_element('com.excelliance.dualaid:id/more_setting_iv_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('灵霄紫', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_18.png')
-    #     finally:
-    #         self.assertIn('灵霄紫', self.get_xml(), '主题换肤失败')
-    #
-    #     # 点击版本更新的断言
-    #     self.find_element('com.excelliance.dualaid:id/rl_update').click()
-    #     self.wait_for(10)
-    #     try:
-    #         self.assertIn('版本号', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_19.png')
-    #     finally:
-    #         self.assertIn('版本号', self.get_xml(), '点击版本更新跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/web_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_20.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
-    #
-    #     # 点击帮助与反馈的断言
-    #     self.swipe_find_element('com.excelliance.dualaid:id/rl_help_feedback', 800, 'U')
-    #     self.wait_for(2)
-    #     self.swipe_up()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_feedback', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_21.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_feedback', self.get_xml(), '点击帮助与反馈跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/ib_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_22.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
-    #
-    #     # 点击关于的断言
-    #     self.swipe_find_element('com.excelliance.dualaid:id/rl_about_multi')
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_version', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_23.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/tv_version', self.get_xml(), '点击关于跳转失败')
-    #
-    #     # 点击返回按钮的断言
-    #     self.find_element('com.excelliance.dualaid:id/iv_back').click()
-    #     self.wait_for(2)
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error018_24.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
+    def test014(self):
+        """
+        主界面长按数据迁移图标并在弹出框内选择删除该图标
+        1.启动app至状态（未登录账号的主界面）
+        2.长按换机数据迁移图标
+        3.选择删除按钮并点击
+        """
+        try:
+            self.set_app_status2()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror014.png')
 
-    # 非VIP用户添加多开应用弹窗提示
+        # 对长按换机数据迁移图标的结果断言
+        self.long_press(self.find_elements('com.excelliance.dualaid:id/root')[3])
+        self.wait_for(3)
+        try:
+            self.assertTrue(self.find_element('com.excelliance.dualaid:id/tv_left').is_displayed())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error0114_1.png')
+        finally:
+            self.assertTrue(self.find_element('com.excelliance.dualaid:id/tv_left').is_displayed(),
+                            '长按换机数据迁移图标弹窗失败')
 
-    # def test019(self):
-    #     """
-    #     1.启动app至状态（三无主界面）
-    #     2.点击推荐添加微信
-    #     3.back退出引导
-    #     4.点击添加按钮
-    #     5.点击微信进行添加
-    #     6.点击弹窗上的左按钮
-    #     7.点击返回按钮
-    #     8.点击微信进行添加
-    #     9.点击弹窗上的右按钮
-    #     """
-    #     try:
-    #         self.set_app_status2()
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'settingerror019.png')
-    #
-    #     self.find_elements('com.excelliance.dualaid:id/root')[0].click()
-    #     self.wait_for(5)
-    #     self.back()
-    #     self.wait_for(1)
-    #     self.find_element('com.excelliance.dualaid:id/add_but').click()
-    #     self.wait_for(5)
-    #
-    #     # 非VIP用户添加多开应用弹窗提示断言
-    #     self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
-    #     self.wait_for()
-    #     try:
-    #         self.assertIn('com.excelliance.dualaid:id/ll_dialog', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error019_1.png')
-    #     finally:
-    #         self.assertIn('com.excelliance.dualaid:id/ll_dialog', self.get_xml(), '非VIP用户添加多开应用未弹窗')
-    #
-    #     # 点击弹窗左按钮断言
-    #     self.find_element('com.excelliance.dualaid:id/tv_left').click()
-    #     self.wait_for()
-    #     try:
-    #         self.assertIn('免注册登录', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error019_2.png')
-    #     finally:
-    #         self.assertIn('免注册登录', self.get_xml(), '点击弹窗的左按钮跳转失败')
-    #
-    #     # 点击返回按钮断言
-    #     self.find_element('com.excelliance.dualaid:id/iv_back').click()
-    #     self.wait_for()
-    #     try:
-    #         self.assertIn('添加双开应用', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error019_3.png')
-    #     finally:
-    #         self.assertIn('添加双开应用', self.get_xml(), '点击输入账号页的返回按钮跳转失败')
-    #
-    #     # 点击弹窗右按钮断言
-    #     self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
-    #     self.wait_for()
-    #     self.find_element('com.excelliance.dualaid:id/tv_right').click()
-    #     self.wait_for(3)
-    #     try:
-    #         self.assertIn('支付开通', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error019_4.png')
-    #     finally:
-    #         self.assertIn('支付开通', self.get_xml(), '点击弹窗的右按钮跳转失败')
+        # 对点击删除按钮的结果断言
+        self.find_element('com.excelliance.dualaid:id/tv_left').click()
+        self.wait_for(3)
+        try:
+            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3)
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error0114_2.png')
+        finally:
+            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3, '点击删除按钮操作失败')
+
+    def test015(self):
+        """
+        支付宝支付前提下,点击确认支付按钮
+        1.启动app至状态（登录非VIP账号的个人中心界面）
+        2.点击开通VIP会员按钮
+        3.点击确认支付按钮
+        """
+        try:
+            self.set_app_status5()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror015.png')
+
+        # 对点击开通VIP会员按钮结果断言
+        self.find_element('com.excelliance.dualaid:id/rl_open_vip').click()
+        self.wait_for(3)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/pay_nat_title', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error015_1.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/pay_nat_title', self.get_xml(), '点击开通VIP会员按钮跳转失败')
+
+        # 对点击确认支付的结果断言
+        self.find_element('com.excelliance.dualaid:id/tv_sure_for_pay').click()
+        self.wait_for(10)
+        try:
+            self.assertTrue(self.get_current_activity() != 'com.excelliance.kxqp.pay.ali.PayMoreCountsActivity')
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error015_2.png')
+        finally:
+            self.assertTrue(self.get_current_activity() != 'com.excelliance.kxqp.pay.ali.PayMoreCountsActivity',
+                            '点击确认支付跳转失败')
+
+    def test016(self):
+        """
+        选择微信支付,点击确认支付按钮
+        1.启动app至状态（登录非VIP账号的个人中心界面）
+        2.点击开通VIP会员按钮
+        3.下滑找到微信支付并选择该支付方式
+        4.点击确认支付按钮
+        """
+        try:
+            self.set_app_status5()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror016.png')
+
+        # 对点击开通VIP会员按钮结果断言
+        self.find_element('com.excelliance.dualaid:id/rl_open_vip').click()
+        self.wait_for(3)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/pay_nat_title' or '确认付款', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error016_1.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/pay_nat_title' or '确认付款', self.get_xml(), '点击开通VIP会员按钮跳转失败')
+
+        # 对上滑查找并选择微信支付方式的结果断言
+        self.swipe_up()
+        self.wait_for(2)
+        self.find_elements('com.excelliance.dualaid:id/iv_item')[1].click()
+        self.wait_for(1)
+        try:
+            self.assertTrue(self.find_elements('com.excelliance.dualaid:id/iv_item')[1].is_displayed())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error016_2.png')
+        finally:
+            self.assertTrue(self.find_elements('com.excelliance.dualaid:id/iv_item')[1].is_displayed(),
+                            '切换支付方式失败')
+
+        # 对点击确认支付的结果断言
+        self.find_element('com.excelliance.dualaid:id/tv_sure_for_pay').click()
+        self.wait_for(10)
+        try:
+            self.assertIn('登录' or '立即支付', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error016_3.png')
+        finally:
+            self.assertIn('登录' or '立即支付', self.get_xml(), '点击确认支付跳转失败')
+
+    def test017(self):
+        """
+        免注册登录按钮
+        1.启动app至状态（添加引导页）
+        2.点击登录/注册按钮
+        3.点击免注册登录
+        """
+        try:
+            self.set_app_status1()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror017.png')
+
+        # 对点击登录/注册按钮后的结果断言
+        self.find_element('com.excelliance.dualaid:id/tv_login_in').click()
+        self.wait_for(5)
+        try:
+            self.assertIn(
+                'com.excelliance.dualaid:id/btn_next_step' and 'com.excelliance.dualaid:id/tv_quick_login',
+                self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error017_1.png')
+        finally:
+            self.assertIn(
+                'com.excelliance.dualaid:id/btn_next_step' and 'com.excelliance.dualaid:id/tv_quick_login',
+                self.get_xml(), '点击登录/注册跳转失败')
+
+        # 对点击免注册登录按钮的结果断言
+        self.find_element('com.excelliance.dualaid:id/tv_quick_login').click()
+        self.wait_for(5)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/umcsdk_smscode_btn' or '本机号码一键登录', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error017_2.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/umcsdk_smscode_btn' or '本机号码一键登录', self.get_xml(),
+                          '点击免注册登录跳转失败（可能没安装手机卡）')
+
+    def test018(self):
+        """
+        未登录情况下的个人中心按钮遍历
+        1.启动app至状态（未登录时的个人中心页）
+        2.点击消息按钮
+        3.点击返回按钮
+        4.点击开通VIP会员
+        5.点击返回
+        6.点击我的优惠券
+        7.点击back
+        8.点击邀请与兑奖
+        9.点击返回
+        10.点击应用加锁
+        11.点击返回
+        12.点击内存管理
+        13.点击返回
+        14.点击一键全部修复
+        15.点击确认
+        16.点击一键全部修复
+        17.点击暂不
+        18.点击更多高级设置
+        19.点击返回
+        20.点击主题换肤
+        21.选择其他主题
+        22.点击返回
+        23.点击版本更新
+        24.点击返回
+        25.点击帮助与反馈
+        26.点击返回
+        27.点击关于
+        28.点击返回
+        """
+        try:
+            self.set_app_status2()
+            self.find_element('com.excelliance.dualaid:id/iv_icon').click()
+            self.wait_for(3)
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror018.png')
+
+        # 点击消息中心的断言
+        self.find_element('com.excelliance.dualaid:id/iv_notification_center').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_edit', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_1.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_edit', self.get_xml(), '点击消息中心跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/iv_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_2.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
+
+        # 点击开通VIP会员的断言
+        self.find_element('com.excelliance.dualaid:id/rl_open_vip').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/tv_free_trial', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_3.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/tv_free_trial', self.get_xml(), '点击开通VIP会员跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/pay_nav_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_4.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
+
+        # 点击我的优惠券断言
+        self.find_element('com.excelliance.dualaid:id/rl_my_ticket').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_5.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml(), '点击我的优惠券跳转失败')
+
+        # back操作的断言
+        self.back()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_6.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击back跳转失败')
+
+        # 点击邀请与兑奖的断言
+        self.find_element('com.excelliance.dualaid:id/rl_share_prize').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/view_5', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_7.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/view_5', self.get_xml(), '点击邀请与兑奖跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/share_nav_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_8.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击back跳转失败')
+
+        # 点击应用加锁的断言
+        self.find_element('com.excelliance.dualaid:id/rl_lock_manager').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/tv_free_trial', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_9.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/tv_free_trial', self.get_xml(), '点击应用加锁跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/pay_nav_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_10.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
+
+        # 点击内存管理的断言
+        self.find_element('com.excelliance.dualaid:id/rl_task_manager').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/task_whiteList', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_11.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/task_whiteList', self.get_xml(), '点击内存管理跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/ib_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_12.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
+
+        # 点击一键全部修复的断言
+        self.find_element('com.excelliance.dualaid:id/rl_one_key_repair').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_13.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml(), '点击一键全部修复操作失败')
+
+        # 点击暂不按钮的断言
+        self.find_element('com.excelliance.dualaid:id/tv_right').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_14.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击暂不按钮操作失败')
+
+        # 点击更多高级设置的断言
+        self.find_element('com.excelliance.dualaid:id/rl_more_settings').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/set_private', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_15[%s].png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/set_private', self.get_xml(), '点击更多高级设置跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/more_setting_iv_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_16.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击暂不按钮操作失败')
+
+        # 点击主题换肤的断言
+        self.find_element('com.excelliance.dualaid:id/rl_switch_style').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_selected', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_17.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_selected', self.get_xml(), '点击主题换肤跳转失败')
+
+        # 换肤+返回操作的断言
+        self.find_elements('com.excelliance.dualaid:id/textName')[1].click()
+        self.wait_for(1)
+        self.find_element('com.excelliance.dualaid:id/more_setting_iv_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('灵霄紫', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_18.png')
+        finally:
+            self.assertIn('灵霄紫', self.get_xml(), '主题换肤失败')
+
+        # 点击版本更新的断言
+        self.find_element('com.excelliance.dualaid:id/rl_update').click()
+        self.wait_for(10)
+        try:
+            self.assertIn('版本号', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_19.png')
+        finally:
+            self.assertIn('版本号', self.get_xml(), '点击版本更新跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/web_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_20.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
+
+        # 点击帮助与反馈的断言
+        self.swipe_find_element('com.excelliance.dualaid:id/rl_help_feedback', 800, 'U')
+        self.wait_for(2)
+        self.swipe_up()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/tv_feedback', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_21.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/tv_feedback', self.get_xml(), '点击帮助与反馈跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/ib_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_22.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
+
+        # 点击关于的断言
+        self.swipe_find_element('com.excelliance.dualaid:id/rl_about_multi')
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/tv_version', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_23.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/tv_version', self.get_xml(), '点击关于跳转失败')
+
+        # 点击返回按钮的断言
+        self.find_element('com.excelliance.dualaid:id/iv_back').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error018_24.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_icon', self.get_xml(), '点击返回按钮跳转失败')
+
+    def test019(self):
+        """
+        非VIP用户添加多开应用弹窗提示
+        1.启动app至状态（三无主界面）
+        2.点击推荐添加微信
+        3.back退出引导
+        4.点击添加按钮
+        5.点击微信进行添加
+        6.点击弹窗上的左按钮
+        7.点击返回按钮
+        8.点击微信进行添加
+        9.点击弹窗上的右按钮
+        """
+        try:
+            self.set_app_status2()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror019.png')
+
+        self.find_elements('com.excelliance.dualaid:id/root')[0].click()
+        self.wait_for(5)
+        self.back()
+        self.wait_for(1)
+        self.find_element('com.excelliance.dualaid:id/add_but').click()
+        self.wait_for(5)
+
+        # 非VIP用户添加多开应用弹窗提示断言
+        self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
+        self.wait_for()
+        try:
+            self.assertIn('com.excelliance.dualaid:id/ll_dialog', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error019_1.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/ll_dialog', self.get_xml(), '非VIP用户添加多开应用未弹窗')
+
+        # 点击弹窗左按钮断言
+        self.find_element('com.excelliance.dualaid:id/tv_left').click()
+        self.wait_for()
+        try:
+            self.assertIn('免注册登录', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error019_2.png')
+        finally:
+            self.assertIn('免注册登录', self.get_xml(), '点击弹窗的左按钮跳转失败')
+
+        # 点击返回按钮断言
+        self.find_element('com.excelliance.dualaid:id/iv_back').click()
+        self.wait_for()
+        try:
+            self.assertIn('添加双开应用', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error019_3.png')
+        finally:
+            self.assertIn('添加双开应用', self.get_xml(), '点击输入账号页的返回按钮跳转失败')
+
+        # 点击弹窗右按钮断言
+        self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
+        self.wait_for()
+        self.find_element('com.excelliance.dualaid:id/tv_right').click()
+        self.wait_for(3)
+        try:
+            self.assertIn('支付开通', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error019_4.png')
+        finally:
+            self.assertIn('支付开通', self.get_xml(), '点击弹窗的右按钮跳转失败')
+
+    def test020(self):
+        """
+        登录非VIP账户情况下的个人中心按钮遍历
+        1.
+        2.
+        """
+        pass
+
+    def test021(self):
+        """
+        登录VIP账户情况下的个人中心按钮遍历
+        1.
+        2.
+        """
+        pass
