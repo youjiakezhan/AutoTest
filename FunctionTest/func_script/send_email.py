@@ -56,7 +56,7 @@ class EmailSending(object):
         smtp = smtplib.SMTP()
         smtp.connect(smtpserver, 25)
         # 我们用set_debuglevel(1)就可以打印出和SMTP服务器交互的所有信息。
-        smtp.set_debuglevel(1)
+        # smtp.set_debuglevel(1)
         smtp.login(username, password)
         smtp.sendmail(sender, receiver.split(','), msg.as_string())
         smtp.quit()

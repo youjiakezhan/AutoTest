@@ -21,7 +21,7 @@ from selenium.webdriver.support import expected_conditions as EC  # for find toa
 
 sys_alert = True
 ap_alert = True
-
+ad_alert = True
 
 class AppiumInit(object):
     """appium server"""
@@ -571,14 +571,28 @@ class PopupHandle(object):
                 elif '应用列表' in self.gf.get_xml():
                     try:
                         self.ele.find_element('//*[@text="不再提醒"]').click()
-                        self.ele.find_element('//*[@text="以后再说"]').click()
                     except Exception:
                         self.ele.find_element('com.excelliance.dualaid:id/tv_left').click()
                     except Exception:
                         self.ele.find_element('//*[@text="忽略"]').click()
                     except Exception:
                         self.ele.find_element('//*[@text="确定"]').click()
+                    except Exception:
+                        self.ele.find_element('//*[@text="以后再说"]').click()
 
+            else:
+                continue
+
+    def android_alert(self):
+        """监控并处理android弹窗"""
+        print('thread-3 is working')
+        global ad_alert
+        while ad_alert:
+            if 'android:id/parentPanel' in self.gf.get_xml():
+                try:
+                    self.ele.find_element('//*[@text="确定"]').click()
+                except Exception:
+                    self.ele.find_element('com.excelliance.dualaid:id/tv_right').click()
             else:
                 continue
 
@@ -594,9 +608,10 @@ class CreateThread(object):
     def stop_thread(self):
         global sys_alert
         global ap_alert
+        global ad_alert
         sys_alert = False
         ap_alert = False
-
+        ad_alert = False
 
 class Log(object):
     """用例执行日志"""

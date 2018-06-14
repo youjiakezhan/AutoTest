@@ -429,12 +429,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_elements('com.excelliance.dualaid:id/root')[3].click()
         self.wait_for(3)
         try:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3)
+            self.assertIn('微信', self.get_xml())
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error008_3.png')
         finally:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3, '选择添加第二空间微信失败')
+            self.assertIn('微信', self.get_xml(), '选择添加第二空间微信失败')
 
         # 对点击启动微信的结果断言
         self.find_elements('com.excelliance.dualaid:id/root')[2].click()
@@ -476,12 +476,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
         self.wait_for(3)
         try:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3)
+            self.assertIn('微信', self.get_xml())
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error009_2.png')
         finally:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3, '点击添加微信失败')
+            self.assertIn('微信', self.get_xml(), '点击添加微信失败')
 
         # 对点击启动微信的结果断言
         self.find_elements('com.excelliance.dualaid:id/root')[1].click()
@@ -570,12 +570,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
         self.wait_for(5)
         try:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 4)
+            self.assertTrue(self.get_xml().count('微信') == 2)
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error010_5.png')
         finally:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 4, '点击添加微信失败')
+            self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
 
         # 对点击启动微信的结果断言
         self.find_elements('com.excelliance.dualaid:id/root')[3].click()
@@ -590,7 +590,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def test011(self):
         """
-        登录VIP账户,先后在平铺界面添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
+        登录VIP账户,在平铺界面先后添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
         1.首次启动app至状态（登录VIP账号后的平铺界面）
         2.点击添加按钮
         3.选择微信并点击添加
@@ -619,12 +619,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
         self.wait_for(5)
         try:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3)
+            self.assertTrue(self.get_xml().count('微信') == 1)
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error011_2.png')
         finally:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3, '点击添加微信失败')
+            self.assertTrue(self.get_xml().count('微信') == 1, '点击添加微信失败')
 
         # 对点击添加按钮的结果断言
         self.find_element('com.excelliance.dualaid:id/add_but').click()
@@ -641,17 +641,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
         self.wait_for(5)
         try:
-            self.assertTrue(
-                self.get_current_activity() == 'com.excelliance.kxqp.ui.MainActivity' and
-                len(self.find_elements('com.excelliance.dualaid:id/root')) == 4)
+            self.assertTrue(self.get_xml().count('微信') == 2)
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error011_4.png')
         finally:
-            self.assertTrue(
-                self.get_current_activity() == 'com.excelliance.kxqp.ui.MainActivity' and
-                len(self.find_elements('com.excelliance.dualaid:id/root')) == 4,
-                '点击添加微信失败')
+            self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
 
         # 对点击启动微信的结果断言
         self.find_elements('com.excelliance.dualaid:id/root')[2].click()
@@ -806,12 +801,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_element('com.excelliance.dualaid:id/tv_left').click()
         self.wait_for(3)
         try:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3)
+            self.assertTrue(self.get_xml().count('微信') == 0)
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error012_11.png')
         finally:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3, '删除双开微信失败')
+            self.assertTrue(self.get_xml().count('微信') == 0, '删除双开微信失败')
 
     def test013(self):
         """
@@ -842,12 +837,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_elements('com.excelliance.dualaid:id/add_game_btn')[0].click()
         self.wait_for(5)
         try:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3)
+            self.assertTrue(self.get_xml().count('微信') == 1)
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error013_2.png')
         finally:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3, '点击添加微信失败')
+            self.assertTrue(self.get_xml().count('微信') == 1, '点击添加微信失败')
 
         # 拖动微信至伪装区域
         self.drag_and_drop(self.find_elements('com.excelliance.dualaid:id/root')[1],
@@ -912,12 +907,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_element('com.excelliance.dualaid:id/tv_left').click()
         self.wait_for()
         try:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 2)
+            self.assertTrue(self.get_xml().count('微信') == 0)
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error013_4.png')
         finally:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 2, '删除双开微信失败')
+            self.assertTrue(self.get_xml().count('微信') == 0, '删除双开微信失败')
 
     def test014(self):
         """
@@ -933,7 +928,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
             self.screenshot(img_path + 'settingerror014.png')
 
         # 对长按换机数据迁移图标的结果断言
-        self.long_press(self.find_elements('com.excelliance.dualaid:id/root')[3])
+        self.long_press(self.find_element('//*[@test="换机数据迁移"]'))
         self.wait_for(3)
         try:
             self.assertTrue(self.find_element('com.excelliance.dualaid:id/tv_left').is_displayed())
@@ -948,12 +943,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_element('com.excelliance.dualaid:id/tv_left').click()
         self.wait_for(3)
         try:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3)
+            self.assertNotIn('数据迁移', self.get_xml())
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error0114_2.png')
         finally:
-            self.assertTrue(len(self.find_elements('com.excelliance.dualaid:id/root')) == 3, '点击删除按钮操作失败')
+            self.assertNotIn('数据迁移', self.get_xml(), '点击删除按钮操作失败')
 
     def test015(self):
         """
@@ -1169,12 +1164,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_element('com.excelliance.dualaid:id/rl_my_ticket').click()
         self.wait_for(2)
         try:
-            self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml())
+            self.assertIn('com.excelliance.dualaid:id/ll_dialog', self.get_xml())
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error018_5.png')
         finally:
-            self.assertIn('com.excelliance.dualaid:id/tv_right', self.get_xml(), '点击我的优惠券跳转失败')
+            self.assertIn('com.excelliance.dualaid:id/ll_dialog', self.get_xml(), '点击我的优惠券跳转失败')
 
         # back操作的断言
         self.back()
@@ -1191,12 +1186,12 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_element('com.excelliance.dualaid:id/rl_share_prize').click()
         self.wait_for(2)
         try:
-            self.assertIn('com.excelliance.dualaid:id/view_5', self.get_xml())
+            self.assertIn('请先登录/注册', self.get_xml())
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error018_7.png')
         finally:
-            self.assertIn('com.excelliance.dualaid:id/view_5', self.get_xml(), '点击邀请与兑奖跳转失败')
+            self.assertIn('请先登录/注册', self.get_xml(), '点击邀请与兑奖跳转失败')
 
         # 点击返回按钮的断言
         self.find_element('com.excelliance.dualaid:id/share_nav_back').click()
@@ -1467,7 +1462,56 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         1.
         2.
         """
-        pass
+        try:
+            self.set_app_status5()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror020.png')
+
+        # 点击头像按钮
+        self.find_element('com.excelliance.dualaid:id/iv_icon_edit_bg').click()
+        self.wait_for()
+        try:
+            self.assertIn('编辑个人信息', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error020_1.png')
+        finally:
+            self.assertIn('编辑个人信息', self.get_xml(), '点击头像按钮跳转失败')
+
+        # 点击返回
+        self.back()
+        self.wait_for()
+
+        # 点击我的优惠券断言
+        self.find_element('com.excelliance.dualaid:id/rl_my_ticket').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('我的优惠券', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error020_2.png')
+        finally:
+            self.assertIn('我的优惠券', self.get_xml(), '点击我的优惠券跳转失败')
+
+        # 点击返回
+        self.back()
+        self.wait_for()
+
+        # 点击邀请与兑奖
+        self.find_element('com.excelliance.dualaid:id/rl_share_prize').click()
+        self.wait_for(2)
+        try:
+            self.assertIn('com.excelliance.dualaid:id/invitation_code_tv', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error020_3.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/invitation_code_tv', self.get_xml(), '点击邀请与兑奖跳转失败')
+
+        # 点击返回
+        self.back()
+        self.wait_for()
 
     def test021(self):
         """
@@ -1475,4 +1519,39 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         1.
         2.
         """
-        pass
+        try:
+            self.set_app_status7()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror021.png')
+
+        # 点击个人中心按钮
+        self.find_element('com.excelliance.dualaid:id/iv_icon').click()
+        self.wait_for()
+
+        # 点击我的VIP
+        self.find_element('com.excelliance.dualaid:id/rl_my_vip').click()
+        self.wait_for()
+        try:
+            self.assertIn('我的VIP' and '会员有效期至', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error021_1.png')
+        finally:
+            self.assertIn('我的VIP' and '会员有效期至', self.get_xml(), '点击我的VIP跳转失败')
+
+        # 点击返回
+        self.back()
+        self.wait_for()
+
+        # 点击应用加锁
+        self.find_element('com.excelliance.dualaid:id/rl_lock_manager').click()
+        self.wait_for()
+        try:
+            self.assertIn('com.excelliance.dualaid:id/iv_lock_app_img', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error021_2.png')
+        finally:
+            self.assertIn('com.excelliance.dualaid:id/iv_lock_app_img', self.get_xml(), '点击应用加锁跳转失败')
+
