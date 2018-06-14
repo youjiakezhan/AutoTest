@@ -576,6 +576,9 @@ class PopupHandle(object):
                         self.ele.find_element('com.excelliance.dualaid:id/tv_left').click()
                     except Exception:
                         self.ele.find_element('//*[@text="忽略"]').click()
+                    except Exception:
+                        self.ele.find_element('//*[@text="确定"]').click()
+
             else:
                 continue
 

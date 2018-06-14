@@ -3,6 +3,7 @@ import unittest
 from FunctionTest.func_script.HTMLTestRunner import HTMLTestRunner
 from FunctionTest.func_script.appium_server_check import AppiumServerCheck
 from FunctionTest.func_script.check_and_install_apk import FilePath
+from FunctionTest.func_script.clean_workspace import CleanWorkspace
 from FunctionTest.func_script.log_analyse import *
 from FunctionTest.func_script.send_email import EmailSending
 from FunctionTest.func_script.compression import Compression
@@ -44,10 +45,14 @@ ap_ser_che.stop_appium_server()
 log_analyse = LogAnalyse()
 log_analyse.catch_anr_and_crash()
 
-# 压缩测试结果文件夹
+# 压缩并保存测试结果
 compress = Compression()
 compress.compress_dir()
 
-# 发送测试邮件
+# 发送测试报告邮件
 send_report = EmailSending()
 send_report.create_email()
+
+# 初始化工作区
+cl = CleanWorkspace()
+cl.clean_test_result()
