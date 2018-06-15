@@ -6,12 +6,14 @@ from FunctionTest.func_script.func_lib import getinfo
 
 
 class FilePath(object):
-    APK_PATH = r'Z:\daily_review_SKZS'
+
+    def __init__(self, apk_path):
+        self.apk_path = apk_path
 
     def get_file_path(self):
         """获取daily review安装包路径"""
-        for file in os.listdir(self.APK_PATH):
-            file_path = os.path.join(self.APK_PATH, file)
+        for file in os.listdir(self.apk_path):
+            file_path = os.path.join(self.apk_path, file)
             if ".apk" in file_path and os.path.isfile(file_path):
                 return file_path
 
@@ -45,7 +47,7 @@ class FilePath(object):
                     else:
                         print('发现daily review安装包，正在进行安装...\n')
                         time.sleep(15)
-                os.popen('move ' + self.get_file_path() + ' ' + os.path.join(self.APK_PATH, 'daily_review_files\\apk'))
+                os.popen('move ' + self.get_file_path() + ' ' + os.path.join(self.apk_path, 'daily_review_files\\apk'))
                 break
             except Exception:
                 print('未检测到双开助手daily review安装包\n本次检测时间：%s\n' % getinfo.get_time(2))

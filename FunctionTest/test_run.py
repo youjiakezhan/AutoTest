@@ -1,15 +1,17 @@
 # coding=utf-8
 import unittest
+
 from FunctionTest.func_script.HTMLTestRunner import HTMLTestRunner
 from FunctionTest.func_script.appium_server_check import AppiumServerCheck
 from FunctionTest.func_script.check_and_install_apk import FilePath
 from FunctionTest.func_script.clean_workspace import CleanWorkspace
-from FunctionTest.func_script.log_analyse import *
 from FunctionTest.func_script.compression import Compression
+from FunctionTest.func_script.log_analyse import *
+from FunctionTest.func_script.send_email import EmailSending
 from FunctionTest.test_case.SKZS_daily_review import Cases
 
-# 检测daily_review的包并安装
-apk_check = FilePath()
+# 检测daily_review的包并安装(注意：公盘盘符不符合的请自行修改之后再运行！)
+apk_check = FilePath(apk_path=r'Z:\daily_review_SKZS')
 apk_check.monitor()
 
 # 初始化appium连接
@@ -45,9 +47,14 @@ ap_ser_che.stop_appium_server()
 log_analyse = LogAnalyse()
 log_analyse.catch_anr_and_crash()
 
-# 压缩并保存测试结果
-compress = Compression()
+# 压缩并保存测试结果(注意：公盘盘符不符合的请自行修改之后再运行！)
+compress = Compression(result_path=r'Z:\daily_review_SKZS\daily_review_files\result',
+                       dir_path=BASE_PATH + '\\test_result\\report')
 compress.compress_dir()
+
+# 发送测试报告邮件
+send_report = EmailSending(BASE_PATH + '\\test_result\\report')
+send_report.create_email()
 
 # 初始化工作区
 ask = input('是否清空测试数据:(输入y/Y/yes/YES/Yes清除测试数据)')
