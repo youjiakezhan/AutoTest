@@ -1,0 +1,480 @@
+--------- beginning of system
+06-15 11:23:56.359 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.473 V/WindowManager( 1685): Changing focus from null to Window{11fd470 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2}
+06-15 11:23:56.477 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.581 I/WindowManager( 1685): finishPostLayoutPolicyLw (statusbar != null ) true topIsFullscreen true top = Window{11fd470 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2}
+06-15 11:23:56.582 I/StatusBarManagerService( 1685):  topIsFullscreen fullscreen true
+06-15 11:23:56.586 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.589 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.589 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.590 D/ActivityManager( 1685): back_key destroy activity: com.excelliance.dualaid top activity: com.excelliance.dualaid
+06-15 11:23:56.594 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.595 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.595 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.596 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:56.597 D/elsa    ( 1685): app is ProcessRecord{5532122 3319:com.oppo.launcher/u0a17}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:23:56.943 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1eeab3b token=Token{e735dca ActivityRecord{a0e1535 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2 t21028}}}
+06-15 11:23:57.674 E/TaskPersister( 1685): File error accessing recents directory (directory doesn't exist?).
+06-15 11:23:59.877 D/elsa    ( 1685): app is ProcessRecord{ecd91d2 30932:com.excelliance.dualaid/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:00.125 I/ActivityManager( 1685): Start proc 31011:com.excelliance.dualaid:lbcore/u0a1060 for content provider com.excelliance.dualaid/com.excelliance.kxqp.platform.PluginManagerProvider
+06-15 11:24:00.158 D/elsa    ( 1685): app is ProcessRecord{bb65ff 31011:com.excelliance.dualaid:lbcore/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:00.418 D/ActivityThread(31011): Loading provider com.excelliance.dualaid:com.excelliance.kxqp.platform.PluginManagerProvider: com.excelliance.kxqp.platform.PluginManagerProvider
+06-15 11:24:00.454 D/BluetoothManagerService( 1685): Message: 20
+06-15 11:24:00.454 D/BluetoothManagerService( 1685): Added callback: android.bluetooth.IBluetoothManagerCallback$Stub$Proxy@6a631b:true
+06-15 11:24:00.455 D/BluetoothManagerService( 1685): checkIfCallerIsForegroundUser: valid=true callingUser=0 parentUser=-10000 foregroundUser=0
+06-15 11:24:02.893 I/ActivityManager( 1685): Start proc 31061:com.excelliance.dualaid:smtcnt/u0a1060 for service com.excelliance.dualaid/com.excelliance.kxqp.SmtCntService
+06-15 11:24:02.921 D/elsa    ( 1685): app is ProcessRecord{6ffccef 31061:com.excelliance.dualaid:smtcnt/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:03.311 W/ActivityManager( 1685): postNotification return because text and title null or empty 
+06-15 11:24:03.311 D/elsa    ( 1685): app is ProcessRecord{bb65ff 31011:com.excelliance.dualaid:lbcore/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:03.314 D/elsa    ( 1685): app is ProcessRecord{6ffccef 31061:com.excelliance.dualaid:smtcnt/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:03.321 D/elsa    ( 1685): app is ProcessRecord{ecd91d2 30932:com.excelliance.dualaid/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:03.334 E/NotificationService( 1685): Suppressing notification from package by user request.
+06-15 11:24:05.952 D/ViewRootImpl(30908): swipeFromBottom mIgnoring === false downY 1738 mStatusBarHeight 54
+06-15 11:24:05.986 I/ActivityManager( 1685): START u0 {cmp=com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity (has extras)} from uid 11060 and from pid 30908 on display 0
+06-15 11:24:05.991 V/WindowManager( 1685): Changing focus from Window{11fd470 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2} to null
+06-15 11:24:05.992 W/WindowManager( 1685): Skip focus check for application before nougat.
+06-15 11:24:06.153 V/WindowManager( 1685): Changing focus from null to Window{8d15e7e u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity}
+06-15 11:24:06.155 I/WindowManager( 1685): finishPostLayoutPolicyLw (statusbar != null ) true topIsFullscreen false top = Window{11fd470 u0 com.excelliance.dualaid/com.excelliance.kxqp.swipe.NavActivity2}
+06-15 11:24:06.155 I/StatusBarManagerService( 1685):  topIsFullscreen fullscreen false
+06-15 11:24:06.173 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.173 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.174 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.233 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.234 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.235 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.235 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.243 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.267 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.442 D/ActivityManager( 1685): back_key destroy activity: com.excelliance.dualaid top activity: com.excelliance.dualaid
+06-15 11:24:06.444 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.446 D/elsa    ( 1685): app is ProcessRecord{5532122 3319:com.oppo.launcher/u0a17}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:06.452 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.458 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.460 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.475 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.505 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.506 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:06.507 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:08.419 D/ViewRootImpl(30908): swipeFromBottom mIgnoring === false downY 138 mStatusBarHeight 54
+06-15 11:24:08.471 V/WindowManager( 1685): Changing focus from Window{8d15e7e u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity} to Window{520e48a u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity}
+06-15 11:24:08.473 W/WindowManager( 1685): Skip focus check for application before nougat.
+06-15 11:24:08.487 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:08.490 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:08.502 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:08.504 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{190a3e8 token=Token{3a6490b ActivityRecord{51290da u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity t21028}}}
+06-15 11:24:08.516 I/ActivityManager( 1685): START u0 {flg=0x10000000 cmp=com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity (has extras)} from uid 11060 and from pid 30908 on display 0
+06-15 11:24:08.521 V/WindowManager( 1685): Changing focus from Window{520e48a u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity} to null
+06-15 11:24:08.521 W/WindowManager( 1685): Skip focus check for application before nougat.
+06-15 11:24:08.533 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:08.536 D/elsa    ( 1685): app is ProcessRecord{ecd91d2 30932:com.excelliance.dualaid/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:08.537 D/elsa    ( 1685): app is ProcessRecord{c1c4a79 30908:com.excelliance.dualaid:olle/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:08.538 D/elsa    ( 1685): app is ProcessRecord{5532122 3319:com.oppo.launcher/u0a17}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:08.544 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:08.552 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:08.599 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.416 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.441 V/WindowManager( 1685): Changing focus from null to Window{a656fea u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity}
+06-15 11:24:09.450 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.512 E/TaskPersister( 1685): File error accessing recents directory (directory doesn't exist?).
+06-15 11:24:09.566 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.607 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.608 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.609 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.614 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.615 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.618 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:09.667 I/ActivityManager( 1685): Start proc 31294:com.excelliance.dualaid:lebian/u0a1060 for service com.excelliance.dualaid/com.android.ggapsvc.LBService
+06-15 11:24:09.947 D/elsa    ( 1685): app is ProcessRecord{8941253 31294:com.excelliance.dualaid:lebian/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:10.009 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:10.311 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:10.318 D/elsa    ( 1685): app is ProcessRecord{c1c4a79 30908:com.excelliance.dualaid:olle/u0a1060}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:10.331 D/ActivityManager( 1685): back_key destroy activity: com.excelliance.dualaid top activity: com.excelliance.dualaid
+06-15 11:24:10.375 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:10.384 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:10.389 W/WindowManager( 1685): Failed looking up window
+06-15 11:24:10.389 W/WindowManager( 1685): java.lang.IllegalArgumentException: Requested window android.os.BinderProxy@7f67ef5 does not exist
+06-15 11:24:10.389 W/WindowManager( 1685): 	at com.android.server.wm.WindowManagerService.windowForClientLocked(WindowManagerService.java:10681)
+06-15 11:24:10.389 W/WindowManager( 1685): 	at com.android.server.wm.WindowManagerService.windowForClientLocked(WindowManagerService.java:10672)
+06-15 11:24:10.389 W/WindowManager( 1685): 	at com.android.server.wm.WindowManagerService.removeWindow(WindowManagerService.java:3013)
+06-15 11:24:10.389 W/WindowManager( 1685): 	at com.android.server.wm.Session.remove(Session.java:205)
+06-15 11:24:10.389 W/WindowManager( 1685): 	at android.view.IWindowSession$Stub.onTransact(IWindowSession.java:242)
+06-15 11:24:10.389 W/WindowManager( 1685): 	at com.android.server.wm.Session.onTransact(Session.java:148)
+06-15 11:24:10.389 W/WindowManager( 1685): 	at android.os.Binder.transact(Binder.java:499)
+06-15 11:24:10.389 W/WindowManager( 1685): 	at oppo.x.filterExecTransact(Unknown Source)
+06-15 11:24:10.389 W/WindowManager( 1685): 	at com.oppo.color.safe.jni.JniManager.execTransact(Unknown Source)
+06-15 11:24:11.429 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:11.430 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:11.479 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:11.480 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:12.818 W/AlarmManager( 1685): Suspiciously short interval 20000 millis; expanding to 60 seconds
+06-15 11:24:13.400 E/TaskPersister( 1685): File error accessing recents directory (directory doesn't exist?).
+06-15 11:24:14.533 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:14.534 D/ViewRootImpl(30932): swipeFromBottom mIgnoring === false downY 1692 mStatusBarHeight 54
+06-15 11:24:14.570 I/ActivityManager( 1685): START u0 {cmp=com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity} from uid 11060 and from pid 30932 on display 0
+06-15 11:24:14.575 V/WindowManager( 1685): Changing focus from Window{a656fea u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity} to null
+06-15 11:24:14.576 W/WindowManager( 1685): Skip focus check for application before nougat.
+06-15 11:24:14.670 V/WindowManager( 1685): Changing focus from null to Window{4975bd8 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity}
+06-15 11:24:14.685 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{2dbf39f token=Token{5c8b93e ActivityRecord{882a5f9 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity t21028}}}
+06-15 11:24:14.692 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{2dbf39f token=Token{5c8b93e ActivityRecord{882a5f9 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity t21028}}}
+06-15 11:24:14.725 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{2dbf39f token=Token{5c8b93e ActivityRecord{882a5f9 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity t21028}}}
+06-15 11:24:14.727 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{2dbf39f token=Token{5c8b93e ActivityRecord{882a5f9 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity t21028}}}
+06-15 11:24:14.741 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{2dbf39f token=Token{5c8b93e ActivityRecord{882a5f9 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity t21028}}}
+06-15 11:24:14.803 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{2dbf39f token=Token{5c8b93e ActivityRecord{882a5f9 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity t21028}}}
+06-15 11:24:14.811 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{2dbf39f token=Token{5c8b93e ActivityRecord{882a5f9 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity t21028}}}
+06-15 11:24:15.056 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{2dbf39f token=Token{5c8b93e ActivityRecord{882a5f9 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity t21028}}}
+06-15 11:24:17.598 E/TaskPersister( 1685): File error accessing recents directory (directory doesn't exist?).
+06-15 11:24:19.709 D/elsa    ( 1685): app is ProcessRecord{fda08fd 29875:com.android.printspooler/u0a82}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:19.731 W/RemoteDisplayProvider( 1685): Ignoring remote display provider service because it does not have the CAPTURE_VIDEO_OUTPUT or CAPTURE_SECURE_VIDEO_OUTPUT permission: com.google.android.gms/com.google.android.gms.cast.media.CastRemoteDisplayProviderService
+06-15 11:24:19.735 W/FusedProxy( 1685): Odd, no component found for service com.android.location.service.FusedProvider
+06-15 11:24:19.736 W/GeofenceProxy( 1685): Odd, no component found for service com.android.location.service.GeofenceProvider
+06-15 11:24:19.736 W/ActivityRecognitionProxy( 1685): Odd, no component found for service com.android.location.service.ActivityRecognitionProvider
+06-15 11:24:22.054 D/ViewRootImpl(30932): swipeFromBottom mIgnoring === false downY 456 mStatusBarHeight 54
+06-15 11:24:22.299 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.611 V/WindowManager( 1685): Changing focus from Window{4975bd8 u0 com.excelliance.dualaid/com.excelliance.kxqp.platforms.AddGameActivity} to Window{a656fea u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity}
+06-15 11:24:22.612 W/WindowManager( 1685): Skip focus check for application before nougat.
+06-15 11:24:22.614 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.689 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.690 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.690 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.707 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.740 D/ActivityManager( 1685): back_key destroy activity: com.excelliance.dualaid top activity: com.excelliance.dualaid
+06-15 11:24:22.758 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.917 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.918 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:22.921 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{67d1571 token=Token{b28d718 ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}}}
+06-15 11:24:24.746 D/elsa    ( 1685): app is ProcessRecord{fda08fd 29875:com.android.printspooler/u0a82}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:25.750 I/ActivityManager( 1685): Killing 22089:com.coloros.gamespace/1000 (adj 906): empty #17
+06-15 11:24:25.775 D/ActivityManager( 1685): cleanUpApplicationRecord -- 22089
+06-15 11:24:25.781 I/ActivityManager( 1685): Process com.excelliance.dualaid:lebian (pid 31294) has died
+06-15 11:24:25.782 D/ActivityManager( 1685): cleanUpApplicationRecord -- 31294
+06-15 11:24:25.792 E/TaskPersister( 1685): File error accessing recents directory (directory doesn't exist?).
+06-15 11:24:33.151 W/RemoteDisplayProvider( 1685): Ignoring remote display provider service because it does not have the CAPTURE_VIDEO_OUTPUT or CAPTURE_SECURE_VIDEO_OUTPUT permission: com.google.android.gms/com.google.android.gms.cast.media.CastRemoteDisplayProviderService
+06-15 11:24:33.181 D/elsa    ( 1685): app is ProcessRecord{fda08fd 29875:com.android.printspooler/u0a82}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:33.188 W/FusedProxy( 1685): Odd, no component found for service com.android.location.service.FusedProvider
+06-15 11:24:33.189 W/GeofenceProxy( 1685): Odd, no component found for service com.android.location.service.GeofenceProvider
+06-15 11:24:33.189 W/ActivityRecognitionProxy( 1685): Odd, no component found for service com.android.location.service.ActivityRecognitionProvider
+06-15 11:24:38.197 D/elsa    ( 1685): app is ProcessRecord{fda08fd 29875:com.android.printspooler/u0a82}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:41.776 I/ActivityManager( 1685): Force stopping com.excelliance.dualaid appid=11060 user=-1: deletePackageX
+06-15 11:24:41.790 I/ActivityManager( 1685): Killing 31011:com.excelliance.dualaid:lbcore/u0a1060 (adj 0): stop com.excelliance.dualaid
+06-15 11:24:41.791 D/ActivityManager( 1685): cleanUpApplicationRecord -- 31011
+06-15 11:24:41.791 I/ActivityManager( 1685): Killing 31061:com.excelliance.dualaid:smtcnt/u0a1060 (adj 100): depends on provider com.excelliance.dualaid/com.excelliance.kxqp.platform.PluginManagerProvider in dying proc com.excelliance.dualaid:lbcore (adj 0)
+06-15 11:24:41.792 I/ActivityManager( 1685): Killing 30932:com.excelliance.dualaid/u0a1060 (adj 0): depends on provider com.excelliance.dualaid/com.excelliance.kxqp.platform.PluginManagerProvider in dying proc com.excelliance.dualaid:lbcore (adj 0)
+06-15 11:24:41.793 D/ActivityManager( 1685): cleanUpApplicationRecord -- 31061
+06-15 11:24:41.795 I/ActivityManager( 1685): Killing 30908:com.excelliance.dualaid:olle/u0a1060 (adj 900): stop com.excelliance.dualaid
+06-15 11:24:41.795 D/ActivityManager( 1685): cleanUpApplicationRecord -- 30908
+06-15 11:24:41.796 D/ActivityManager( 1685): cleanUpApplicationRecord -- 30932
+06-15 11:24:41.798 W/ActivityManager( 1685): Force removing ActivityRecord{15f8afb u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity t21028}: app died, no saved state
+06-15 11:24:41.804 V/WindowManager( 1685): Changing focus from Window{a656fea u0 com.excelliance.dualaid/com.excelliance.kxqp.ui.MainActivity} to null
+06-15 11:24:41.820 W/PackageManager( 1685): com.android.internal.os.InstallerConnection$InstallerException: Failed to execute destroy_app_data [null, com.excelliance.dualaid, 999, 3, 0]: -2
+06-15 11:24:41.821 I/PackageManager( 1685): Removing old permission: com.excelliance.dualaid.assist from package com.excelliance.dualaid
+06-15 11:24:41.826 I/libprocessgroup( 1685): Killing pid 31108 in uid 11060 as part of process group 31061
+06-15 11:24:41.833 I/libprocessgroup( 1685): Killing pid 31108 in uid 11060 as part of process group 31061
+06-15 11:24:41.838 I/libprocessgroup( 1685): Killing pid 31108 in uid 11060 as part of process group 31061
+06-15 11:24:41.846 I/libprocessgroup( 1685): Killing pid 31108 in uid 11060 as part of process group 31061
+06-15 11:24:42.399 D/elsa    ( 1685): app is ProcessRecord{5532122 3319:com.oppo.launcher/u0a17}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.421 I/ActivityManager( 1685):   Force stopping service ServiceRecord{f91dbd7 u0 com.excelliance.dualaid/com.excelliance.kxqp.FloatWindowService}
+06-15 11:24:42.421 I/ActivityManager( 1685):   Force stopping service ServiceRecord{9609cb8 u0 com.excelliance.dualaid/com.excelliance.kxqp.platform.TrampolineService}
+06-15 11:24:42.421 I/ActivityManager( 1685):   Force stopping service ServiceRecord{317cfb1 u0 com.excelliance.dualaid/com.excelliance.kxqp.SmtServService}
+06-15 11:24:42.426 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:24:42.432 D/WindowManager( 1685): relayoutVisibleWindow: Window{1410897 u0 com.oppo.launcher/com.oppo.launcher.Launcher EXITING} mAnimatingExit=true, mRemoveOnExit=false, mDestroying=true
+06-15 11:24:42.432 V/WindowManager( 1685): Changing focus from null to Window{1410897 u0 com.oppo.launcher/com.oppo.launcher.Launcher}
+06-15 11:24:42.436 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:24:42.437 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:24:42.444 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:24:42.552 D/elsa    ( 1685): app is ProcessRecord{20b6023 20138:com.android.defcontainer/u0a5}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.555 I/ActivityManager( 1685): Force stopping com.excelliance.dualaid appid=11060 user=0: pkg removed
+06-15 11:24:42.567 D/elsa    ( 1685): app is ProcessRecord{20b6023 20138:com.android.defcontainer/u0a5}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.605 I/ActivityManager( 1685): Start proc 31666:com.android.keychain/1000 for broadcast com.android.keychain/.KeyChainBroadcastReceiver
+06-15 11:24:42.613 D/elsa    ( 1685): app is ProcessRecord{6830409 31666:com.android.keychain/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.675 I/ActivityManager( 1685): Start proc 31682:com.coloros.childrenspace/1000 for broadcast com.coloros.childrenspace/.controller.ChildrenReceiver
+06-15 11:24:42.683 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:24:42.683 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:24:42.723 D/elsa    ( 1685): app is ProcessRecord{e9b4e40 31682:com.coloros.childrenspace/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.728 W/AppOps  ( 1685): Bad call: specified package com.android.defcontainer under uid 99910005 but it is really 10005
+06-15 11:24:42.728 W/AppOps  ( 1685): java.lang.RuntimeException: here
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.getOpsRawLocked(AppOpsService.java:1333)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.noteOperationUnchecked(AppOpsService.java:1074)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.noteOperation(AppOpsService.java:1055)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at com.android.server.AppOpsService$2.getMountMode(AppOpsService.java:320)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at com.android.server.AppOpsService$2.hasExternalStorage(AppOpsService.java:333)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at com.android.server.MountService$MountServiceInternalImpl.hasExternalStorage(MountService.java:4034)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at com.android.server.MountService.getVolumeList(MountService.java:3208)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at android.os.storage.IMountService$Stub.onTransact(IMountService.java:1855)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at android.os.Binder.transact(Binder.java:499)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at oppo.x.filterExecTransact(Unknown Source)
+06-15 11:24:42.728 W/AppOps  ( 1685): 	at com.oppo.color.safe.jni.JniManager.execTransact(Unknown Source)
+06-15 11:24:42.735 W/AppOps  ( 1685): Bad call: specified package com.android.defcontainer under uid 99910005 but it is really 10005
+06-15 11:24:42.735 W/AppOps  ( 1685): java.lang.RuntimeException: here
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.getOpsRawLocked(AppOpsService.java:1333)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.noteOperationUnchecked(AppOpsService.java:1074)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.noteOperation(AppOpsService.java:1055)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at com.android.server.AppOpsService$2.getMountMode(AppOpsService.java:320)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at com.android.server.AppOpsService$2.hasExternalStorage(AppOpsService.java:333)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at com.android.server.MountService$MountServiceInternalImpl.hasExternalStorage(MountService.java:4034)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at com.android.server.MountService.getVolumeList(MountService.java:3208)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at android.os.storage.IMountService$Stub.onTransact(IMountService.java:1855)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at android.os.Binder.transact(Binder.java:499)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at oppo.x.filterExecTransact(Unknown Source)
+06-15 11:24:42.735 W/AppOps  ( 1685): 	at com.oppo.color.safe.jni.JniManager.execTransact(Unknown Source)
+06-15 11:24:42.748 I/ActivityManager( 1685): Start proc 31696:com.coloros.gamespace/1000 for broadcast com.coloros.gamespace/.receiver.AppListUpdateReceiver
+06-15 11:24:42.758 W/AppOps  ( 1685): Bad call: specified package com.android.defcontainer under uid 99910005 but it is really 10005
+06-15 11:24:42.758 W/AppOps  ( 1685): java.lang.RuntimeException: here
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.getOpsRawLocked(AppOpsService.java:1333)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.noteOperationUnchecked(AppOpsService.java:1074)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at com.android.server.AppOpsService.noteOperation(AppOpsService.java:1055)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at com.android.server.AppOpsService$2.getMountMode(AppOpsService.java:320)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at com.android.server.AppOpsService$2.hasExternalStorage(AppOpsService.java:333)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at com.android.server.MountService$MountServiceInternalImpl.hasExternalStorage(MountService.java:4034)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at com.android.server.MountService.getVolumeList(MountService.java:3208)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at android.os.storage.IMountService$Stub.onTransact(IMountService.java:1855)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at android.os.Binder.transact(Binder.java:499)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at oppo.x.filterExecTransact(Unknown Source)
+06-15 11:24:42.758 W/AppOps  ( 1685): 	at com.oppo.color.safe.jni.JniManager.execTransact(Unknown Source)
+06-15 11:24:42.763 E/TaskPersister( 1685): File error accessing recents directory (directory doesn't exist?).
+06-15 11:24:42.779 D/elsa    ( 1685): app is ProcessRecord{58ca558 31696:com.coloros.gamespace/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.831 I/ActivityManager( 1685): Start proc 31710:com.coloros.oppomultiapp/1000 for broadcast com.coloros.oppomultiapp/.OppoMultiAppReceiver
+06-15 11:24:42.843 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.849 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.855 D/elsa    ( 1685): app is ProcessRecord{d15d8f6 31710:com.coloros.oppomultiapp/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.870 W/RemoteDisplayProvider( 1685): Ignoring remote display provider service because it does not have the CAPTURE_VIDEO_OUTPUT or CAPTURE_SECURE_VIDEO_OUTPUT permission: com.google.android.gms/com.google.android.gms.cast.media.CastRemoteDisplayProviderService
+06-15 11:24:42.927 I/ActivityManager( 1685): Start proc 31730:com.coloros.speechassist/u0a75 for broadcast com.coloros.speechassist/.helper.app.AppRemoveReceiver
+06-15 11:24:42.930 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.941 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.961 D/ActivityManager( 1685): bringUpService for proc:com.coloros.safecenter, isolated:false
+06-15 11:24:42.969 D/elsa    ( 1685): app is ProcessRecord{d2f75e2 31730:com.coloros.speechassist/u0a75}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:42.979 D/ActivityManager( 1685): bringUpService for proc:com.coloros.safecenter, isolated:false
+06-15 11:24:43.078 I/ActivityManager( 1685): Start proc 31756:com.android.providers.downloads/u0a10 for broadcast com.android.providers.downloads/.DownloadReceiver
+06-15 11:24:43.125 D/elsa    ( 1685): app is ProcessRecord{fda08fd 29875:com.android.printspooler/u0a82}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:43.132 D/elsa    ( 1685): app is ProcessRecord{84d8b8c 31756:com.android.providers.downloads/u0a10}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:43.177 W/FusedProxy( 1685): Odd, no component found for service com.android.location.service.FusedProvider
+06-15 11:24:43.236 W/GeofenceProxy( 1685): Odd, no component found for service com.android.location.service.GeofenceProvider
+06-15 11:24:43.240 I/ActivityManager( 1685): Start proc 31786:com.oppo.market:dcs/u0a91 for service com.oppo.market/com.oppo.statistics.upload.UploadService
+06-15 11:24:43.269 W/ActivityRecognitionProxy( 1685): Odd, no component found for service com.android.location.service.ActivityRecognitionProvider
+06-15 11:24:43.280 D/elsa    ( 1685): app is ProcessRecord{90dd478 31786:com.oppo.market:dcs/u0a91}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:43.420 D/PackageManager( 1685):  getInstalledPackages shareName = com.google.uid.shared
+06-15 11:24:43.420 D/PackageManager( 1685):  getInstalledPackages shareUidPkg = com.google.android.gsf
+06-15 11:24:43.566 I/ActivityManager( 1685): Killing 27737:com.coloros.safesdkproxy/u0a89 (adj 906): empty #17
+06-15 11:24:43.763 D/ActivityManager( 1685): cleanUpApplicationRecord -- 27737
+06-15 11:24:43.768 D/PackageManager( 1685):  getInstalledPackages shareName = com.google.uid.shared
+06-15 11:24:43.768 D/PackageManager( 1685):  getInstalledPackages shareUidPkg = com.google.android.gsf
+06-15 11:24:43.921 I/ActivityManager( 1685): Killing 27838:com.svox.pico/u0a78 (adj 906): empty #17
+06-15 11:24:43.937 D/ActivityManager( 1685): cleanUpApplicationRecord -- 27838
+06-15 11:24:48.162 D/elsa    ( 1685): app is ProcessRecord{fda08fd 29875:com.android.printspooler/u0a82}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:48.176 I/ActivityManager( 1685): Killing 28247:io.appium.settings/u0a885 (adj 906): empty #17
+06-15 11:24:48.233 D/ActivityManager( 1685): cleanUpApplicationRecord -- 28247
+06-15 11:24:50.637 I/ActivityManager( 1685): Killing 28345:com.coloros.speechassist.engine/u0a76 (adj 906): empty #17
+06-15 11:24:50.673 D/ActivityManager( 1685): cleanUpApplicationRecord -- 28345
+06-15 11:24:58.368 D/elsa    ( 1685): app is ProcessRecord{21c5792 21486:com.android.vending/u0a427}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:24:58.391 D/elsa    ( 1685): app is ProcessRecord{21c5792 21486:com.android.vending/u0a427}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:02.490 D/PackageManager( 1685): installStage send adb install pkg:com.excelliance.dualaid   path: /data/app/vmdl1594393124.tmp/base.apk
+06-15 11:25:02.557 I/ActivityManager( 1685): START u0 {act=android.intent.action.VIEW dat=content://com.oppo.packageinstaller.fileprovider/root-dir/vmdl1594393124.tmp/base.apk typ=application/vnd.android.package-archive flg=0x10000000 cmp=com.android.packageinstaller/.PackageInstallerActivity (has extras)} from uid 10022 and from pid 21870 on display 0
+06-15 11:25:02.563 V/WindowManager( 1685): Changing focus from Window{1410897 u0 com.oppo.launcher/com.oppo.launcher.Launcher} to null
+06-15 11:25:02.571 V/OppoProcessManager( 1685): 21870 com.android.packageinstaller curadj 0: top-activity: setAdj = 0
+06-15 11:25:02.571 D/elsa    ( 1685): app is ProcessRecord{c5d1d8f 21870:com.android.packageinstaller/u0a22}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:02.572 D/elsa    ( 1685): app is ProcessRecord{5532122 3319:com.oppo.launcher/u0a17}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:02.608 V/WindowManager( 1685): Changing focus from null to Window{50c4620 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInstallerActivity}
+06-15 11:25:02.621 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1496387 token=Token{b4889a1 ActivityRecord{9c5be08 u0 com.android.packageinstaller/.PackageInstallerActivity t21029}}}
+06-15 11:25:02.623 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{1496387 token=Token{b4889a1 ActivityRecord{9c5be08 u0 com.android.packageinstaller/.PackageInstallerActivity t21029}}}
+06-15 11:25:02.667 I/ActivityManager( 1685): START u0 {act=oppo.intent.action.INSTALL_PACKAGE cmp=com.android.packageinstaller/.OppoPackageInstallerActivity (has extras)} from uid 10022 and from pid 21870 on display 0
+06-15 11:25:02.672 V/WindowManager( 1685): Changing focus from Window{50c4620 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInstallerActivity} to null
+06-15 11:25:02.687 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:02.688 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:02.740 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:02.743 V/WindowManager( 1685): Changing focus from null to Window{4561d11 u0 com.android.packageinstaller/com.android.packageinstaller.OppoPackageInstallerActivity}
+06-15 11:25:02.745 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:02.755 D/ActivityManager( 1685): back_key destroy activity: com.android.packageinstaller top activity: com.android.packageinstaller
+06-15 11:25:02.871 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:02.873 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:02.881 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:02.889 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:03.178 D/elsa    ( 1685): app is ProcessRecord{5532122 3319:com.oppo.launcher/u0a17}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:03.181 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:03.183 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:03.402 I/ActivityManager( 1685): Start proc 31911:com.oppo.usercenter/u0a84 for content provider com.oppo.usercenter/.common.db.UserCenterContentProvider
+06-15 11:25:03.447 I/ActivityManager( 1685): START u0 {flg=0x10008000 cmp=com.coloros.safecenter/.verification.login.AccountActivity (has extras)} from uid 1000 and from pid 19333 on display 0
+06-15 11:25:03.453 V/WindowManager( 1685): Changing focus from Window{4561d11 u0 com.android.packageinstaller/com.android.packageinstaller.OppoPackageInstallerActivity} to null
+06-15 11:25:03.456 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.457 D/elsa    ( 1685): app is ProcessRecord{49ab87c 31911:com.oppo.usercenter/u0a84}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:03.462 D/elsa    ( 1685): app is ProcessRecord{5427361 19333:com.coloros.safecenter/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:03.463 D/elsa    ( 1685): app is ProcessRecord{c5d1d8f 21870:com.android.packageinstaller/u0a22}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:03.488 D/elsa    ( 1685): app is ProcessRecord{49ab87c 31911:com.oppo.usercenter/u0a84}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:03.507 V/WindowManager( 1685): Changing focus from null to Window{91d4fbd u0 com.coloros.safecenter}
+06-15 11:25:03.507 V/WindowManager( 1685): disableStatusBar state: 65536 , disable: true
+06-15 11:25:03.507 I/StatusBarManagerService( 1685): disable, what:65536, pkg:android
+06-15 11:25:03.519 D/elsa    ( 1685): app is ProcessRecord{49ab87c 31911:com.oppo.usercenter/u0a84}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:03.540 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.540 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.550 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.567 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.573 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.574 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.622 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.710 D/InputMethodManagerService( 1685): bindCurrentInputMethodService, service:Intent { act=android.view.InputMethod cmp=com.sohu.inputmethod.sogouoem/.SogouIME (has extras) }
+06-15 11:25:03.711 D/elsa    ( 1685): app is ProcessRecord{70d60aa 18534:com.sohu.inputmethod.sogouoem/u0a99}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:03.739 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.807 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.808 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:03.908 D/elsa    ( 1685): app is ProcessRecord{9614cc5 5645:com.coloros.sau/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:03.910 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:04.659 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:04.660 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:04.692 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:04.827 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:04.877 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:04.877 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:04.910 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.044 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.110 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.111 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.143 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.278 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.311 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.312 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.344 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:05.813 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:06.011 D/elsa    ( 1685): app is ProcessRecord{49ab87c 31911:com.oppo.usercenter/u0a84}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:06.015 V/WindowManager( 1685): Changing focus from Window{91d4fbd u0 com.coloros.safecenter EXITING} to Window{2737d03 u0 com.coloros.safecenter/com.coloros.safecenter.verification.login.AccountActivity}
+06-15 11:25:06.015 V/WindowManager( 1685): disableStatusBar state: 0 , disable: false
+06-15 11:25:06.015 I/StatusBarManagerService( 1685): disable, what:0, pkg:android
+06-15 11:25:06.030 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:06.033 V/WindowManager( 1685): Changing focus from Window{2737d03 u0 com.coloros.safecenter/com.coloros.safecenter.verification.login.AccountActivity} to Window{9b6e9e5 u0 com.coloros.safecenter/com.coloros.safecenter.verification.login.AccountActivity}
+06-15 11:25:06.064 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:06.065 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:06.068 D/elsa    ( 1685): app is ProcessRecord{49ab87c 31911:com.oppo.usercenter/u0a84}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:06.070 D/elsa    ( 1685): app is ProcessRecord{70d60aa 18534:com.sohu.inputmethod.sogouoem/u0a99}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:06.086 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:06.090 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:06.091 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:06.104 V/WindowManager( 1685): Changing focus from Window{9b6e9e5 u0 com.coloros.safecenter/com.coloros.safecenter.verification.login.AccountActivity EXITING} to Window{2737d03 u0 com.coloros.safecenter/com.coloros.safecenter.verification.login.AccountActivity}
+06-15 11:25:06.106 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{e78436f token=Token{6365d49 ActivityRecord{b5e2913 u0 com.coloros.safecenter/.verification.login.AccountActivity t21030}}}
+06-15 11:25:06.107 W/ActivityManager( 1685): invalid task TaskRecord{921709d #21030 A=com.coloros.safecenter.verification U=0 StackId=1 sz=1}
+06-15 11:25:06.108 V/WindowManager( 1685): Changing focus from Window{2737d03 u0 com.coloros.safecenter/com.coloros.safecenter.verification.login.AccountActivity} to Window{4561d11 u0 com.android.packageinstaller/com.android.packageinstaller.OppoPackageInstallerActivity}
+06-15 11:25:06.110 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.111 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:06.112 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:06.114 D/elsa    ( 1685): app is ProcessRecord{9614cc5 5645:com.coloros.sau/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:06.119 D/WindowManager( 1685): updateAppOpsState, packageName : com.coloros.safecenter , state : false
+06-15 11:25:06.120 D/elsa    ( 1685): app is ProcessRecord{c5d1d8f 21870:com.android.packageinstaller/u0a22}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:06.122 D/elsa    ( 1685): app is ProcessRecord{5427361 19333:com.coloros.safecenter/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:06.159 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.165 D/ActivityManager( 1685): back_key destroy activity: com.coloros.safecenter top activity: com.android.packageinstaller
+06-15 11:25:06.183 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.185 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.189 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.193 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.204 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.367 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.368 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.384 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.384 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.449 V/WindowManager( 1685): Found launcher layer @1
+06-15 11:25:06.451 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.517 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.518 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:06.519 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:07.699 D/ActivityManager( 1685): bringUpService for proc:com.coloros.safecenter:task, isolated:false
+06-15 11:25:07.726 I/ActivityManager( 1685): Start proc 31952:com.coloros.safecenter:task/1000 for service com.coloros.safecenter/.virusdetect.service.AutoTestScanApksService
+06-15 11:25:07.845 D/ActivityManager( 1685): getContentProviderImpl, cpr:ContentProviderRecord{5ad8bbb u0 com.coloros.safecenter/.common.provider.SafeProvider}, name:com.color.provider.SafeProvider
+06-15 11:25:07.845 D/ActivityManager( 1685): getContentProviderImpl 02, cpr:ContentProviderRecord{5ad8bbb u0 com.coloros.safecenter/.common.provider.SafeProvider}
+06-15 11:25:07.895 I/ActivityManager( 1685): Start proc 31977:com.coloros.safesdkproxy/u0a89 for service com.coloros.safesdkproxy/.virus.TMSVirusScanService
+06-15 11:25:08.079 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:08.083 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:08.122 W/WindowManager( 1685): Attempted to remove non-existing token: android.os.Binder@9faf912
+06-15 11:25:08.123 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:08.133 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:08.679 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:09.214 E/TaskPersister( 1685): File error accessing recents directory (directory doesn't exist?).
+06-15 11:25:09.665 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{9d13c7f token=Token{854199e ActivityRecord{57cbd9 u0 com.android.packageinstaller/.OppoPackageInstallerActivity t21029}}}
+06-15 11:25:09.832 D/elsa    ( 1685): app is ProcessRecord{7914f93 29179:com.nearme.romupdate/u0a85}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:09.855 D/elsa    ( 1685): app is ProcessRecord{7914f93 29179:com.nearme.romupdate/u0a85}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:11.889 D/elsa    ( 1685): app is ProcessRecord{56493ca 31977:com.coloros.safesdkproxy/u0a89}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:11.895 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:11.902 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:13.968 I/ActivityManager( 1685): START u0 {dat=file:///storage/emulated/0/Android/data/com.android.packageinstaller/cache/package129836667.apk cmp=com.android.packageinstaller/.InstallAppProgress (has extras)} from uid 10022 and from pid 21870 on display 0
+06-15 11:25:13.972 V/WindowManager( 1685): Changing focus from Window{4561d11 u0 com.android.packageinstaller/com.android.packageinstaller.OppoPackageInstallerActivity} to null
+06-15 11:25:13.975 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{d4afdb1 token=Token{4d83858 ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029}}}
+06-15 11:25:14.051 D/elsa    ( 1685): app is ProcessRecord{df23cdd 20614:com.coloros.securepay/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:14.112 V/WindowManager( 1685): Changing focus from null to Window{57f390f u0 com.android.packageinstaller/com.android.packageinstaller.InstallAppProgress}
+06-15 11:25:14.124 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{d4afdb1 token=Token{4d83858 ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029}}}
+06-15 11:25:14.132 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{d4afdb1 token=Token{4d83858 ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029}}}
+06-15 11:25:14.157 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{d4afdb1 token=Token{4d83858 ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029}}}
+06-15 11:25:14.160 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{d4afdb1 token=Token{4d83858 ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029}}}
+06-15 11:25:14.162 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{d4afdb1 token=Token{4d83858 ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029}}}
+06-15 11:25:14.217 D/PackageManager( 1685): installStage from oppo adb installer, set INSTALL_FROM_ADB flag
+06-15 11:25:14.217 D/PackageManager( 1685): installStage com.excelliance.dualaid, dir=/data/app/vmdl2095590051.tmp, installerPackageName=com.android.packageinstaller, installerUid=10022, full=false
+06-15 11:25:14.217 D/PackageManager( 1685): multi app: change adb install all to owner
+06-15 11:25:14.220 D/elsa    ( 1685): app is ProcessRecord{20b6023 20138:com.android.defcontainer/u0a5}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:14.460 D/ActivityManager( 1685): back_key destroy activity: com.android.packageinstaller top activity: com.android.packageinstaller
+06-15 11:25:14.462 D/elsa    ( 1685): app is ProcessRecord{76eb837 31952:com.coloros.safecenter:task/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:14.463 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{d4afdb1 token=Token{4d83858 ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029}}}
+06-15 11:25:14.857 V/BackupManagerService( 1685): restoreAtInstall pkg=com.excelliance.dualaid token=f2 restoreSet=0
+06-15 11:25:14.857 V/BackupManagerService( 1685): Finishing install immediately
+06-15 11:25:14.859 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{d4afdb1 token=Token{4d83858 ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029}}}
+06-15 11:25:15.008 D/ColorPackageManager( 1685): mIconCacheMaxNum:200,mIconCacheMinMemory:0.0
+06-15 11:25:15.009 D/ColorPackageManager( 1685): mIconCacheMaxNum:200,mIconCacheMinMemory:0.0
+06-15 11:25:15.062 I/ActivityManager( 1685): Start proc 32050:com.android.browser/u0a25 for broadcast com.android.browser/com.oppo.browser.downloads.provider.DownloadReceiver
+06-15 11:25:15.074 D/ActivityManager( 1685): bringUpService for proc:com.coloros.safecenter:task, isolated:false
+06-15 11:25:15.075 D/elsa    ( 1685): app is ProcessRecord{76eb837 31952:com.coloros.safecenter:task/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.099 D/elsa    ( 1685): app is ProcessRecord{c801eaf 32050:com.android.browser/u0a25}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.150 D/ActivityManager( 1685): bringUpService for proc:com.coloros.safecenter, isolated:false
+06-15 11:25:15.194 D/elsa    ( 1685): app is ProcessRecord{56493ca 31977:com.coloros.safesdkproxy/u0a89}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.231 I/ActivityManager( 1685): Start proc 32076:com.svox.pico/u0a78 for broadcast com.svox.pico/.VoiceDataInstallerReceiver
+06-15 11:25:15.232 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.233 D/elsa    ( 1685): app is ProcessRecord{76eb837 31952:com.coloros.safecenter:task/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.251 D/elsa    ( 1685): app is ProcessRecord{7914f93 29179:com.nearme.romupdate/u0a85}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.254 D/elsa    ( 1685): app is ProcessRecord{56493ca 31977:com.coloros.safesdkproxy/u0a89}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.259 V/NotificationService( 1685): disabling notifications for com.excelliance.dualaid
+06-15 11:25:15.265 D/elsa    ( 1685): app is ProcessRecord{bb21108 32076:com.svox.pico/u0a78}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.293 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.312 D/elsa    ( 1685): app is ProcessRecord{7914f93 29179:com.nearme.romupdate/u0a85}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.315 W/FusedProxy( 1685): Odd, no component found for service com.android.location.service.FusedProvider
+06-15 11:25:15.315 W/GeofenceProxy( 1685): Odd, no component found for service com.android.location.service.GeofenceProvider
+06-15 11:25:15.316 W/ActivityRecognitionProxy( 1685): Odd, no component found for service com.android.location.service.ActivityRecognitionProvider
+06-15 11:25:15.333 W/RemoteDisplayProvider( 1685): Ignoring remote display provider service because it does not have the CAPTURE_VIDEO_OUTPUT or CAPTURE_SECURE_VIDEO_OUTPUT permission: com.google.android.gms/com.google.android.gms.cast.media.CastRemoteDisplayProviderService
+06-15 11:25:15.374 D/elsa    ( 1685): app is ProcessRecord{bffd3cd 20469:com.google.android.gms/u0a181}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.383 D/elsa    ( 1685): app is ProcessRecord{bffd3cd 20469:com.google.android.gms/u0a181}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.491 D/PackageManager( 1685):  getInstalledPackages shareName = com.google.uid.shared
+06-15 11:25:15.491 D/PackageManager( 1685):  getInstalledPackages shareUidPkg = com.google.android.gsf
+06-15 11:25:15.522 D/PackageManager( 1685):  getInstalledPackages shareName = com.google.uid.shared
+06-15 11:25:15.522 D/PackageManager( 1685):  getInstalledPackages shareUidPkg = com.google.android.gsf
+06-15 11:25:15.551 D/elsa    ( 1685): app is ProcessRecord{7914f93 29179:com.nearme.romupdate/u0a85}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.561 D/ActivityManager( 1685): bringUpService for proc:com.coloros.safecenter, isolated:false
+06-15 11:25:15.564 D/elsa    ( 1685): app is ProcessRecord{7914f93 29179:com.nearme.romupdate/u0a85}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.589 D/PackageManager( 1685):  getInstalledPackages shareName = oppo.uid.nearme
+06-15 11:25:15.677 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.680 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.763 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.766 D/elsa    ( 1685): app is ProcessRecord{c63c56c 5426:com.nearme.statistics.rom/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:15.800 D/PackageManager( 1685):  getInstalledPackages shareName = com.google.uid.shared
+06-15 11:25:15.800 D/PackageManager( 1685):  getInstalledPackages shareUidPkg = com.google.android.gsf
+06-15 11:25:16.248 V/WindowManager( 1685): Changing focus from Window{57f390f u0 com.android.packageinstaller/com.android.packageinstaller.InstallAppProgress} to null
+06-15 11:25:16.249 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.261 D/elsa    ( 1685): app is ProcessRecord{5532122 3319:com.oppo.launcher/u0a17}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:16.262 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.264 D/elsa    ( 1685): app is ProcessRecord{c5d1d8f 21870:com.android.packageinstaller/u0a22}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:16.310 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.344 V/WindowManager( 1685): Changing focus from null to Window{1410897 u0 com.oppo.launcher/com.oppo.launcher.Launcher}
+06-15 11:25:16.354 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.377 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.380 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.386 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.389 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.611 D/elsa    ( 1685): app is ProcessRecord{df23cdd 20614:com.coloros.securepay/1000}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:16.617 D/elsa    ( 1685): app is ProcessRecord{c5d1d8f 21870:com.android.packageinstaller/u0a22}, isInBlackList is false, isNeedSetProcessGroup is true
+06-15 11:25:16.628 I/ActivityManager( 1685): Killing 31682:com.coloros.childrenspace/1000 (adj 906): empty #17
+06-15 11:25:16.629 D/ActivityManager( 1685): back_key destroy activity: com.android.packageinstaller top activity: com.oppo.launcher
+06-15 11:25:16.632 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.634 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.640 W/ActivityManager( 1685): Finishing task with all activities already finished
+06-15 11:25:16.640 W/ActivityManager( 1685): Duplicate finish request for ActivityRecord{916a93b u0 com.android.packageinstaller/.InstallAppProgress t21029 f}
+06-15 11:25:16.660 D/ActivityManager( 1685): cleanUpApplicationRecord -- 31682
+06-15 11:25:16.666 V/WindowManager( 1685): reevaluateVisibility focusApp:AppWindowToken{10b39e0 token=Token{b3e5b9d ActivityRecord{19ba247 u0 com.oppo.launcher/.Launcher t2604}}}
+06-15 11:25:16.945 D/PackageManager( 1685):  getInstalledPackages shareName = com.google.uid.shared
+06-15 11:25:16.945 D/PackageManager( 1685):  getInstalledPackages shareUidPkg = com.google.android.gsf
+06-15 11:25:17.677 E/TaskPersister( 1685): File error accessing recents directory (directory doesn't exist?).
+06-15 11:25:17.856 I/BackupManagerService( 1685): FullBackupJob.schedule canceled from scheduleNextFullBackupJob Method
+06-15 11:25:19.967 I/ActivityManager( 1685): Force stopping com.excelliance.dualaid appid=11061 user=0: from pid 32166
+06-15 11:25:19.971 I/ActivityManager( 1685): Force stopping com.excelliance.dualaid appid=11061 user=999: from pid 32166
+06-15 11:25:19.984 W/RemoteDisplayProvider( 1685): Ignoring remote display provider service because it does not have the CAPTURE_VIDEO_OUTPUT or CAPTURE_SECURE_VIDEO_OUTPUT permission: com.google.android.gms/com.google.android.gms.cast.media.CastRemoteDisplayProviderService
+06-15 11:25:20.051 V/SettingsProvider( 1685): getSecureSetting(voice_interaction_service, callingUserId = 999  re-get)
+06-15 11:25:20.052 V/SettingsProvider( 1685): getSecureSetting(voice_recognition_service, callingUserId = 999  re-get)

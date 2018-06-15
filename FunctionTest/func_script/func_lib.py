@@ -571,6 +571,7 @@ class PopupHandle(object):
                 elif '应用列表' in self.gf.get_xml():
                     try:
                         self.ele.find_element('//*[@text="不再提醒"]').click()
+                        self.ele.find_element('//*[@text="以后再说"]').click()
                     except Exception:
                         self.ele.find_element('com.excelliance.dualaid:id/tv_left').click()
                     except Exception:
