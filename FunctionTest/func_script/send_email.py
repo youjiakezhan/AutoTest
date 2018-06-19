@@ -2,6 +2,7 @@
 import os
 import smtplib
 from email.header import Header
+from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from bs4 import BeautifulSoup
@@ -43,7 +44,7 @@ class EmailSending(object):
         # receiver = 'xuhe@excelliance.cn,wangzhe@excean.com,qizhaodi@excean.com,zhuyao@excean.com, \
         #            lixianzhuang@excelliance.cn,771432505@qq.com'
 
-        receiver = '771432505@qq.com'
+        receiver = 'lixianzhuang@excelliance.cn'
         # 通过Header对象编码的文本，包含utf-8编码信息和Base64编码信息。以下中文名测试ok
         subject = '双开助手DailyReview测试报告'
         subject = Header(subject, 'utf-8').encode()
@@ -54,12 +55,18 @@ class EmailSending(object):
         msg['From'] = sender
         msg['To'] = receiver
 
+        # 插入图片
+        with open(r'Z:\daily_review_SKZS\daily_review_files\result\1.png', 'rb') as sendimagefile:
+            image = MIMEImage(sendimagefile.read())
+        image.add_header('Content-ID', r'Z:\daily_review_SKZS\daily_review_files\result\1.png')
+        image["Content-Disposition"] = 'attachment; filename="test_image.png"'
+        msg.attach(image)
+
         # 构造文字内容
-        list = self.find_content()
-        text_01 = "Dear All:\n本次DailyReview版本的自动化测试已结束，测试数据已添加于附件；" \
-                  "\n测试用例执行结果如下：" \
-                  "\n执行用例数：%s\nPASS：%s\nFAIL：%s\n用例执行报错：%s" % (list[0], list[1], list[2], list[3])
-        text = MIMEText(text_01, 'plain', 'utf-8')
+        mail_img = """
+        <p><img src='cid:Z:\\daily_review_SKZS\\daily_review_files\\result\\1.png'></p>
+        """
+        text = MIMEText(mail_img, 'html', 'utf-8')
         msg.attach(text)
 
         # 构造附件
@@ -81,5 +88,5 @@ class EmailSending(object):
         smtp.quit()
 
 
-# email = EmailSending(r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest\test_result\report')
-# email.create_email()
+email = EmailSending(r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest\test_result\report')
+email.create_email()
