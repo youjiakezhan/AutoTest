@@ -1,11 +1,15 @@
 # coding: utf-8
 import os
 import smtplib
+import time
 from email.header import Header
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from bs4 import BeautifulSoup
+from selenium import webdriver
+
+from FunctionTest.func_script.func_lib import BASE_PATH
 
 
 class EmailSending(object):
@@ -33,6 +37,14 @@ class EmailSending(object):
             list.append(i.text)
         return list
 
+    def screen_shot(self):
+        driver = webdriver.Chrome()
+        url = self.get_latest_file()
+        driver.get(url)
+        time.sleep(1)
+        driver.save_screenshot(BASE_PATH + "\\shuangkai.png")
+        driver.quit()
+
     def create_email(self):
         """创建并发送邮件，测试报告通过邮件附件的形式发出"""
         # 设置smtplib所需的参数
@@ -56,16 +68,15 @@ class EmailSending(object):
         msg['To'] = receiver
 
         # 插入图片
-        with open(r'Z:\daily_review_SKZS\daily_review_files\result\1.png', 'rb') as sendimagefile:
+        with open(BASE_PATH + "\\shuangkai.png", 'rb') as sendimagefile:
             image = MIMEImage(sendimagefile.read())
-        image.add_header('Content-ID', r'Z:\daily_review_SKZS\daily_review_files\result\1.png')
-        image["Content-Disposition"] = 'attachment; filename="test_image.png"'
+        image.add_header('Content-ID', BASE_PATH + "\\shuangkai.png")
         msg.attach(image)
 
         # 构造文字内容
         mail_img = """
-        <p><img src='cid:Z:\\daily_review_SKZS\\daily_review_files\\result\\1.png'></p>
-        """
+        <p><img src='cid:%s'></p>
+        """ % (BASE_PATH + "\\shuangkai.png")
         text = MIMEText(mail_img, 'html', 'utf-8')
         msg.attach(text)
 
@@ -89,4 +100,5 @@ class EmailSending(object):
 
 
 email = EmailSending(r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest\test_result\report')
+email.screen_shot()
 email.create_email()
