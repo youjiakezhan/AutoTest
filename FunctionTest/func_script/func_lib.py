@@ -19,9 +19,8 @@ from appium.webdriver.webdriver import By  # for find toast
 from appium.webdriver.webdriver import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC  # for find toast
 
-sys_alert = True
-ap_alert = True
-ad_alert = True
+sys_alert = ap_alert = ad_alert = True
+
 
 class AppiumInit(object):
     """appium server"""
@@ -607,12 +606,13 @@ class CreateThread(object):
         thread.start()
 
     def stop_thread(self):
-        global sys_alert
-        global ap_alert
-        global ad_alert
-        sys_alert = False
-        ap_alert = False
-        ad_alert = False
+        global sys_alert, ap_alert, ad_alert
+        sys_alert = ap_alert = ad_alert = False
+        while True:
+            if threading.active_count() > 1:
+                time.sleep(2)
+            else:
+                break
 
 
 class Log(object):
@@ -622,7 +622,6 @@ class Log(object):
 
 class Logcat(object):
     """手机日志"""
-    # log_name = ''
     getinfo = GetInfo()
     """抓取和停止手机logcat"""
 
