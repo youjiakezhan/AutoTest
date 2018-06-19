@@ -18,7 +18,7 @@ class FilePath(object):
                 return file_path
 
     def install_seccess(self):
-        """查看本机是否安装了与daily review包同名的apk"""
+        """查看本机是否安装了与daily review包同包名的apk"""
         data = os.popen('adb shell pm list package -3')
         if "com.excelliance.dualaid" in data.read():
             return True

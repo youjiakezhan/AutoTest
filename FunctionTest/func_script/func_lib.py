@@ -614,6 +614,7 @@ class CreateThread(object):
         ap_alert = False
         ad_alert = False
 
+
 class Log(object):
     """用例执行日志"""
     pass

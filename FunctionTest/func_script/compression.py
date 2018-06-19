@@ -7,14 +7,16 @@ from zipfile import ZipFile, ZIP_DEFLATED
 class Compression(object):
     """压缩文件和文件夹"""
 
-    def __init__(self, result_path, dir_path):
-        self.result_path = result_path
+    def __init__(self, new_file_path, dir_path):
+        self.new_file_path = new_file_path
         self.dir_path = dir_path
 
     def compress_dir(self):
-        new_file = self.result_path + '\\' + time.strftime('%Y%m%d%H%M%S') + '.zip'
+        # 压缩后文件存放路径
+        new_file = self.new_file_path + '\\' + time.strftime('%Y%m%d%H%M%S') + '.zip'
         z = ZipFile(new_file, 'w', ZIP_DEFLATED)
         for root, dirs, files in os.walk(self.dir_path):
+            # 去掉父级目录，只压缩指定文件目录的文件夹及内部文件
             fpath = root.replace(self.dir_path, '')
             fpath = fpath and fpath + os.sep or ''
             for file in files:

@@ -1,5 +1,4 @@
 # coding=utf-8
-# Auther:"EternalSunshine"
 import os
 
 
@@ -11,6 +10,7 @@ class CleanWorkspace(object):
             for file in files:
                 if "readme.txt" not in file:
                     os.remove(os.path.join(root, file))
+
 
 # clean = CleanWorkspace()
 # clean.clean_test_result()
