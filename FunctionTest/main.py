@@ -54,7 +54,9 @@ compress = Compression(new_file_path=r'Z:\daily_review_SKZS\daily_review_files\r
 compress.compress_dir()
 
 # 发送测试报告邮件
-send_report = EmailSending(file_path=r'Z:\daily_review_SKZS\daily_review_files\result')
+send_report = EmailSending(file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
+                           html_path=BASE_PATH + '\\test_result\\report',
+                           image_path=BASE_PATH + '\\test_result\\screenshot')
 send_report.create_email()
 
 # 初始化工作区
