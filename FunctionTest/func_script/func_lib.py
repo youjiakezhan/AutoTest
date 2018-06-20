@@ -593,6 +593,8 @@ class PopupHandle(object):
                     self.ele.find_element('//*[@text="确定"]').click()
                 except Exception:
                     self.ele.find_element('com.excelliance.dualaid:id/tv_right').click()
+                except Exception:
+                    self.ele.find_element('//*[@text="允许"]').click()
             else:
                 continue
 
@@ -623,18 +625,35 @@ class Log(object):
 class Logcat(object):
     """手机日志"""
     getinfo = GetInfo()
-    """抓取和停止手机logcat"""
+    """抓取和停止手机logcat以及对adb进程的监控"""
+    def check_adb(self):
+        global adb_pid_host
+        adb_pid_host = ''
+        adb_pid = os.popen('tasklist | findstr "adb.exe"')
+        for i in adb_pid:
+            adb_pid_host = i.split()[1]
+            return adb_pid_host
+
+    def kill_adb(self, arg):
+        adb_pid = os.popen('tasklist | findstr "adb.exe"')
+        if arg == 1:
+            for i in adb_pid:
+                if adb_pid_host not in i:
+                    os.popen('taskkill /f /pid ' + i.split()[1])
+        elif arg == 0:
+            for i in adb_pid:
+                os.popen('taskkill /f /pid ' + i.split()[1])
 
     def start_logcat(self, log_path):
         os.popen('adb logcat -c')
         log_name = os.path.join(log_path, 'log%s.txt' % self.getinfo.get_time())
         os.popen('adb logcat -v time > %s' % log_name)
 
-    def stop_logcat(self):
-        data = os.popen('adb shell ps | findstr "logcat"')
-        for logcat_uid in data.readlines():
-            if "shell" in logcat_uid:
-                os.popen('adb shell kill ' + logcat_uid.split()[1])
+    # def stop_logcat(self):
+    #     data = os.popen('tasklist | findstr "adb.exe"')
+    #     for logcat_uid in data.readlines():
+    #         if "adb.exe" in logcat_uid:
+    #             os.popen('taskkill /f /pid ' + logcat_uid.split()[1])
 
 
 class Delete(object):

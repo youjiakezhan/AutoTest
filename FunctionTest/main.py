@@ -6,18 +6,23 @@ from FunctionTest.func_script.appium_server_check import AppiumServerCheck
 from FunctionTest.func_script.check_and_install_apk import FilePath
 from FunctionTest.func_script.clean_workspace import CleanWorkspace
 from FunctionTest.func_script.compression import Compression
-from FunctionTest.func_script.func_lib import getinfo, BASE_PATH, PopupHandle, CreateThread
+from FunctionTest.func_script.func_lib import getinfo, BASE_PATH, PopupHandle, CreateThread, Logcat
 from FunctionTest.func_script.log_analyse import LogAnalyse
 from FunctionTest.func_script.send_email import EmailSending
 from FunctionTest.test_case.SKZS_daily_review import Cases
 
-# 设置发件人邮箱地址和密码
+# 设置发件人的邮箱地址和邮箱密码
 username = input('请输入发件人地址：')
 password = input('请输入邮箱密码：')
+
+# 监控adb进程，初始化所有adb.exe进程（kill掉）
+logcat = Logcat()
+logcat.kill_adb(0)
 
 # 检测daily_review的包并安装(注意：若公盘盘符不符请自行修改之后再运行！)
 apk_check = FilePath(apk_path=r'Z:\daily_review_SKZS')
 apk_check.monitor()
+logcat.check_adb()
 
 # 初始化appium连接
 ap_ser_che = AppiumServerCheck()
@@ -61,6 +66,7 @@ compress.compress_dir()
 send_report = EmailSending(username, password, file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
                            html_path=BASE_PATH + '\\test_result\\report',
                            image_path=BASE_PATH + '\\test_result\\screenshot')
+send_report.screen_shot()
 send_report.create_email()
 
 # 初始化工作区

@@ -34,8 +34,7 @@ class EmailSending(object):
     def find_content(self):
         # 从html文件里提取测试报告执行结果
         list = []
-        with open(self.get_latest_file(self.image_path),
-                  'rb') as fp:
+        with open(self.get_latest_file(self.image_path), 'rb') as fp:
             soup = BeautifulSoup(fp, 'html.parser')
         data = soup.find_all('tr')[1].find_all('td')[1:5]
         for i in data:
@@ -57,10 +56,10 @@ class EmailSending(object):
         password = self.password
         smtpserver = 'smtp.ym.163.com'
         sender = username
-        receiver = 'xuhe@excelliance.cn,wangzhe@excean.com,qizhaodi@excean.com,zhuyao@excean.com, \
-                   lixianzhuang@excelliance.cn,wangzhongchang@excelliance.cn,771432505@qq.com'
+        # receiver = 'xuhe@excelliance.cn,wangzhe@excean.com,qizhaodi@excean.com,zhuyao@excean.com, \
+        #            lixianzhuang@excelliance.cn,wangzhongchang@excelliance.cn,771432505@qq.com'
 
-        # receiver = '771432505@qq.com'
+        receiver = '771432505@qq.com'
         # 通过Header对象编码的文本，包含utf-8编码信息和Base64编码信息。以下中文名测试ok
         subject = '双开助手DailyReview测试报告'
         subject = Header(subject, 'utf-8').encode()
