@@ -11,6 +11,10 @@ from FunctionTest.func_script.log_analyse import LogAnalyse
 from FunctionTest.func_script.send_email import EmailSending
 from FunctionTest.test_case.SKZS_daily_review import Cases
 
+# 设置发件人邮箱地址和密码
+username = input('请输入发件人地址：')
+password = input('请输入邮箱密码：')
+
 # 检测daily_review的包并安装(注意：若公盘盘符不符请自行修改之后再运行！)
 apk_check = FilePath(apk_path=r'Z:\daily_review_SKZS')
 apk_check.monitor()
@@ -54,7 +58,7 @@ compress = Compression(new_file_path=r'Z:\daily_review_SKZS\daily_review_files\r
 compress.compress_dir()
 
 # 发送测试报告邮件
-send_report = EmailSending(file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
+send_report = EmailSending(username, password, file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
                            html_path=BASE_PATH + '\\test_result\\report',
                            image_path=BASE_PATH + '\\test_result\\screenshot')
 send_report.create_email()

@@ -14,10 +14,12 @@ from FunctionTest.func_script.func_lib import BASE_PATH
 
 
 class EmailSending(object):
-    def __init__(self, file_path=None, html_path=None, image_path=None):
+    def __init__(self, username, password, file_path=None, html_path=None, image_path=None):
         self.file_path = file_path
         self.image_path = image_path
         self.html_path = html_path
+        self.username = username
+        self.password = password
 
     def get_latest_file(self, get_path=None):
         """获取指定目录下按改动时间排序最新文件"""
@@ -51,12 +53,10 @@ class EmailSending(object):
 
     def create_email(self):
         """创建并发送邮件，测试报告通过邮件附件的形式发出"""
-        # 设置smtplib所需的参数
-        # 下面的发件人，收件人是用于邮件传输的。
+        username = self.username
+        password = self.password
         smtpserver = 'smtp.ym.163.com'
-        username = 'wangzhongchang@excelliance.cn'
-        password = 'wzc6851498'
-        sender = 'wangzhongchang@excelliance.cn'
+        sender = username
         # receiver = 'xuhe@excelliance.cn,wangzhe@excean.com,qizhaodi@excean.com,zhuyao@excean.com, \
         #            lixianzhuang@excelliance.cn,771432505@qq.com'
 
@@ -103,7 +103,8 @@ class EmailSending(object):
         smtp.quit()
 
 
-# email = EmailSending(file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
+# email = EmailSending(username=input('邮箱：'), password=input('密码：'),
+#                      file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
 #                      html_path=BASE_PATH + '\\test_result\\report',
 #                      image_path=BASE_PATH + '\\test_result\\screenshot')
 # email.screen_shot()
