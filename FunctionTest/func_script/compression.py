@@ -3,11 +3,13 @@ import os
 import time
 from zipfile import ZipFile, ZIP_DEFLATED
 
+from FunctionTest.func_script.func_lib import BASE_PATH
+
 
 class Compression(object):
     """压缩文件和文件夹"""
 
-    def __init__(self, new_file_path, dir_path):
+    def __init__(self, new_file_path=None, dir_path=None):
         self.new_file_path = new_file_path
         self.dir_path = dir_path
 
@@ -24,6 +26,7 @@ class Compression(object):
         z.close()
 
 
-# zip = Compression()
-# zip.compress_dir()
+if __name__ == '__main__':
+    z = Compression(new_file_path=r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest', dir_path=BASE_PATH + '\\test_result')
+    z.compress_dir()
 

@@ -102,9 +102,10 @@ class EmailSending(object):
         smtp.quit()
 
 
-# email = EmailSending(username=input('邮箱：'), password=input('密码：'),
-#                      file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
-#                      html_path=BASE_PATH + '\\test_result\\report',
-#                      image_path=BASE_PATH + '\\test_result\\screenshot')
-# email.screen_shot()
-# email.create_email()
+if __name__ == '__main__':
+    email = EmailSending(username=input('邮箱：'), password=input('密码：'),
+                         file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
+                         html_path=BASE_PATH + '\\test_result\\report',
+                         image_path=BASE_PATH + '\\test_result\\screenshot')
+    email.screen_shot()
+    email.create_email()

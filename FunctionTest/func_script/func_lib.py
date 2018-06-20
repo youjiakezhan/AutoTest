@@ -675,6 +675,6 @@ class Delete(object):
 # 设置基本路径
 getinfo = GetInfo()
 BASE_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-log_path = os.path.join(BASE_PATH, 'test_result\\logs\\')
+log_path = os.path.join(BASE_PATH, 'test_data\\logs\\')
 img_path = os.path.join(BASE_PATH, 'test_result\\error_img\\')
 report_path = os.path.join(BASE_PATH, 'test_result\\双开助手测试报告%s.html' % getinfo.get_time())

@@ -49,7 +49,7 @@ class AppiumServerCheck(object):
         os.popen('taskkill /f /pid ' + pid)
 
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
     ap_ser_che = AppiumServerCheck()
     ap_ser_che.check_appium_server()
     ap_ser_che.stop_appium_server()

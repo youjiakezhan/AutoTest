@@ -17,7 +17,7 @@ password = input('请输入邮箱密码：')
 
 # 监控adb进程，初始化所有adb.exe进程（kill掉）
 logcat = Logcat()
-logcat.kill_adb(0)
+logcat.kill_adb(arg=0)
 
 # 检测daily_review的包并安装(注意：若公盘盘符不符请自行修改之后再运行！)
 apk_check = FilePath(apk_path=r'Z:\daily_review_SKZS')
@@ -65,12 +65,11 @@ compress.compress_dir()
 # 发送测试报告邮件
 send_report = EmailSending(username, password, file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
                            html_path=BASE_PATH + '\\test_result\\report',
-                           image_path=BASE_PATH + '\\test_result\\screenshot')
+                           image_path=BASE_PATH + '\\test_data\\screenshot')
 send_report.screen_shot()
 send_report.create_email()
 
 # 初始化工作区
-# ask = input('是否清空测试数据:(输入y/Y/yes/YES/Yes清除测试数据)')
-# if ask == 'yes' or 'y' or 'Y' or 'YES' or 'Yes':
 cl = CleanWorkspace()
-cl.clean_test_result()
+cl.clean_test_result(BASE_PATH + '\\test_result')
+cl.clean_test_result(BASE_PATH + '\\test_data')

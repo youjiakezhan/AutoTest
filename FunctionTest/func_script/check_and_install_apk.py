@@ -54,5 +54,6 @@ class FilePath(object):
                 time.sleep(10)
 
 
-# fi = FilePath()
-# fi.monitor()
+if __name__ == '__main__':
+    fi = FilePath()
+    fi.monitor()

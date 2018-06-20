@@ -10,11 +10,13 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def setUp(self):
         self.wait_for(2)
         print("用例开始时间:", self.get_time())
+        # 开启adb的logcat进程抓取log
         self.start_logcat(log_path)
         self.start_app()
 
     def tearDown(self):
         print("用例结束时间:", self.get_time())
+        # 停止adb的logcat进程关闭log
         self.kill_adb(arg=1)
         self.clear_app()
 
@@ -1028,12 +1030,14 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         self.find_element('com.excelliance.dualaid:id/tv_sure_for_pay').click()
         self.wait_for(10)
         try:
-            self.assertIn('登录' or '立即支付', self.get_xml())
+            self.assertIn(self.get_current_activity(),
+                          ['.plugin.wallet.pay.ui.WalletPayUI', '.plugin.account.ui.SimpleLoginUI'])
         except Exception as e:
             print(e)
             self.screenshot(img_path + 'error016_3.png')
         finally:
-            self.assertIn('登录' or '立即支付', self.get_xml(), '点击确认支付跳转失败')
+            self.assertIn(self.get_current_activity(),
+                          ['.plugin.wallet.pay.ui.WalletPayUI', '.plugin.account.ui.SimpleLoginUI'], '点击确认支付跳转失败')
 
     def test017(self):
         """
@@ -1553,4 +1557,3 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
             self.screenshot(img_path + 'error021_2.png')
         finally:
             self.assertIn('com.excelliance.dualaid:id/iv_lock_app_img', self.get_xml(), '点击应用加锁跳转失败')
-
