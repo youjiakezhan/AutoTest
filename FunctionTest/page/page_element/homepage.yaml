@@ -1,0 +1,19 @@
+HomePage:
+  dec: 主界面
+  locators:
+      -
+        name: 个人中心
+        type: id
+        value: com.sankuai.meituan:id/city_button
+      -
+        name: 空间切换
+        type: id
+        value: com.sankuai.meituan:id/search_edit
+      -
+        name: 一键清理
+        type: id
+        value: com.sankuai.meituan:id/search_edit
+      -
+        name: 添加
+        type: id
+        value: com.sankuai.meituan:id/search_edit

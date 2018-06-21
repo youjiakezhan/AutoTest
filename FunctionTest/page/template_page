@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+
+from FunctionTest.page.page_create import PageCreate
+
+pc = PageCreate()
+pages = pc.traverse_yaml()
+
+
+def get_locater(class_name, method_name):
+    locators = pages[class_name]['locators']
+    for locator in locators:
+        if locator['name'] == method_name:
+            return locator
+
+{% for page, locators in page_list.items() %}
+class {{page}}:{% for locator in locators %}
+    {{locator}} = get_locater('{{page}}', '{{locator}}'){% endfor %}
+
+    {% endfor %}
+if __name__ == '__main__':
+    pass
+
