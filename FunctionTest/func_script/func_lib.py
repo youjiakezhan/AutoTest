@@ -36,8 +36,8 @@ class AppiumInit(object):
         desired_cups['appPackage'] = 'com.excelliance.dualaid'
         desired_cups['appActivity'] = 'com.excelliance.kxqp.ui.HelloActivity'
         desired_cups['noReset'] = 'true'
-        desired_cups['resetKeyboard'] = 'true'
         desired_cups['unicodeKeyboard'] = 'true'
+        desired_cups['resetKeyboard'] = 'true'
         desired_cups['automationName'] = 'uiautomator2'  # define use uiautomator2 to find element,default is appium
         driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_cups)
 
