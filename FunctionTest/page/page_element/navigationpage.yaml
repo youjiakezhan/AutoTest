@@ -1,0 +1,7 @@
+NavigationPage:
+    dec: 导航页
+    locators:
+        -
+            name: 立即体验
+            type: id
+            value: com.excelliance.dualaid:id/bt_explore

@@ -40,11 +40,11 @@ suit = unittest.TestSuite()
 suit.addTest(unittest.TestLoader().loadTestsFromTestCase(Cases))
 
 # 设置生成测试报告路径
-testReport = os.path.join(BASE_PATH, 'test_result\\report\\双开助手测试报告%s.html' % getinfo.get_time())
+testReport = os.path.join(BASE_PATH, 'test_result1\\report\\双开助手测试报告%s.html' % getinfo.get_time())
 
 # 执行测试并记录测试报告
 with open(testReport, 'wb') as f:
-    runner = HTMLTestRunner(f, title='双开助手版本迭代自动化测试报告', description='测试结果饼状图展示')
+    runner = HTMLTestRunner(f, title='双开助手Daily Review自动化测试报告', description='测试结果饼状图展示')
     runner.run(suit)
 
 # 停止弹窗监控
@@ -59,17 +59,17 @@ log_analyse.catch_anr_and_crash()
 
 # 压缩并保存测试结果(注意：若公盘盘符不符的请自行修改之后再运行！)
 compress = Compression(new_file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
-                       dir_path=BASE_PATH + '\\test_result')
+                       dir_path=BASE_PATH + '\\test_result1')
 compress.compress_dir()
 
 # 发送测试报告邮件
 send_report = EmailSending(username, password, file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
-                           html_path=BASE_PATH + '\\test_result\\report',
-                           image_path=BASE_PATH + '\\test_data\\screenshot')
+                           html_path=BASE_PATH + '\\test_result1\\report',
+                           image_path=BASE_PATH + '\\test_result2\\screenshot')
 send_report.screen_shot()
 send_report.create_email()
 
 # 初始化工作区
 cl = CleanWorkspace()
-cl.clean_test_result(BASE_PATH + '\\test_result')
-cl.clean_test_result(BASE_PATH + '\\test_data')
+cl.clean_test_result(BASE_PATH + '\\test_result1')
+cl.clean_test_result(BASE_PATH + '\\test_result2')

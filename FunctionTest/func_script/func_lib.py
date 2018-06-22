@@ -396,9 +396,9 @@ class AppOperation(object):
         """清除数据"""
         os.popen("adb shell pm clear com.excelliance.dualaid")
 
-    def force_stop(self, pck):
+    def force_stop(self, package_name):
         """强行停止"""
-        os.popen("adb shell am force-stop " + pck)
+        os.popen("adb shell am force-stop " + package_name)
 
     def start_app(self, choice=0):
         """启动APP（choice=0正常启动，choice=1时，启动并返回启动耗时）"""
@@ -594,6 +594,11 @@ class PopupHandle(object):
                     self.ele.find_element('com.excelliance.dualaid:id/tv_right').click()
                 except Exception:
                     self.ele.find_element('//*[@text="允许"]').click()
+            elif 'com.android.packageinstaller:id/dialog_container' in self.gf.get_xml():
+                try:
+                    self.ele.find_element('//*[@text="始终允许"]')
+                except Exception:
+                    pass
             else:
                 continue
 
@@ -614,11 +619,6 @@ class CreateThread(object):
                 time.sleep(2)
             else:
                 break
-
-
-class Log(object):
-    """用例执行日志"""
-    pass
 
 
 class Logcat(object):
@@ -648,32 +648,10 @@ class Logcat(object):
         log_name = os.path.join(log_path, 'log%s.txt' % self.getinfo.get_time())
         os.popen('adb logcat -v time > %s' % log_name)
 
-    # def stop_logcat(self):
-    #     data = os.popen('tasklist | findstr "adb.exe"')
-    #     for logcat_uid in data.readlines():
-    #         if "adb.exe" in logcat_uid:
-    #             os.popen('taskkill /f /pid ' + logcat_uid.split()[1])
-
-
-class Delete(object):
-    """删除文件和文件夹"""
-
-    def del_file(self, file_path):
-        if os.path.isfile(file_path):
-            os.remove(file_path)
-        else:
-            print('No such file:%s' % file_path)
-
-    def del_directory(self, dir_path):
-        if os.path.isdir(dir_path):
-            os.rmdir(dir_path)
-        else:
-            print('No such directory:%s' % dir_path)
-
 
 # 设置基本路径
 getinfo = GetInfo()
 BASE_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-log_path = os.path.join(BASE_PATH, 'test_data\\logs\\')
-img_path = os.path.join(BASE_PATH, 'test_result\\error_img\\')
-report_path = os.path.join(BASE_PATH, 'test_result\\双开助手测试报告%s.html' % getinfo.get_time())
+log_path = os.path.join(BASE_PATH, 'test_result2\\logs\\')
+img_path = os.path.join(BASE_PATH, 'test_result1\\error_img\\')
+report_path = os.path.join(BASE_PATH, 'test_result1\\双开助手测试报告%s.html' % getinfo.get_time())

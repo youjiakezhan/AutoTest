@@ -1,0 +1,20 @@
+LoginPage:
+  dec: 登录/注册页
+  locators:
+      -
+        name: 下一步
+        type: id
+        value: com.excelliance.dualaid:id/btn_next_step
+      -
+        name: 登录
+        type: id
+        value: com.excelliance.dualaid:id/tv_login
+      -
+        name: 免注册登录
+        type: id
+        value: com.excelliance.dualaid:id/tv_quick_login
+
+
+
+
+

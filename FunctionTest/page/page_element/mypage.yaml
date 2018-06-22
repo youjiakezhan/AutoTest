@@ -2,10 +2,18 @@ MyPage:
   dec: 我的
   locators:
       -
-        name: 我的
-        type: accessibility_id
-        value: 我的
+        name: 返回
+        type: id
+        value:
       -
-         name: 请点击登录
-         type: id
-         value: com.sankuai.meituan:id/user_name
+        name: 头像
+        type: id
+        value: com.excelliance.dualaid:id/iv_icon
+      -
+        name: 版本更新
+        type: id
+        value: com.excelliance.dualaid:id/rl_update
+      -
+        name: 开通VIP会员
+        type: id
+        value: com.excelliance.dualaid:id/iv_icon

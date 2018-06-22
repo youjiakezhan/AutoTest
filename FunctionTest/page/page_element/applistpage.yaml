@@ -1,0 +1,11 @@
+AppListPage:
+  dec: 添加应用列表页
+  locators:
+      -
+        name: 添加双开应用
+        type: id
+        value: com.excelliance.dualaid:id/add_game_tv_back
+      -
+        name: 添加
+        type: id
+        value: com.excelliance.dualaid:id/add_game_btn

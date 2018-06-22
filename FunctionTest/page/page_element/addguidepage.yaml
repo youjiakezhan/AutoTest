@@ -1,0 +1,15 @@
+AddGuidePage:
+    dec: 添加引导页
+    locators:
+        -
+            name: 登录注册
+            type: id
+            value: com.excelliance.dualaid:id/tv_login_in
+        -
+            name: 开启
+            type: id
+            value: com.excelliance.dualaid:id/first_start_ok
+        -
+            name: 复选框
+            type: id
+            value: com.excelliance.dualaid:id/check_box_01

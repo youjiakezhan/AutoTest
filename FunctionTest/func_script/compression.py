@@ -27,6 +27,6 @@ class Compression(object):
 
 
 if __name__ == '__main__':
-    z = Compression(new_file_path=r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest', dir_path=BASE_PATH + '\\test_result')
+    z = Compression(new_file_path=r'C:\Users\BAIWAN\PycharmProjects\AutoTest\FunctionTest', dir_path=BASE_PATH + '\\test_result1')
     z.compress_dir()
 

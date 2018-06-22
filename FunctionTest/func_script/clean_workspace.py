@@ -16,5 +16,5 @@ class CleanWorkspace(object):
 
 if __name__ == '__main__':
     clean = CleanWorkspace()
-    clean.clean_test_result(BASE_PATH + '\\test_result')
-    clean.clean_test_result(BASE_PATH + '\\test_data')
+    clean.clean_test_result(BASE_PATH + '\\test_result1')
+    clean.clean_test_result(BASE_PATH + '\\test_result2')

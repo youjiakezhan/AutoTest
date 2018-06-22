@@ -46,7 +46,7 @@ class PageCreate(object):
         template_env = jinja2.Environment(loader=template_loader)
         template_vars = {'page_list': page_list}
         template = template_env.get_template('template_page')
-        with open(os.path.join(base_path, 'pages.py'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(base_path, 'page.py'), 'w', encoding='utf-8') as f:
             f.write(template.render(template_vars))
 
 

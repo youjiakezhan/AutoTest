@@ -4,16 +4,102 @@ HomePage:
       -
         name: 个人中心
         type: id
-        value: com.sankuai.meituan:id/city_button
+        value: com.excelliance.dualaid:id/iv_icon
       -
         name: 空间切换
         type: id
-        value: com.sankuai.meituan:id/search_edit
+        value: com.excelliance.dualaid:id/ib_lock
       -
         name: 一键清理
         type: id
         value: com.sankuai.meituan:id/search_edit
       -
-        name: 添加
+        name: 添加按钮
         type: id
-        value: com.sankuai.meituan:id/search_edit
+        value: com.excelliance.dualaid:id/add_but
+      -
+        name: 多开引导
+        type: id
+        value: com.excelliance.dualaid:id/tv_app_add
+      -
+        name: icon位
+        type: id
+        value: com.excelliance.dualaid:id/root
+      -
+        name: activity
+        type: id
+        value: com.excelliance.kxqp.ui.MainActivity
+      -
+        name: 添加引导
+        type: id
+        value: com.excelliance.dualaid:id/tv_bt_add
+      -
+        name: 应用菜单窗口
+        type: id
+        value: com.excelliance.dualaid:id/rootView
+      -
+        name: 桌面图标
+        type: id
+        value: com.excelliance.dualaid:id/item_pop_icon_relative
+      -
+        name: 移动位置
+        type: id
+        value: com.excelliance.dualaid:id/item_pop_move_relative
+      -
+        name: 图标伪装
+        type: id
+        value: com.excelliance.dualaid:id/item_pop_custom_relative
+      -
+        name: 删除应用
+        type: id
+        value: com.excelliance.dualaid:id/item_pop_delete_relative
+      -
+        name: 一键修复
+        type: id
+        value: com.excelliance.dualaid:id/item_pop_repair_relative
+      -
+        name: 二级菜单窗口X
+        type: id
+        value: com.excelliance.dualaid:id/dialog_image_back
+      -
+        name: 删除
+        type: id
+        value: com.excelliance.dualaid:id/tv_left
+      -
+        name: 完成
+        type: id
+        value: com.excelliance.dualaid:id/ib_menuorcontent
+      -
+        name: 二级菜单窗口
+        type: id
+        value: com.excelliance.dualaid:id/dialog_main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

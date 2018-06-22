@@ -1,0 +1,11 @@
+EditInfoPage:
+  dec: 编辑个人信息页
+  locators:
+      -
+        name: 退出登录
+        type: id
+        value: com.excelliance.dualaid:id/tv_login_out
+      -
+        name: 确认退出
+        type: id
+        value: com.excelliance.dualaid:id/bt_sure

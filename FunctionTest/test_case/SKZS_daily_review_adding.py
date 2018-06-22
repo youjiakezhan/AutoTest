@@ -5,7 +5,7 @@ from FunctionTest.func_script.func_lib import *
 
 
 class AddTestcase(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, FindElement,
-                  Waiting, PhoneSetting, AppOperation, PopupHandle, CreateThread, Logcat, Delete):
+                  Waiting, PhoneSetting, AppOperation, PopupHandle, CreateThread, Logcat):
     # 以下为用例编写方法和规范,如有不清楚的地方可询问作者(@eternalsunshine)
     # 请按照 test_template 测试用例模板的格式编写测试用例(本架构会自动识别所有以 test 开头的函数并添加为测试用例)
     # 断言设置标准为:完成一个操作后就顺便为该操作添加断言
