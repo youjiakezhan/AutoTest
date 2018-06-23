@@ -72,7 +72,7 @@ class ScreenShot(object):
             print('argument error!')
 
     def image_contrast(self, img1, img2):
-        """图片对比"""
+        """图片对比，返回值越大表示图片差异越大"""
         image1 = Image.open(img1)
         image2 = Image.open(img2)
         h1 = image1.histogram()
@@ -625,6 +625,7 @@ class Logcat(object):
     """手机日志"""
     getinfo = GetInfo()
     """抓取和停止手机logcat以及对adb进程的监控"""
+
     def check_adb(self):
         global adb_pid_host
         adb_pid_host = ''

@@ -1,6 +1,7 @@
 # coding=utf-8
 import os
 import unittest
+
 from FunctionTest.func_script.HTMLTestRunner import HTMLTestRunner
 from FunctionTest.func_script.appium_server_check import AppiumServerCheck
 from FunctionTest.func_script.check_and_install_apk import FilePath
@@ -54,7 +55,9 @@ thread.stop_thread()
 ap_ser_che.stop_appium_server()
 
 # 测试用例执行完毕，分析log
-log_analyse = LogAnalyse()
+log_analyse = LogAnalyse(log_path=BASE_PATH + '\\test_result2\\logs',
+                         anr_path=BASE_PATH + '\\test_result1\\anr_log\\anr.txt',
+                         crash_path=BASE_PATH + '\\test_result1\\crash_log\\crash.txt')
 log_analyse.catch_anr_and_crash()
 
 # 压缩并保存测试结果(注意：若公盘盘符不符的请自行修改之后再运行！)

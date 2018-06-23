@@ -38,15 +38,19 @@ class AppiumServerCheck(object):
                         except urllib.error.URLError:
                             time.sleep(3)
                     self.ap_opr.force_stop('com.excelliance.dualaid')
-                    print('调试结束，开始执行测试...\n')
+                    print('测试环境OK，开始执行测试...\n')
                     break
                 else:
                     time.sleep(3)
 
     def stop_appium_server(self):
         # 结束appium进程（Windows适用）
-        pid = os.popen('tasklist | findstr "node.exe"').read().split()[1]
-        os.popen('taskkill /f /pid ' + pid)
+        pid_node = os.popen('tasklist | findstr "node.exe"').readlines()
+        for i in pid_node:
+            os.popen('taskkill /f /pid ' + i.split()[1])
+        pid_cmd = os.popen('tasklist | findstr "cmd.exe"').readlines()
+        for i in pid_cmd:
+            os.popen('taskkill /f /pid ' + i.split()[1])
 
 
 if __name__ == '__main__':

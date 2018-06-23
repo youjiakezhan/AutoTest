@@ -51,7 +51,7 @@ class FilePath(object):
                 break
             except Exception:
                 print('未检测到双开助手daily review安装包\n本次检测时间：%s\n' % getinfo.get_time(2))
-                time.sleep(10)
+                time.sleep(600)
 
 
 if __name__ == '__main__':
