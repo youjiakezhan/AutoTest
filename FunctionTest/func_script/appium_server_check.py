@@ -23,7 +23,7 @@ class AppiumServerCheck(object):
                 except urllib.error.URLError:
                     time.sleep(3)
             self.ap_opr.force_stop('com.excelliance.dualaid')
-            print('调试结束，开始执行测试...\n')
+            print('测试环境OK，开始执行测试\n')
         else:
             os.popen("start appium")
             print("正在启动appium服务程序，请稍后...\n")
@@ -38,7 +38,7 @@ class AppiumServerCheck(object):
                         except urllib.error.URLError:
                             time.sleep(3)
                     self.ap_opr.force_stop('com.excelliance.dualaid')
-                    print('测试环境OK，开始执行测试...\n')
+                    print('测试环境OK，开始执行测试\n')
                     break
                 else:
                     time.sleep(3)

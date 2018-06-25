@@ -11,7 +11,7 @@ class LogAnalyse(object):
 
     def catch_anr_and_crash(self):
         for i in os.listdir(os.path.join(self.log_path)):
-            with open(os.path.join(self.log_path + i), 'rb') as f:
+            with open(os.path.join(self.log_path, i), 'rb') as f:
                 for j in f.readlines():
                     if b'anr in' in j:
                         with open(os.path.join(self.anr_path),

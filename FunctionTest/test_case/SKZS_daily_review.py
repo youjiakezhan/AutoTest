@@ -10,13 +10,13 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
     def setUp(self):
         self.wait_for(2)
-        print("用例开始时间:", self.get_time())
+        print("用例开始时间:", self.get_time(1))
         # 开启adb的logcat进程抓取log
         self.start_logcat(log_path)
         self.start_app()
 
     def tearDown(self):
-        print("用例结束时间:", self.get_time())
+        print("用例结束时间:", self.get_time(1))
         # 停止adb的logcat进程关闭log
         self.kill_adb(arg=1)
         self.clear_app()
@@ -430,7 +430,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
         # 对选择添加微信的结果断言
         self.find_elements(HomePage.icon位['value'])[3].click()
-        self.wait_for(3)
+        self.wait_for(6)
+        # self.find_elements(HomePage.icon位['value'])[3].click()  # 有防封号引擎时使用
         try:
             self.assertIn('微信', self.get_xml())
         except Exception as e:
@@ -642,7 +643,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
 
         # 对点击添加微信的结果断言
         self.find_elements(AppListPage.添加['value'])[0].click()
-        self.wait_for(5)
+        self.wait_for(8)
         try:
             self.assertTrue(self.get_xml().count('微信') == 2)
         except Exception as e:
@@ -1037,11 +1038,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
             print(e)
             self.screenshot(img_path + 'error016_3.png')
         finally:
-            if self.assertIn(self.get_current_activity(),
-                             ['.plugin.wallet.pay.ui.WalletPayUI', '.plugin.account.ui.SimpleLoginUI'], '点击确认支付跳转失败'):
-                self.force_stop('com.tencent.mm')
-            else:
-                self.force_stop('com.tencent.mm')
+            self.assertIn(self.get_current_activity(),
+                          ['.plugin.wallet.pay.ui.WalletPayUI', '.plugin.account.ui.SimpleLoginUI'], '点击确认支付跳转失败')
 
     def test017(self):
         """
@@ -1051,6 +1049,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
         3.点击免注册登录
         """
         try:
+            self.force_stop('com.tencent.mm')
             self.set_app_status1()
         except Exception as e:
             print(e)

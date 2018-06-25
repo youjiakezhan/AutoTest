@@ -130,11 +130,11 @@ class GetInfo(object):
         list1.append(y)
         return list1
 
-    def get_time(self, display=1):
+    def get_time(self, display=0):
         """获取当前时间并以自定义格式返回"""
-        if display == 1:
+        if display == 0:
             now = time.strftime('%y%m%d%H%M%S')
-        else:
+        elif display ==1:
             now = time.strftime('%Y.%m.%d_%H:%M:%S')
         return now
 
@@ -578,7 +578,12 @@ class PopupHandle(object):
                         self.ele.find_element('//*[@text="确定"]').click()
                     except Exception:
                         self.ele.find_element('//*[@text="以后再说"]').click()
-
+                elif '防封号' in self.gf.get_xml():
+                    try:
+                        self.ele.find_element('com.excelliance.dualaid:id/cb_noToast').click()
+                        self.ele.find_element('com.excelliance.dualaid:id/tv_left').click()
+                    except Exception:
+                        pass
             else:
                 continue
 
@@ -635,14 +640,17 @@ class Logcat(object):
             return adb_pid_host
 
     def kill_adb(self, arg):
+        global adb_pid_host
         adb_pid = os.popen('tasklist | findstr "adb.exe"')
         if arg == 1:
             for i in adb_pid:
                 if adb_pid_host not in i:
                     os.popen('taskkill /f /pid ' + i.split()[1])
+                    time.sleep(3)
         elif arg == 0:
             for i in adb_pid:
                 os.popen('taskkill /f /pid ' + i.split()[1])
+                time.sleep(3)
 
     def start_logcat(self, log_path):
         os.popen('adb logcat -c')
