@@ -497,172 +497,204 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     #         self.screenshot(img_path + 'error009_3.png')
     #     finally:
     #         self.assertIn('登录', self.get_xml(), '点击启动微信失败')
-    #
-    # def test010(self):
-    #     """
-    #     登录VIP账户,先后添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
-    #     1.启动app至状态（登录VIP账号后的主界面）
-    #     2.点击空间切换按钮
-    #     3.点击添加按钮
-    #     4.选择微信并点击添加
-    #     5.点击添加按钮
-    #     6.选择微信并点击添加
-    #     7.点击第二空间微信图标启动微信
-    #     """
-    #     try:
-    #         self.set_app_status7()
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'settingerror010.png')
-    #
-    #     # 对点击空间切换按钮的结果断言
-    #     self.find_element(HomePage.空间切换['value']).click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertTrue(self.find_element(HomePage.添加引导['value']).is_displayed())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error010_1.png')
-    #     finally:
-    #         self.assertTrue(self.find_element(HomePage.添加引导['value']).is_displayed(),
-    #                         '点击空间切换按钮跳转失败')
-    #
-    #     # 对点击添加按钮的结果断言
-    #     self.back()
-    #     self.wait_for(3)
-    #
-    #     self.find_element(HomePage.添加按钮['value']).click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertTrue(self.find_element(AppListPage.添加双开应用['value']).is_displayed())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error010_2.png')
-    #     finally:
-    #         self.assertTrue(self.find_element(AppListPage.添加双开应用['value']).is_displayed(),
-    #                         '点击添加按钮跳转失败')
-    #
-    #     # 对点击添加微信的结果断言
-    #     self.find_elements(AppListPage.添加['value'])[0].click()
-    #     self.wait_for(5)
-    #
-    #     self.find_elements(HomePage.icon位['value'])[1].click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertIn(HomePage.多开引导['value'], self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error010_3.png')
-    #     finally:
-    #         self.assertIn(HomePage.多开引导['value'], self.get_xml(), '点击添加微信失败')
-    #
-    #     # 对点击添加按钮的结果断言
-    #     self.back()
-    #     self.wait_for(3)
-    #     self.find_element(HomePage.添加按钮['value']).click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertTrue(self.find_element(AppListPage.添加双开应用['value']).is_displayed())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error010_4.png')
-    #     finally:
-    #         self.assertTrue(self.find_element(AppListPage.添加双开应用['value']).is_displayed(),
-    #                         '点击添加按钮跳转失败')
-    #
-    #     # 对点击添加微信的结果断言
-    #     self.find_elements(AppListPage.添加['value'])[0].click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertTrue(self.get_xml().count('微信') == 2)
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error010_5.png')
-    #     finally:
-    #         self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
-    #
-    #     # 对点击启动微信的结果断言
-    #     self.find_elements(HomePage.icon位['value'])[3].click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertIn('登录', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error010_6.png')
-    #     finally:
-    #         self.assertIn('登录', self.get_xml(), '点击启动微信失败')
-    #
-    # def test011(self):
-    #     """
-    #     登录VIP账户,在平铺界面先后添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
-    #     1.首次启动app至状态（登录VIP账号后的平铺界面）
-    #     2.点击添加按钮
-    #     3.选择微信并点击添加
-    #     4.点击添加按钮
-    #     5.选择微信并点击添加
-    #     6.点击微信2图标启动微信
-    #     """
-    #     try:
-    #         self.set_app_status7()
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'settingerror011.png')
-    #
-    #     # 对点击添加按钮的结果断言
-    #     self.find_element(HomePage.添加按钮['value']).click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertIn(AppListPage.添加双开应用['value'], self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error011_1.png')
-    #     finally:
-    #         self.assertIn(AppListPage.添加双开应用['value'], self.get_xml(), '点击添加按钮跳转失败')
-    #
-    #     # 对点击添加微信的结果断言
-    #     self.find_elements(AppListPage.添加['value'])[0].click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertTrue(self.get_xml().count('微信') == 1)
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error011_2.png')
-    #     finally:
-    #         self.assertTrue(self.get_xml().count('微信') == 1, '点击添加微信失败')
-    #
-    #     # 对点击添加按钮的结果断言
-    #     self.find_element(HomePage.添加按钮['value']).click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertIn(AppListPage.添加双开应用['value'], self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error011_3.png')
-    #     finally:
-    #         self.assertIn(AppListPage.添加双开应用['value'], self.get_xml(), '点击添加按钮跳转失败')
-    #
-    #     # 对点击添加微信的结果断言
-    #     self.find_elements(AppListPage.添加['value'])[0].click()
-    #     self.wait_for(8)
-    #     try:
-    #         self.assertTrue(self.get_xml().count('微信') == 2)
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error011_4.png')
-    #     finally:
-    #         self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
-    #
-    #     # 对点击启动微信的结果断言
-    #     self.find_elements(HomePage.icon位['value'])[2].click()
-    #     self.wait_for(5)
-    #     try:
-    #         self.assertIn('登录', self.get_xml())
-    #     except Exception as e:
-    #         print(e)
-    #         self.screenshot(img_path + 'error011_5.png')
-    #     finally:
-    #         self.assertIn('登录', self.get_xml(), '点击启动微信失败')
-    #
+
+    def test010(self):
+        """
+        登录VIP账户,先后添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
+        1.启动app至状态（登录VIP账号后的主界面）
+        2.点击空间切换按钮
+        3.点击添加按钮
+        4.选择微信并点击添加
+        5.点击添加按钮
+        6.选择微信并点击添加
+        7.点击第二空间微信图标启动微信
+        """
+        try:
+            self.set_app_status7()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror010.png')
+
+        # 对点击空间切换按钮的结果断言
+        self.find_element(HomePage.空间切换['value']).click()
+        self.wait_for(5)
+        try:
+            self.assertTrue(self.find_element(HomePage.添加引导['value']).is_displayed())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error010_1.png')
+        finally:
+            self.assertTrue(self.find_element(HomePage.添加引导['value']).is_displayed(),
+                            '点击空间切换按钮跳转失败')
+
+        # 对点击添加按钮的结果断言
+        self.back()
+        self.wait_for(3)
+
+        self.find_element(HomePage.添加按钮['value']).click()
+        self.wait_for(5)
+        try:
+            self.assertTrue(self.find_element(AppListPage.添加双开应用['value']).is_displayed())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error010_2.png')
+        finally:
+            self.assertTrue(self.find_element(AppListPage.添加双开应用['value']).is_displayed(),
+                            '点击添加按钮跳转失败')
+
+        # 对点击添加微信的结果断言
+        self.find_elements(AppListPage.添加['value'])[0].click()
+        self.wait_for(5)
+
+        self.find_elements(HomePage.icon位['value'])[1].click()
+        self.wait_for(5)
+        try:
+            self.assertIn(HomePage.多开引导['value'], self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error010_3.png')
+        finally:
+            self.assertIn(HomePage.多开引导['value'], self.get_xml(), '点击添加微信失败')
+
+        # 对点击添加按钮的结果断言
+        self.back()
+        self.wait_for(3)
+        self.find_element(HomePage.添加按钮['value']).click()
+        self.wait_for(5)
+        try:
+            self.assertTrue(self.find_element(AppListPage.添加双开应用['value']).is_displayed())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error010_4.png')
+        finally:
+            self.assertTrue(self.find_element(AppListPage.添加双开应用['value']).is_displayed(),
+                            '点击添加按钮跳转失败')
+
+        # 对点击添加微信的结果断言
+        self.find_elements(AppListPage.添加['value'])[0].click()
+        self.wait_for(5)
+        try:
+            self.assertIn(HomePage.弹出窗['value'], self.get_xml())
+        except Exception as e:
+            self.screenshot(img_path + 'error010_5.png')
+            print(e)
+        finally:
+            self.assertIn(HomePage.弹出窗['value'], self.get_xml(), '防封号引擎提示未弹出')
+
+        # 点击防封号引擎不再提醒和暂不断言
+        self.find_element(HomePage.防封号不再提醒['value']).click()
+        self.find_element(HomePage.防封号暂不['value']).click()
+        self.wait_for(5)
+        try:
+            self.assertTrue(self.get_xml().count('微信') == 2)
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error010_6.png')
+        finally:
+            self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
+
+        # 对点击启动微信的结果断言
+        self.find_elements(HomePage.icon位['value'])[3].click()
+        self.wait_for(5)
+        try:
+            self.assertIn('登录', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error010_7.png')
+        finally:
+            self.assertIn('登录', self.get_xml(), '点击启动微信失败')
+
+    def test011(self):
+        """
+        登录VIP账户,在平铺界面先后添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
+        1.首次启动app至状态（登录VIP账号后的平铺界面）
+        2.点击添加按钮
+        3.选择微信并点击添加
+        4.点击添加按钮
+        5.选择微信并点击添加
+        6.点击微信2图标启动微信
+        """
+        try:
+            self.set_app_status7()
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'settingerror011.png')
+
+        # 对点击添加按钮的结果断言
+        self.find_element(HomePage.添加按钮['value']).click()
+        self.wait_for(5)
+        try:
+            self.assertIn(AppListPage.添加双开应用['value'], self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error011_1.png')
+        finally:
+            self.assertIn(AppListPage.添加双开应用['value'], self.get_xml(), '点击添加按钮跳转失败')
+
+        # 对点击添加微信的结果断言
+        self.find_elements(AppListPage.添加['value'])[0].click()
+        self.wait_for(5)
+        try:
+            self.assertTrue(self.get_xml().count('微信') == 1)
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error011_2.png')
+        finally:
+            self.assertTrue(self.get_xml().count('微信') == 1, '点击添加微信失败')
+
+        # 对点击添加按钮的结果断言
+        self.find_element(HomePage.添加按钮['value']).click()
+        self.wait_for(5)
+        try:
+            self.assertIn(AppListPage.添加双开应用['value'], self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error011_3.png')
+        finally:
+            self.assertIn(AppListPage.添加双开应用['value'], self.get_xml(), '点击添加按钮跳转失败')
+
+        # 对点击添加微信的结果断言
+        self.find_elements(AppListPage.添加['value'])[0].click()
+        self.wait_for(5)
+        try:
+            self.assertIn(HomePage.弹出窗['value'], self.get_xml())
+        except Exception as e:
+            self.screenshot(img_path + 'error011_4.png')
+            print(e)
+        finally:
+            self.assertIn(HomePage.弹出窗['value'], self.get_xml(), '防封号引擎提示未弹出')
+
+        # 点击防封号引擎不再提醒和暂不断言
+        self.find_element(HomePage.防封号不再提醒['value']).click()
+        self.find_element(HomePage.防封号暂不['value']).click()
+        self.wait_for(5)
+        try:
+            self.assertTrue(self.get_xml().count('微信') == 2)
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error011_5.png')
+        finally:
+            self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
+
+        try:
+            self.assertTrue(self.get_xml().count('微信') == 2)
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error011_6.png')
+        finally:
+            self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
+
+        # 对点击启动微信的结果断言
+        self.find_elements(HomePage.icon位['value'])[2].click()
+        self.wait_for(5)
+        try:
+            self.assertIn('登录', self.get_xml())
+        except Exception as e:
+            print(e)
+            self.screenshot(img_path + 'error011_7.png')
+        finally:
+            self.assertIn('登录', self.get_xml(), '点击启动微信失败')
+
     # def test012(self):
     #     """
     #     主界面添加一款应用(微信),长按弹出菜单的遍历
@@ -979,7 +1011,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     #
     #     # 对点击确认支付的结果断言
     #     self.find_element(PaymentPage.确认支付['value']).click()
-    #     self.wait_for(10)
+    #     self.wait_for(15)
     #     try:
     #         self.assertTrue(self.get_current_activity() != 'com.excelliance.kxqp.pay.ali.PayMoreCountsActivity')
     #     except Exception as e:
@@ -988,59 +1020,64 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     #     finally:
     #         self.assertTrue(self.get_current_activity() != 'com.excelliance.kxqp.pay.ali.PayMoreCountsActivity',
     #                         '点击确认支付跳转失败')
-
-    def test016(self):
-        """
-        选择微信支付,点击确认支付按钮
-        1.启动app至状态（登录非VIP账号的个人中心界面）
-        2.点击开通VIP会员按钮
-        3.下滑找到微信支付并选择该支付方式
-        4.点击确认支付按钮
-        """
-        try:
-            self.set_app_status5()
-        except Exception as e:
-            print(e)
-            self.screenshot(img_path + 'settingerror016.png')
-
-        # 对点击开通VIP会员按钮结果断言
-        self.find_element(MyPage.开通VIP会员['value']).click()
-        self.wait_for(3)
-        try:
-            self.assertIn(PaymentPage.支付开通标题['value'] or '确认付款', self.get_xml())
-        except Exception as e:
-            print(e)
-            self.screenshot(img_path + 'error016_1.png')
-        finally:
-            self.assertIn(PaymentPage.支付开通标题['value'] or '确认付款', self.get_xml(), '点击开通VIP会员按钮跳转失败')
-
-        # 对上滑查找并选择微信支付方式的结果断言
-        self.swipe_up()
-        self.wait_for(2)
-        self.find_elements(PaymentPage.支付方式选择['value'])[1].click()
-        self.wait_for(1)
-        try:
-            self.assertTrue(self.find_elements(PaymentPage.支付方式选择['value'])[1].is_displayed())
-        except Exception as e:
-            print(e)
-            self.screenshot(img_path + 'error016_2.png')
-        finally:
-            self.assertTrue(self.find_elements(PaymentPage.支付方式选择['value'])[1].is_displayed(),
-                            '切换支付方式失败')
-
-        # 对点击确认支付的结果断言
-        self.find_element(PaymentPage.确认支付['value']).click()
-        self.wait_for(10)
-        try:
-            self.assertIn(self.get_current_activity(),
-                          ['.plugin.wallet.pay.ui.WalletPayUI', '.plugin.account.ui.SimpleLoginUI'])
-        except Exception as e:
-            print(e)
-            self.screenshot(img_path + 'error016_3.png')
-        finally:
-            self.assertIn(self.get_current_activity(),
-                          ['.plugin.wallet.pay.ui.WalletPayUI', '.plugin.account.ui.SimpleLoginUI'], '点击确认支付跳转失败')
-
+    #
+    # def test016(self):
+    #     """
+    #     选择微信支付,点击确认支付按钮
+    #     1.启动app至状态（登录非VIP账号的个人中心界面）
+    #     2.点击开通VIP会员按钮
+    #     3.下滑找到微信支付并选择该支付方式
+    #     4.点击确认支付按钮
+    #     """
+    #     try:
+    #         self.force_stop('com.eg.android.AlipayGphone')
+    #         self.set_app_status5()
+    #     except Exception as e:
+    #         print(e)
+    #         self.screenshot(img_path + 'settingerror016.png')
+    #
+    #     # 对点击开通VIP会员按钮结果断言
+    #     self.find_element(MyPage.开通VIP会员['value']).click()
+    #     self.wait_for(3)
+    #     try:
+    #         self.assertIn(PaymentPage.支付开通标题['value'] or '确认付款', self.get_xml())
+    #     except Exception as e:
+    #         print(e)
+    #         self.screenshot(img_path + 'error016_1.png')
+    #     finally:
+    #         self.assertIn(PaymentPage.支付开通标题['value'] or '确认付款', self.get_xml(), '点击开通VIP会员按钮跳转失败')
+    #
+    #     # 对上滑查找并选择微信支付方式的结果断言
+    #     self.swipe_up()
+    #     self.wait_for(2)
+    #     try:
+    #         self.find_elements(PaymentPage.支付方式选择['value'])[1].click()
+    #         self.wait_for(1)
+    #     except Exception:
+    #         self.screenshot(img_path + '微信支付加载失败.png')
+    #         print('微信支付未显示')
+    #     try:
+    #         self.assertTrue(self.find_elements(PaymentPage.支付方式选择['value'])[1].is_displayed())
+    #     except Exception as e:
+    #         print(e)
+    #         self.screenshot(img_path + 'error016_2.png')
+    #     finally:
+    #         self.assertTrue(self.find_elements(PaymentPage.支付方式选择['value'])[1].is_displayed(),
+    #                         '切换支付方式失败')
+    #
+    #     # 对点击确认支付的结果断言
+    #     self.find_element(PaymentPage.确认支付['value']).click()
+    #     self.wait_for(15)
+    #     try:
+    #         self.assertIn(self.get_current_activity(),
+    #                       ['.plugin.wallet.pay.ui.WalletPayUI', '.plugin.account.ui.SimpleLoginUI'])
+    #     except Exception as e:
+    #         print(e)
+    #         self.screenshot(img_path + 'error016_3.png')
+    #     finally:
+    #         self.assertIn(self.get_current_activity(),
+    #                       ['.plugin.wallet.pay.ui.WalletPayUI', '.plugin.account.ui.SimpleLoginUI'], '点击确认支付跳转失败')
+    #
     # def test017(self):
     #     """
     #     免注册登录按钮

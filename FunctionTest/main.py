@@ -15,7 +15,7 @@ from FunctionTest.test_case.SKZS_daily_review import Cases
 # # 设置发件人的邮箱地址和邮箱密码
 # username = input('请输入发件人地址：')
 # password = input('请输入邮箱密码：')
-
+#
 # 监控adb进程，初始化所有adb.exe进程（kill掉）
 logcat = Logcat()
 logcat.kill_adb(arg=0)
@@ -33,7 +33,7 @@ ap_ser_che.check_appium_server()
 thread = CreateThread()
 popup_handle = PopupHandle()
 thread1 = thread.start_thread(popup_handle.sys_win_alert)
-thread2 = thread.start_thread(popup_handle.app_alert)
+# thread2 = thread.start_thread(popup_handle.app_alert)
 thread3 = thread.start_thread(popup_handle.android_alert)
 
 # 装载测试用例

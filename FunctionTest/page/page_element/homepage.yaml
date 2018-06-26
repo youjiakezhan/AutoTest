@@ -89,8 +89,14 @@ HomePage:
         name: 弹出窗右按钮
         type: id
         value: com.excelliance.dualaid:id/tv_right
-
-
+      -
+        name: 防封号不再提醒
+        type: id
+        value: com.excelliance.dualaid:id/cb_noToast
+      -
+        name: 防封号暂不
+        type: id
+        value: com.excelliance.dualaid:id/tv_left
 
 
 

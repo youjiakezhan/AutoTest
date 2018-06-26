@@ -36,8 +36,8 @@ class AppiumInit(object):
         desired_cups['appPackage'] = 'com.excelliance.dualaid'
         desired_cups['appActivity'] = 'com.excelliance.kxqp.ui.HelloActivity'
         desired_cups['noReset'] = 'true'
-        desired_cups['unicodeKeyboard'] = 'true'
-        desired_cups['resetKeyboard'] = 'true'
+        # desired_cups['unicodeKeyboard'] = 'true'
+        # desired_cups['resetKeyboard'] = 'true'
         desired_cups['automationName'] = 'uiautomator2'  # define use uiautomator2 to find element,default is appium
         driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_cups)
 
@@ -244,6 +244,8 @@ class UserOperation(object):
 
 class FindElement(object):
     """查找并定位控件"""
+    st = ScreenShot()
+    gf = GetInfo()
     op = UserOperation()
 
     def find_element(self, ele):
@@ -258,6 +260,7 @@ class FindElement(object):
                 element = driver.find_element_by_class_name(ele)
             except:
                 print("控件定位失败")
+                self.st.screenshot(BASE_PATH + '\\test_result1\\error_img\\%s元素未找到.png' % self.gf.get_time())
         return element
 
     def pc_find_elements(self, ele1, ele2):
@@ -273,6 +276,7 @@ class FindElement(object):
                 elements = element.find_elements_by_class_name(ele2)
             except:
                 print("控件定位失败")
+                self.st.screenshot(BASE_PATH + '\\test_result1\\error_img\\%s元素未找到.png' % self.gf.get_time())
         return elements
 
     def find_elements(self, ele):
@@ -287,6 +291,7 @@ class FindElement(object):
                 elements = driver.find_elements_by_class_name(ele)
             except:
                 print("控件定位失败")
+                self.st.screenshot(BASE_PATH + '\\test_result1\\error_img\\%s元素未找到.png' % self.gf.get_time())
         return elements
 
     def find_element_new(self, ele):
@@ -295,16 +300,19 @@ class FindElement(object):
         if ":id/" in ele:
             element = driver.find_element_by_android_uiautomator('new UiSelector().resouceId(controlInfo)')
         else:
-            print("定位失败，仅支持id类型的定位")
+            print("定位失败")
+            self.st.screenshot(BASE_PATH + '\\test_result1\\error_img\\%s元素未找到.png' % self.gf.get_time())
         return element
 
     def swipe_find_element(self, ele, t=500, direction='U'):
         """swipe down to find element whitch you want"""
-        while True:
+        count = 5
+        while count > 0:
             try:
                 self.find_element(ele).click()
                 break
             except:
+                count -= 1
                 if direction == 'U':
                     self.op.swipe_up(t)
                     sleep(0.5)
@@ -545,65 +553,61 @@ class PopupHandle(object):
         print('thread-1 is working')
         global sys_alert
         while sys_alert:
-            alert = os.popen('adb shell dumpsys window|find "permission"')
-            if "SYSTEM_ALERT_WINDOW" in alert.read():
+            if "SYSTEM_ALERT_WINDOW" in os.popen('adb shell dumpsys window|find "permission"').read():
                 try:
-                    self.ele.find_element('//*[@text="允许"]').click()
+                    driver.find_element_by_xpath('//*[@text="允许"]').click()
                 except selenium.common.exceptions.NoSuchElementException:
-                    self.ele.find_element('//*[@text="确定"]').click()
+                    driver.find_element_by_xpath('//*[@text="始终允许"]').click()
                 except selenium.common.exceptions.NoSuchElementException:
-                    self.ele.find_element('//*[@text="忽略"]').click()
+                    driver.find_element_by_xpath('//*[@text="确定"]').click()
                 except selenium.common.exceptions.NoSuchElementException:
-                    self.ele.find_element('//*[@text="以后再说"]').click()
+                    driver.find_element_by_xpath('//*[@text="忽略"]').click()
+                except selenium.common.exceptions.NoSuchElementException:
+                    driver.find_element_by_xpath('//*[@text="以后再说"]').click()
+                except selenium.common.exceptions.NoSuchElementException:
+                    driver.find_element_by_xpath('//*[@text="同意并继续"]').click()
             else:
                 continue
 
-    def app_alert(self):
-        """监控并处理应用弹窗"""
-        print('thread-2 is working')
-        global ap_alert
-        while ap_alert:
-            if 'com.excelliance.dualaid:id/ll_dialog' in self.gf.get_xml():
-                if '64位' in self.gf.get_xml():
-                    self.ele.find_element('com.excelliance.dualaid:id/bt_cancel').click()
-                elif '应用列表' in self.gf.get_xml():
-                    try:
-                        self.ele.find_element('//*[@text="不再提醒"]').click()
-                        self.ele.find_element('//*[@text="以后再说"]').click()
-                    except Exception:
-                        self.ele.find_element('com.excelliance.dualaid:id/tv_left').click()
-                    except Exception:
-                        self.ele.find_element('//*[@text="忽略"]').click()
-                    except Exception:
-                        self.ele.find_element('//*[@text="确定"]').click()
-                    except Exception:
-                        self.ele.find_element('//*[@text="以后再说"]').click()
-                elif '防封号' in self.gf.get_xml():
-                    try:
-                        self.ele.find_element('com.excelliance.dualaid:id/cb_noToast').click()
-                        self.ele.find_element('com.excelliance.dualaid:id/tv_left').click()
-                    except Exception:
-                        pass
-            else:
-                continue
+    # def app_alert(self):
+    #     """监控并处理应用弹窗"""
+    #     print('thread-2 is working')
+    #     global ap_alert
+    #     while ap_alert:
+    #         if 'com.excelliance.dualaid:id/ll_dialog' in self.gf.get_xml():
+    #             if '64位' in self.gf.get_xml():
+    #                 driver.find_element_by_id('com.excelliance.dualaid:id/bt_cancel').click()
+    #             elif '应用列表' in self.gf.get_xml():
+    #                 try:
+    #                     driver.find_element_by_xpath('//*[@text="不再提醒"]').click()
+    #                     driver.find_element_by_xpath('//*[@text="以后再说"]').click()
+    #                 except selenium.common.exceptions.NoSuchElementException:
+    #                     driver.find_element_by_id('com.excelliance.dualaid:id/tv_left').click()
+    #                 except selenium.common.exceptions.NoSuchElementException:
+    #                     driver.find_element_by_xpath('//*[@text="忽略"]').click()
+    #                 except selenium.common.exceptions.NoSuchElementException:
+    #                     driver.find_element_by_xpath('//*[@text="确定"]').click()
+    #                 except selenium.common.exceptions.NoSuchElementException:
+    #                     driver.find_element_by_xpath('//*[@text="以后再说"]').click()
+    #             elif '防封号' in self.gf.get_xml():
+    #                 try:
+    #                     driver.find_element_by_id('com.excelliance.dualaid:id/cb_noToast').click()
+    #                     driver.find_element_by_id('com.excelliance.dualaid:id/tv_left').click()
+    #                 except selenium.common.exceptions.NoSuchElementException:
+    #                     pass
+    #         else:
+    #             continue
 
     def android_alert(self):
         """监控并处理android弹窗"""
         print('thread-3 is working')
         global ad_alert
         while ad_alert:
-            if 'android:id/parentPanel' in self.gf.get_xml():
+            if "mFocusedApp" in os.popen('adb shell dumpsys window|find "permission"').read():
                 try:
-                    self.ele.find_element('//*[@text="确定"]').click()
-                except Exception:
-                    self.ele.find_element('com.excelliance.dualaid:id/tv_right').click()
-                except Exception:
-                    self.ele.find_element('//*[@text="允许"]').click()
-            elif '允许访问' in self.gf.get_xml():
-                try:
-                    self.ele.find_element('com.android.packageinstaller:id/permission_allow_button').click()
-                except Exception:
-                    self.ele.find_element('//*[@text="始终允许"]').click()
+                    driver.find_element_by_xpath('//*[@text="始终允许"]').click()
+                except selenium.common.exceptions.NoSuchElementException:
+                    pass
             else:
                 continue
 
@@ -646,11 +650,11 @@ class Logcat(object):
             for i in adb_pid:
                 if adb_pid_host not in i:
                     os.popen('taskkill /f /pid ' + i.split()[1])
-                    time.sleep(3)
+                    time.sleep(5)
         elif arg == 0:
             for i in adb_pid:
                 os.popen('taskkill /f /pid ' + i.split()[1])
-                time.sleep(3)
+                time.sleep(5)
 
     def start_logcat(self, log_path):
         os.popen('adb logcat -c')
