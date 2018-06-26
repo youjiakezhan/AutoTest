@@ -54,6 +54,7 @@ class HomePage:
     弹出窗右按钮 = get_locater('HomePage', '弹出窗右按钮')
     防封号不再提醒 = get_locater('HomePage', '防封号不再提醒')
     防封号暂不 = get_locater('HomePage', '防封号暂不')
+    微信 = get_locater('HomePage', '微信')
 
     
 class LoginPage:

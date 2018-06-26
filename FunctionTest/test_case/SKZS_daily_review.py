@@ -594,7 +594,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
             self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
 
         # 对点击启动微信的结果断言
-        self.find_elements(HomePage.icon位['value'])[3].click()
+        self.find_elements(HomePage.微信['value'])[1].click()
         self.wait_for(5)
         try:
             self.assertIn('登录', self.get_xml())
@@ -685,7 +685,7 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
             self.assertTrue(self.get_xml().count('微信') == 2, '点击添加微信失败')
 
         # 对点击启动微信的结果断言
-        self.find_elements(HomePage.icon位['value'])[2].click()
+        self.find_elements(HomePage.微信['value'])[1].click()
         self.wait_for(5)
         try:
             self.assertIn('登录', self.get_xml())

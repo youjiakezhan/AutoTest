@@ -97,7 +97,10 @@ HomePage:
         name: 防封号暂不
         type: id
         value: com.excelliance.dualaid:id/tv_left
-
+      -
+        name: 微信
+        type: xpath
+        value: //*[@text="微信"]
 
 
 
