@@ -13,7 +13,10 @@ LoginPage:
         name: 免注册登录
         type: id
         value: com.excelliance.dualaid:id/tv_quick_login
-
+      -
+        name: 免注册获取验证码
+        type: id
+        value: com.excelliance.dualaid:id/umcsdk_smscode_btn
 
 
 

@@ -1,19 +1,91 @@
 MyPage:
-  dec: 我的
+  dec: 个人中心
   locators:
       -
         name: 返回
         type: id
-        value:
+        value: com.excelliance.dualaid:id/iv_back
       -
         name: 头像
         type: id
         value: com.excelliance.dualaid:id/iv_icon
       -
+        name: 消息中心
+        type: id
+        value: com.excelliance.dualaid:id/iv_notification_center
+      -
+        name: 消息中心编辑
+        type: id
+        value: com.excelliance.dualaid:id/iv_edit
+      -
+        name: 开通VIP会员
+        type: id
+        value: com.excelliance.dualaid:id/rl_open_vip
+      -
+        name: 我的优惠券
+        type: id
+        value: com.excelliance.dualaid:id/rl_my_ticket
+      -
+        name: 邀请与兑奖
+        type: id
+        value: com.excelliance.dualaid:id/rl_share_prize
+      -
+        name: 应用加锁
+        type: id
+        value: com.excelliance.dualaid:id/rl_lock_manager
+      -
+        name: 内存管理
+        type: id
+        value: com.excelliance.dualaid:id/rl_task_manager
+      -
+        name: 一键全部修复
+        type: id
+        value: com.excelliance.dualaid:id/rl_one_key_repair
+      -
+        name: 更多高级设置
+        type: id
+        value: com.excelliance.dualaid:id/rl_more_settings
+      -
+        name: 主题换肤
+        type: id
+        value: com.excelliance.dualaid:id/rl_switch_style
+      -
+        name: 当前选中的主题
+        type: id
+        value: com.excelliance.dualaid:id/iv_selected
+      -
+        name: 主题名称
+        type: id
+        value: com.excelliance.dualaid:id/textName
+      -
         name: 版本更新
         type: id
         value: com.excelliance.dualaid:id/rl_update
       -
-        name: 开通VIP会员
+        name: 版本更新返回按钮
         type: id
-        value: com.excelliance.dualaid:id/iv_icon
+        value: com.excelliance.dualaid:id/web_back
+      -
+        name: 帮助与反馈
+        type: id
+        value: com.excelliance.dualaid:id/rl_help_feedback
+      -
+        name: 意见反馈按钮
+        type: id
+        value: com.excelliance.dualaid:id/tv_feedback
+      -
+        name: 关于
+        type: id
+        value: com.excelliance.dualaid:id/rl_about_multi
+      -
+        name: 关于页版本号
+        type: id
+        value: com.excelliance.dualaid:id/tv_version
+      -
+        name: 我的VIP
+        type: id
+        value: com.excelliance.dualaid:id/rl_my_vip
+      -
+        name: 安全锁页锁图标
+        type: id
+        value: com.excelliance.dualaid:id/iv_lock_app_img

@@ -52,8 +52,8 @@ class FilePath(object):
             time.sleep(2)
             while True:
                 try:
-                    print('尝试自动安装测试包\n')
                     self.install_apk()
+                    print('尝试自动安装测试包\n')
                     time.sleep(20)
                     if 'com.excelliance.dualaid' in os.popen(
                             'adb shell pm list package -3 | findstr "excelliance"').read():

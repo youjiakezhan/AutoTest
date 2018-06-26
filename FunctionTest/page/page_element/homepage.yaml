@@ -73,7 +73,22 @@ HomePage:
         name: 二级菜单窗口
         type: id
         value: com.excelliance.dualaid:id/dialog_main
-
+      -
+        name: 换机数据迁移
+        type: xpath
+        value: //*[@text="换机数据迁移"]
+      -
+        name: 弹出窗
+        type: id
+        value: com.excelliance.dualaid:id/ll_dialog
+      -
+        name: 弹出窗左按钮
+        type: id
+        value: com.excelliance.dualaid:id/tv_left
+      -
+        name: 弹出窗右按钮
+        type: id
+        value: com.excelliance.dualaid:id/tv_right
 
 
 

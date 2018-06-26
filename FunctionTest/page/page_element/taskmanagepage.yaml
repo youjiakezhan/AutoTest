@@ -1,0 +1,15 @@
+TaskManagePage:
+  dec: 内存管理页
+  locators:
+      -
+        name: 返回
+        type: id
+        value: com.excelliance.dualaid:id/ib_back
+      -
+        name: 白名单
+        type: id
+        value: com.excelliance.dualaid:id/task_whiteList
+      -
+        name: 一键清理
+        type: id
+        value: com.excelliance.dualaid:id/task_clean

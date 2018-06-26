@@ -599,11 +599,11 @@ class PopupHandle(object):
                     self.ele.find_element('com.excelliance.dualaid:id/tv_right').click()
                 except Exception:
                     self.ele.find_element('//*[@text="允许"]').click()
-            elif 'com.android.packageinstaller:id/dialog_container' in self.gf.get_xml():
+            elif '允许访问' in self.gf.get_xml():
                 try:
-                    self.ele.find_element('//*[@text="始终允许"]')
+                    self.ele.find_element('com.android.packageinstaller:id/permission_allow_button').click()
                 except Exception:
-                    pass
+                    self.ele.find_element('//*[@text="始终允许"]').click()
             else:
                 continue
 

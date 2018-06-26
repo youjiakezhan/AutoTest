@@ -1,0 +1,11 @@
+MoreSettingPage:
+  dec: 更多高级设置
+  locators:
+      -
+        name: 返回
+        type: id
+        value: com.excelliance.dualaid:id/more_setting_iv_back
+      -
+        name: 私密空间开关
+        type: id
+        value: com.excelliance.dualaid:id/set_private

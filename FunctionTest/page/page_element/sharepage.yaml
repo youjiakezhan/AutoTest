@@ -1,0 +1,15 @@
+SharePage:
+  dec: 邀请与兑奖页
+  locators:
+      -
+        name: 返回
+        type: id
+        value: com.excelliance.dualaid:id/share_nav_back
+      -
+        name: 请先登录注册
+        type: id
+        value: com.excelliance.dualaid:id/tv_login
+      -
+        name: 邀请码
+        type: id
+        value: com.excelliance.dualaid:id/invitation_code_tv

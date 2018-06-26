@@ -48,23 +48,65 @@ class HomePage:
     删除 = get_locater('HomePage', '删除')
     完成 = get_locater('HomePage', '完成')
     二级菜单窗口 = get_locater('HomePage', '二级菜单窗口')
+    换机数据迁移 = get_locater('HomePage', '换机数据迁移')
+    弹出窗 = get_locater('HomePage', '弹出窗')
+    弹出窗左按钮 = get_locater('HomePage', '弹出窗左按钮')
+    弹出窗右按钮 = get_locater('HomePage', '弹出窗右按钮')
 
     
 class LoginPage:
     下一步 = get_locater('LoginPage', '下一步')
     登录 = get_locater('LoginPage', '登录')
     免注册登录 = get_locater('LoginPage', '免注册登录')
+    免注册获取验证码 = get_locater('LoginPage', '免注册获取验证码')
+
+    
+class MoreSettingPage:
+    返回 = get_locater('MoreSettingPage', '返回')
+    私密空间开关 = get_locater('MoreSettingPage', '私密空间开关')
 
     
 class MyPage:
     返回 = get_locater('MyPage', '返回')
     头像 = get_locater('MyPage', '头像')
-    版本更新 = get_locater('MyPage', '版本更新')
+    消息中心 = get_locater('MyPage', '消息中心')
+    消息中心编辑 = get_locater('MyPage', '消息中心编辑')
     开通VIP会员 = get_locater('MyPage', '开通VIP会员')
+    我的优惠券 = get_locater('MyPage', '我的优惠券')
+    邀请与兑奖 = get_locater('MyPage', '邀请与兑奖')
+    应用加锁 = get_locater('MyPage', '应用加锁')
+    内存管理 = get_locater('MyPage', '内存管理')
+    一键全部修复 = get_locater('MyPage', '一键全部修复')
+    更多高级设置 = get_locater('MyPage', '更多高级设置')
+    主题换肤 = get_locater('MyPage', '主题换肤')
+    当前选中的主题 = get_locater('MyPage', '当前选中的主题')
+    主题名称 = get_locater('MyPage', '主题名称')
+    版本更新 = get_locater('MyPage', '版本更新')
+    版本更新返回按钮 = get_locater('MyPage', '版本更新返回按钮')
+    帮助与反馈 = get_locater('MyPage', '帮助与反馈')
+    意见反馈按钮 = get_locater('MyPage', '意见反馈按钮')
+    关于 = get_locater('MyPage', '关于')
+    关于页版本号 = get_locater('MyPage', '关于页版本号')
+    我的VIP = get_locater('MyPage', '我的VIP')
+    安全锁页锁图标 = get_locater('MyPage', '安全锁页锁图标')
 
     
 class NavigationPage:
     立即体验 = get_locater('NavigationPage', '立即体验')
+
+    
+class PaymentPage:
+    返回 = get_locater('PaymentPage', '返回')
+    支付开通标题 = get_locater('PaymentPage', '支付开通标题')
+    确认支付 = get_locater('PaymentPage', '确认支付')
+    支付方式选择 = get_locater('PaymentPage', '支付方式选择')
+    免费试用 = get_locater('PaymentPage', '免费试用')
+
+    
+class SharePage:
+    返回 = get_locater('SharePage', '返回')
+    请先登录注册 = get_locater('SharePage', '请先登录注册')
+    邀请码 = get_locater('SharePage', '邀请码')
 
     
 class ShrinkPage:
@@ -72,6 +114,12 @@ class ShrinkPage:
     空间切换 = get_locater('ShrinkPage', '空间切换')
     一键清理 = get_locater('ShrinkPage', '一键清理')
     添加 = get_locater('ShrinkPage', '添加')
+
+    
+class TaskManagePage:
+    返回 = get_locater('TaskManagePage', '返回')
+    白名单 = get_locater('TaskManagePage', '白名单')
+    一键清理 = get_locater('TaskManagePage', '一键清理')
 
     
 if __name__ == '__main__':

@@ -1,0 +1,23 @@
+PaymentPage:
+  dec: 支付开通页
+  locators:
+      -
+        name: 返回
+        type: id
+        value: com.excelliance.dualaid:id/pay_nav_back
+      -
+        name: 支付开通标题
+        type: id
+        value: com.excelliance.dualaid:id/pay_nat_title
+      -
+        name: 确认支付
+        type: id
+        value: com.excelliance.dualaid:id/tv_sure_for_pay
+      -
+        name: 支付方式选择
+        type: id
+        value: com.excelliance.dualaid:id/iv_item
+      -
+        name: 免费试用
+        type: id
+        value: com.excelliance.dualaid:id/tv_free_trial

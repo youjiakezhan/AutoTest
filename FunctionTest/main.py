@@ -45,7 +45,7 @@ testReport = os.path.join(BASE_PATH, 'test_result1\\report\\双开助手测试�
 
 # 执行测试并记录测试报告
 with open(testReport, 'wb') as f:
-    runner = HTMLTestRunner(f, title='双开助手Daily Review自动化测试报告', description='测试结果饼状图展示')
+    runner = HTMLTestRunner(f, title='双开助手DailyBuild自动化测试报告', description='测试结果饼状图展示')
     runner.run(suit)
 
 # 停止弹窗监控

@@ -56,12 +56,13 @@ class EmailSending(object):
         password = self.password
         smtpserver = 'smtp.ym.163.com'
         sender = username
-        receiver = 'huanggao@excelliance.cn,xuhe@excelliance.cn,wangzhe@excean.com,qizhaodi@excean.com,zhuyao@excean.com, \
-                   lixianzhuang@excelliance.cn,wangzhongchang@excelliance.cn'
+        receiver = 'huanggao@excelliance.cn,fanghetian@excelliance.cn,liminde@excelliance.cn,gezhipeng@excelliance.cn,\
+                   xuhe@excelliance.cn,wangzhe@excean.com,qizhaodi@excean.com,zhuyao@excean.com,lixianzhuang@excelliance.cn,\
+                   wangzhongchang@excelliance.cn'
 
         # receiver = '771432505@qq.com'
         # 通过Header对象编码的文本，包含utf-8编码信息和Base64编码信息。以下中文名测试ok
-        subject = '双开助手DailyReview测试报告'
+        subject = '双开助手DailyBuild测试报告'
         subject = Header(subject, 'utf-8').encode()
 
         # 构造邮件对象MIMEMultipart对象
