@@ -1,11 +1,15 @@
 # _*_ coding:utf-8 _*_
 import _tkinter
+import ctypes
+import inspect
 import os
 import threading
 import time
 import tkinter
 import winreg  # windows API
 from tkinter import *
+
+from requests_html import HTMLSession
 
 
 class APP(object):
@@ -31,8 +35,20 @@ class APP(object):
 class GetInfo(object):
     """信息获取"""
 
+    def check_wechart_version(self):
+        session = HTMLSession()
+        r = session.get('https://weixin.qq.com/')
+        news = r.html.find('div.update_diary ul li a')
+        for new in news:
+            if new.html.find('Android') != -1:
+                text.insert(END, new.text + '\n')
+                text.see(END)
+                text.update()
+
     def get_device_info(self):
         """获取安卓设备信息"""
+        b11['text'] = '正在获取...'
+        b11['bg'] = 'grey'
         list = []
         data = os.popen('adb devices').read()
         if 'device' in data.split():
@@ -45,10 +61,13 @@ class GetInfo(object):
             list.append('像素密度：' + os.popen('adb shell wm density').read().replace('Physical density:', '').strip())
         else:
             text.insert(END, '请检查USB是否已连接或是否已开启调试模式')
+        time.sleep(2)
+
         for line in list:
             text.insert(END, line + '\n')
             text.see(END)
             text.update()
+        b11.configure(text='获取设备信息', bg='green')
 
     def get_time(self):
         """获取当前时间"""
@@ -64,17 +83,14 @@ class GetInfo(object):
         return path
 
 
-class NewThread(object):
+class MyThread(threading.Thread):
     """多线程处理"""
-
-    def start_thread(self, func, *args):
-        """开启新线程"""
-        thread = threading.Thread(target=func, *args)
-        thread.start()
-
-    def stop_thread(self):
-        global thread_signal
-        thread_signal = 0
+    def __init__(self, func=None):
+        threading.Thread.__init__(self)
+        self.func = func
+        
+    def run(self):
+        self.func()
 
 
 class Log(object):
@@ -94,6 +110,13 @@ class Log(object):
 
 class ScreenOperation(object):
     """屏幕操作"""
+    def check_adb(self):
+        list = []
+        adb_pid = os.popen('tasklist | findstr "adb.exe"')
+        for i in adb_pid:
+            adb_pid_host = i.split()[1]
+            list.append(adb_pid_host)
+        return list
 
     def screen_shot(self):
         """截屏"""
@@ -103,32 +126,41 @@ class ScreenOperation(object):
         time.sleep(2)
         os.popen('adb shell rm sdcard/1.png')
 
+    def record_command(self):
+        os.popen('adb shell screenrecord /sdcard/1.mp4')
+
     def recording(self):
+        global record_pid, record_thread
         """录制屏幕"""
-        global thread_signal
-        thread_signal = 1
-        btn1['text'] = '正在录制...'
-        btn1['state'] = DISABLED
+        b35['text'] = '正在录制...'
+        b35['state'] = DISABLED
+        adb_pid_list1 = self.check_adb()
+        print(adb_pid_list1)
+        record_thread = MyThread(self.record_command)
+        record_thread.start()
+        time.sleep(1)
+        adb_pid_list2 = self.check_adb()
+        print(adb_pid_list2)
+        for i in adb_pid_list2:
+            if i not in adb_pid_list1:
+                print(i)
+                record_pid = i
+                return record_pid
+            else:
+                continue
 
-        def record():
-            while thread_signal:
-                os.system('adb shell screenrecord /sdcard/1.mp4')
-
-        thread.start_thread(record)
+    def pull_record(self):
+        os.system('adb pull /sdcard/1.mp4 ' + desktop_path + '\%s.mp4' % get_info.get_time())
+        time.sleep(3)
+        os.popen('adb shell rm /sdcard/1.mp4')
 
     def stop_recording(self):
         """停止并导出录制的视频"""
-        btn1['text'] = '录制视频'
-        btn1['state'] = NORMAL
-        thread.stop_thread()
-        # s = os.popen('adb shell ps | findstr "record"')
-        # for line in s.readlines():
-        #     if "shell" in line:
-        #         os.popen('adb shell kill ' + line.split()[1])
-        time.sleep(3)
-        os.system('adb pull /sdcard/1.mp4 ' + desktop_path + '\%s.mp4' % get_info.get_time())
-        time.sleep(2)
-        os.popen('adb shell rm /sdcard/1.mp4')
+        global record_pid, record_thread
+        b35['text'] = '录制视频'
+        b35['state'] = NORMAL
+        os.popen('taskkill /f /pid ' + record_pid)
+        self.pull_record()
 
 
 class PackageManage(object):
@@ -187,6 +219,14 @@ class AppOperation(object):
             text.update()
 
 
+def create_window():
+    global root
+    root = Tk()
+    root.title('AndroidTestTool')
+    root.geometry('800x600')
+    root.resizable(width=False, height=False)
+
+
 # class BatteryTest(object):
 #
 #     def start_app(self):
@@ -236,6 +276,12 @@ class AppOperation(object):
 #         self.stop_app()
 #         file.close()
 
+# 处理点击按钮切换显示效果
+
+
+def button_statu(event):
+    b11.configure(text='正在获取...', bg='grey')
+
 
 app = APP()
 get_info = GetInfo()
@@ -243,61 +289,67 @@ log = Log()
 screen_operate = ScreenOperation()
 pck_manage = PackageManage()
 app_operate = AppOperation()
-thread = NewThread()
 desktop_path = get_info.get_desktop_path()
-
-root = Tk()
-root.title('AndroidTestTool')
-root.geometry('800x600')
-root.resizable(width=False, height=False)
-
 BASE_PATH = os.path.abspath(os.path.dirname('__file__'))
+record_pid = ''
+stop_thread_flag = True
 
+create_window()
+# 左右显示屏
 frm1 = Frame(root)
-text = Text(frm1, width='39', height='22', bg='sky blue', fg='green', font=('宋体', 14))
+text = Text(frm1, width=39, height='22', bg='sky blue', fg='green', font=('宋体', 14))
 text.pack(side=LEFT, fill=Y, padx=2)
 listbox = Listbox(frm1, width=39, height='22', bg='sky blue', fg='green', font=('宋体', 14))
 listbox.pack(side=RIGHT, fill=Y, padx=2)
 frm1.pack(padx=3, pady=3)
 
 frm2 = Frame(root)
-Button(frm2, text='获取设备信息', width='15', height='1', bg='green', fg='gold', command=get_info.get_device_info) \
-    .grid(row=0, column=0)
-Button(frm2, text='按钮', width='15', height='1', bg='green', fg='gold').grid(row=0, column=1)
-Button(frm2, text='按钮', width='15', height='1', bg='green', fg='gold').grid(row=0, column=2)
+b11 = Button(frm2, text='获取设备信息', width='15', height='1', bg='green', fg='gold', command=get_info.get_device_info)
+b11.grid(row=0, column=0)
+# b11.bind('<Button-1>', button_statu)
 
+b12 = Button(frm2, text='启动时间测试', width='15', height='1', bg='green', fg='gold').grid(row=0, column=1)
+b13 = Button(frm2, text='内存/CPU查看', width='15', height='1', bg='green', fg='gold').grid(row=0, column=2)
+# 图片
 img0 = PhotoImage(file=os.path.abspath(os.path.join(BASE_PATH, '1.gif')))
 label0 = Label(frm2, image=img0, width=97, height=50, bg='sky blue')
 label0.grid(row=0, column=3, rowspan=2, sticky=N + S)
 
-Button(frm2, text='已装应用列表', width='15', height='1', bg='green', fg='gold', command=pck_manage.display_installed_app) \
+b14 = Button(frm2, text='已装应用列表', width='15', height='1', bg='green', fg='gold',
+             command=pck_manage.display_installed_app) \
     .grid(row=0, column=4)
-Button(frm2, text='强行停止', width='15', height='1', bg='green', fg='gold', command=app_operate.force_stop_app) \
+b15 = Button(frm2, text='强行停止', width='15', height='1', bg='green', fg='gold', command=app_operate.force_stop_app) \
     .grid(row=0, column=5)
-Button(frm2, text='清除数据', width='15', height='1', bg='green', fg='gold', command=app_operate.clear_app_data) \
+b16 = Button(frm2, text='清除数据', width='15', height='1', bg='green', fg='gold', command=app_operate.clear_app_data) \
     .grid(row=0, column=6)
-Button(frm2, text='按钮', width='15', height='1', bg='green', fg='gold').grid(row=1, column=0)
-Button(frm2, text='按钮', width='15', height='1', bg='green', fg='gold').grid(row=1, column=1)
-Button(frm2, text='清理左屏', width='15', height='1', bg='sky blue', fg='red', command=app.clear_one).grid(row=1, column=2)
-Button(frm2, text='清理右屏', width='15', height='1', bg='sky blue', fg='red', command=app.clear_two).grid(row=1, column=4)
-Button(frm2, text='导出安装包', width='15', height='1', bg='green', fg='gold', command=pck_manage.pull_app) \
+b21 = Button(frm2, text='微信官网版本', width='15', height='1', bg='green', fg='gold',
+             command=get_info.check_wechart_version).grid(
+    row=1, column=0)
+b22 = Button(frm2, text='耗电量测试', width='15', height='1', bg='green', fg='gold').grid(row=1, column=1)
+b23 = Button(frm2, text='清理左屏', width='15', height='1', bg='sky blue', fg='red', command=app.clear_one).grid(row=1,
+                                                                                                             column=2)
+b24 = Button(frm2, text='清理右屏', width='15', height='1', bg='sky blue', fg='red', command=app.clear_two).grid(row=1,
+                                                                                                             column=4)
+b25 = Button(frm2, text='导出安装包', width='15', height='1', bg='green', fg='gold', command=pck_manage.pull_app) \
     .grid(row=1, column=6)
-Button(frm2, text='卸载应用', width='15', height='1', bg='green', fg='gold', command=pck_manage.uninstall_app) \
+b26 = Button(frm2, text='卸载应用', width='15', height='1', bg='green', fg='gold', command=pck_manage.uninstall_app) \
     .grid(row=1, column=5)
 frm2.pack(side=TOP, fill=BOTH, padx=3)
 
 frm3 = Frame(root)
-Button(frm3, text='手机截图', width='15', height='1', bg='blue', fg='white', command=screen_operate.screen_shot)\
+b31 = Button(frm3, text='手机截图', width='15', height='1', bg='blue', fg='white', command=screen_operate.screen_shot) \
     .grid(row=0, column=0)
-Button(frm3, text='抓取log', width='15', height='1', bg='blue', fg='white', command=log.catch_log).grid(row=0, column=1)
-Button(frm3, text='停止log', width='15', height='1', bg='blue', fg='white', command=log.stop_log).grid(row=0, column=2)
-Button(frm3, text='清屏', width='13', height='1', bg='sky blue', fg='red', command=app.clear) \
+b32 = Button(frm3, text='抓取log', width='15', height='1', bg='blue', fg='white', command=log.catch_log).grid(row=0,
+                                                                                                            column=1)
+b33 = Button(frm3, text='停止log', width='15', height='1', bg='blue', fg='white', command=log.stop_log).grid(row=0,
+                                                                                                           column=2)
+b34 = Button(frm3, text='清屏', width='13', height='1', bg='sky blue', fg='red', command=app.clear) \
     .grid(row=0, column=3)
-btn1 = Button(frm3, text='录制屏幕', width='15', height='1', bg='blue', fg='white', command=screen_operate.recording)
-btn1.grid(row=0, column=4)
-Button(frm3, text='停止并导出', width='15', height='1', bg='blue', fg='white', command=screen_operate.stop_recording) \
+b35 = Button(frm3, text='录制屏幕', width='15', height='1', bg='blue', fg='white', command=screen_operate.recording)
+b35.grid(row=0, column=4)
+b36 = Button(frm3, text='停止并导出', width='15', height='1', bg='blue', fg='white', command=screen_operate.stop_recording) \
     .grid(row=0, column=5)
-Button(frm3, text='退出', width='15', height='1', bg='red', fg='black', command=app.quit).grid(row=0, column=6)
+b37 = Button(frm3, text='退出', width='15', height='1', bg='red', fg='black', command=app.quit).grid(row=0, column=6)
 frm3.pack(side=TOP, fill=BOTH, padx=3, pady=3)
 
 frm = Frame(root)

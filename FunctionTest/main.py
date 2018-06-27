@@ -12,10 +12,10 @@ from FunctionTest.func_script.log_analyse import LogAnalyse
 from FunctionTest.func_script.send_email import EmailSending
 from FunctionTest.test_case.SKZS_daily_review import Cases
 
-# # 设置发件人的邮箱地址和邮箱密码
-# username = input('请输入发件人地址：')
-# password = input('请输入邮箱密码：')
-#
+# 设置发件人的邮箱地址和邮箱密码
+username = input('请输入发件人地址：')
+password = input('请输入邮箱密码：')
+
 # 监控adb进程，初始化所有adb.exe进程（kill掉）
 logcat = Logcat()
 logcat.kill_adb(arg=0)
@@ -65,14 +65,14 @@ compress = Compression(new_file_path=r'Z:\daily_review_SKZS\daily_review_files\r
                        dir_path=BASE_PATH + '\\test_result1')
 compress.compress_dir()
 
-# # 发送测试报告邮件
-# send_report = EmailSending(username, password, file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
-#                            html_path=BASE_PATH + '\\test_result1\\report',
-#                            image_path=BASE_PATH + '\\test_result2\\screenshot')
-# send_report.screen_shot()
-# send_report.create_email()
-#
-# # 初始化工作区
-# cl = CleanWorkspace()
-# cl.clean_test_result(BASE_PATH + '\\test_result1')
-# cl.clean_test_result(BASE_PATH + '\\test_result2')
+# 发送测试报告邮件
+send_report = EmailSending(username, password, file_path=r'Z:\daily_review_SKZS\daily_review_files\result',
+                           html_path=BASE_PATH + '\\test_result1\\report',
+                           image_path=BASE_PATH + '\\test_result2\\screenshot')
+send_report.screen_shot()
+send_report.create_email()
+
+# 初始化工作区
+cl = CleanWorkspace()
+cl.clean_test_result(BASE_PATH + '\\test_result1')
+cl.clean_test_result(BASE_PATH + '\\test_result2')
