@@ -67,7 +67,6 @@ class GetInfo(object):
 
         get_device_info_thread = MyThread(device_info)
         get_device_info_thread.start()
-        # b11.configure(text='获取设备信息', bg='green')
 
     def get_time(self):
         """获取当前时间"""
@@ -104,7 +103,6 @@ class GetInfo(object):
             flag = 1
         except Exception:
             flag = 0
-        # print(flag)
         if flag == 1:
             time.sleep(5)
             apk_path = self.get_latest_apk()
@@ -172,22 +170,25 @@ class ScreenOperation(object):
         screen_shot_thread.start()
 
     def recording(self):
-        global record_pid, record_thread
+        global record_pid
         """录制屏幕"""
-        adb_pid_list1 = self.check_adb()
+        b35.configure(text='录制中...', state=DISABLED, bg='sky blue')
 
+        adb_pid_list1 = self.check_adb()
         # print(adb_pid_list1)
+
         def record_command():
             os.popen('adb shell screenrecord /sdcard/1.mp4')
-
         record_thread = MyThread(record_command)
         record_thread.start()
+
         time.sleep(1)
         adb_pid_list2 = self.check_adb()
         # print(adb_pid_list2)
         for i in adb_pid_list2:
             if i not in adb_pid_list1:
                 record_pid = i
+                # print(record_pid)
                 return record_pid
             else:
                 continue
@@ -201,6 +202,7 @@ class ScreenOperation(object):
     def stop_recording(self):
         """停止并导出录制的视频"""
         global record_pid
+        b35.configure(text='录制屏幕', state=NORMAL, bg='blue')
 
         def stop_record():
             os.popen('taskkill /f /pid ' + record_pid)
@@ -282,7 +284,6 @@ class AppOperation(object):
 
 
 class BatteryTest(object):
-
     def start_app(self):
         os.popen('adb shell am start ' + get_info.get_launchable_activity())
 
@@ -312,8 +313,6 @@ class BatteryTest(object):
         os.popen('adb shell am force-stop ' + listbox.get(listbox.curselection()))
 
     def run(self):
-        # file = open(path + '\\耗电量测试数据.xlsx', 'a')
-        # time.sleep(1)
         b22.configure(text='测试前准备...', bg='grey', state=DISABLED)
         try:
             self.start_app()
@@ -354,7 +353,7 @@ class BatteryTest(object):
 def catch_log_pck(event):
     b32.configure(text='过滤抓取中...', state=DISABLED)
     os.popen(
-        'adb logcat -v time | find "com.excelliance.dualaid" > ' + get_info.get_desktop_path() +
+        'adb logcat -v time | find "%s" > ' % listbox.get(listbox.curselection()) + get_info.get_desktop_path() +
         '/%s.txt' % get_info.get_time())
 
 

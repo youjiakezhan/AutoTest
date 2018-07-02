@@ -18,7 +18,7 @@ class FilePath(object):
             if ".apk" in file_path and os.path.isfile(file_path):
                 return file_path
 
-    def adb_connect_seccess(self):
+    def check_adb_connect(self):
         """查看USB是否已连接"""
         text = os.popen('adb devices')
         time.sleep(5)
@@ -26,6 +26,7 @@ class FilePath(object):
             return True
         else:
             print('USB未连接')
+            return False
 
     def uninstall_apk(self):
         """卸载本机已有双开助手apk"""
@@ -47,7 +48,7 @@ class FilePath(object):
         检查本机是否有daily review包同名apk，如果有就删除，如果没有就去指定目录检查，有apk包就执行安装，没有就等待，
         直到安装成功为止，安装完成后将该目录下的安装包移动至存放apk的目录
         """
-        if self.adb_connect_seccess() is True:
+        if self.check_adb_connect() is True:
             self.uninstall_apk()
             time.sleep(2)
             while True:
