@@ -58,8 +58,6 @@ class FilePath(object):
                     if 'com.excelliance.dualaid' in os.popen(
                             'adb shell pm list package -3 | findstr "excelliance"').read():
                         print('安装完成，正在配置测试环境...\n')
-                        os.popen('move ' + self.get_file_path() + ' ' + os.path.join(self.apk_path,
-                                                                                     'daily_review_files\\apk'))
                         break
                     else:
                         print('安装测试包失败，请手动进行安装\n')
@@ -72,5 +70,5 @@ class FilePath(object):
 
 
 if __name__ == '__main__':
-    fi = FilePath(apk_path=r'Z:\daily_review_SKZS')
-    fi.monitor()
+    fp = FilePath(apk_path=r'Z:\daily_review_SKZS')
+    fp.monitor()

@@ -33,7 +33,6 @@ ap_ser_che.check_appium_server()
 thread = CreateThread()
 popup_handle = PopupHandle()
 thread1 = thread.start_thread(popup_handle.sys_win_alert)
-# thread2 = thread.start_thread(popup_handle.app_alert)
 thread3 = thread.start_thread(popup_handle.android_alert)
 
 # 装载测试用例
