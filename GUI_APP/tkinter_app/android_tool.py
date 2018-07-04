@@ -6,7 +6,7 @@ import time
 import tkinter
 import winreg  # windows API
 from tkinter import *
-from tkinter.messagebox import showinfo
+from tkinter.messagebox import askyesno, showinfo
 
 from requests_html import HTMLSession
 
@@ -49,6 +49,7 @@ class GetInfo(object):
 
         def device_info():
             list = []
+            text.insert(END, '获取中请稍等...\n')
             data = os.popen('adb devices').read()
             if 'device' in data.split():
                 list.append('手机品牌：' + os.popen('adb shell getprop ro.product.brand').read().strip())
@@ -115,6 +116,19 @@ class GetInfo(object):
             # os.popen('adb shell am start ' + launchable_activity)
             return launchable_activity
 
+    def get_apk_name(self):
+        pass
+
+    def memory_cpu_monitor(self):
+        text.insert(END, '尚未开发，敬请期待...' + '\n')
+        text.see(END)
+        text.update()
+
+    def get_start_time(self):
+        text.insert(END, '尚未开发，敬请期待...' + '\n')
+        text.see(END)
+        text.update()
+
 
 class MyThread(threading.Thread):
     """多线程处理"""
@@ -159,13 +173,16 @@ class ScreenOperation(object):
         """截屏"""
 
         def shot():
-            os.popen('adb shell screencap /sdcard/1.png')
-            time.sleep(3)
-            os.popen('adb pull /sdcard/1.png ' + desktop_path + '\%s.png' % get_info.get_time())
-            b31.configure(text='手机截图')
-            time.sleep(3)
-            os.popen('adb shell rm sdcard/1.png')
-
+            time_now = time.strftime('%Y%m%d%H%M%S')
+            text.insert(END, '正在截图请稍等...')
+            os.popen('adb shell screencap /sdcard/%s.png' % time_now)
+            time.sleep(1.5)
+            text.insert(END, 'ok!\n')
+            time.sleep(1.5)
+            os.popen('adb pull /sdcard/%s.png ' % time_now + desktop_path + '\%s.png' % time_now)
+            text.insert(END, '截图已保存至桌面\n')
+            text.see(END)
+            text.update()
         screen_shot_thread = MyThread(shot)
         screen_shot_thread.start()
 
@@ -173,15 +190,12 @@ class ScreenOperation(object):
         global record_pid
         """录制屏幕"""
         b35.configure(text='录制中...', state=DISABLED, bg='sky blue')
-
         adb_pid_list1 = self.check_adb()
         # print(adb_pid_list1)
-
         def record_command():
             os.popen('adb shell screenrecord /sdcard/1.mp4')
         record_thread = MyThread(record_command)
         record_thread.start()
-
         time.sleep(1)
         adb_pid_list2 = self.check_adb()
         # print(adb_pid_list2)
@@ -218,25 +232,33 @@ class PackageManage(object):
 
     def pull_app(self):
         """导出手机安装包"""
-        try:
-            app_path = os.popen('adb shell pm path ' + listbox.get(listbox.curselection())).readline()
-            flag = 1
-        except _tkinter.TclError:
-            flag = 0
-            text.insert(END, '请先选择一个包名\n')
-            text.see(END)
-            text.update()
-        if flag == 1:
+        text.insert(END, '正在导出...')
+        def pull():
             try:
-                os.popen('adb pull ' + app_path.replace('package:', '').strip() + ' ' + desktop_path
-                         + '\%s.apk' % get_info.get_time())
-            except Exception:
-                print('导出apk失败')
+                app_path = os.popen('adb shell pm path ' + listbox.get(listbox.curselection())).readline()
+                pck_name = listbox.get(listbox.curselection())
+                flag = 1
+            except _tkinter.TclError:
+                flag = 0
+                text.insert(END, '请先选择一个包名\n')
+                text.see(END)
+                text.update()
+            if flag == 1:
+                try:
+                    os.popen('adb pull ' + app_path.replace('package:', '').strip() + ' ' + desktop_path
+                             + '\\%s.apk' % pck_name.strip())
+                    text.insert(END, 'ok!\n已保存至桌面\n')
+                except Exception:
+                    text.insert(END, '导出apk失败,请重新尝试')
+        pull_app_thread = MyThread(pull)
+        pull_app_thread.start()
 
     def display_installed_app(self):
         """列出已安装的第三方app（按照：应用图标+应用名+包名 方式展示）"""
 
         def display_app():
+            listbox.delete(first=0, last=END)
+            listbox.insert(END, '获取中请稍等...')
             data = os.popen('adb devices').read()
             if 'device' in data.split():
                 pck_names = os.popen('adb shell pm list packages -3 | sort')
@@ -253,11 +275,21 @@ class PackageManage(object):
 
     def uninstall_app(self):
         """卸载选中的app（按包名）"""
-        try:
-            os.popen('adb uninstall ' + listbox.get(listbox.curselection()))
-            self.app.clear_two()
-            self.display_installed_app()
-        except Exception:
+        if len(listbox.curselection()) > 0:
+            try:
+                if askyesno('提示', '是否确认删除该应用？') is True:
+                    text.insert(END, '卸载成功,已重新加载应用列表')
+                    os.popen('adb uninstall ' + listbox.get(listbox.curselection()))
+                    self.app.clear_two()
+                    self.display_installed_app()
+                    listbox.update()
+                else:
+                    pass
+            except Exception:
+                text.insert(END, '请先选择一个包名\n')
+                text.see(END)
+                text.update()
+        else:
             text.insert(END, '请先选择一个包名\n')
             text.see(END)
             text.update()
@@ -296,9 +328,10 @@ class BatteryTest(object):
         os.popen('adb shell dumpsys batterystats --reset')
 
     def set_usb(self):
-        showinfo(title='提示窗', message='点击OK开始电量测试')
+        askyesno(title='耗电量测试', message='是否开始测试')
         os.popen('adb shell dumpsys battery unplug')
         os.popen('adb shell dumpsys battery set status 1')
+        b22.configure(text='正在测试...', state=DISABLED, bg='#dddddd')
 
     def rec_usb(self):
         os.popen('adb shell dumpsys battery reset')
@@ -309,11 +342,10 @@ class BatteryTest(object):
         return batteryinfo
 
     def stop_app(self):
-        showinfo(title='提示窗', message='测试结束\n点击OK退出应用')
         os.popen('adb shell am force-stop ' + listbox.get(listbox.curselection()))
 
     def run(self):
-        b22.configure(text='测试前准备...', bg='grey', state=DISABLED)
+        b22.configure(text='测试前准备...', bg='#dddddd', state=DISABLED)
         try:
             self.start_app()
             flag = 1
@@ -325,19 +357,19 @@ class BatteryTest(object):
             b22.configure(text='耗电量测试', state=NORMAL, bg='green')
 
         if flag == 1:
-            b22.configure(text='正在测试...', state=DISABLED, bg='grey')
             time.sleep(2)
             self.get_uid()
             time.sleep(1)
             self.reset_battery()
             time.sleep(1)
             self.set_usb()
-            time.sleep(20)
+            time.sleep(test_time)
             self.rec_usb()
             time.sleep(2)
             self.get_batteryinfo()
             time.sleep(1)
             self.stop_app()
+            text.insert(END, '测试结束，结果如下: ' + '\n')
             text.insert(END, self.get_batteryinfo().replace("'", "") + '\n')
             text.see(END)
             text.update()
@@ -346,10 +378,47 @@ class BatteryTest(object):
             b22.configure(text='耗电量测试', state=NORMAL, bg='green')
 
     def battery_test(self):
+        ask_info()
         battery_test_thread = MyThread(self.run)
         battery_test_thread.start()
 
 
+class MyDialog(Toplevel):
+    def __init__(self):
+        super().__init__()
+        self.title('设置测试时间')
+        # self.geometry('250x73')
+        # self.resizable(width=False, height=False)
+        # 弹窗界面
+        self.setup_UI()
+
+    def setup_UI(self):
+        global user_input
+        frm1 = Frame(self, bg='sky blue')
+        frm1.pack(fill=BOTH)
+        Label(frm1, text='时间(s)：', bg='sky blue', font=('楷体', 12)).grid(row=0, column=0, padx=5, pady=8)
+        user_input = IntVar()
+        user_input.set('')
+        e1 = Entry(frm1, textvariable=user_input, bg='pink', width=20)
+        e1.grid(row=0, column=1, padx=5, pady=8)
+        btn1 = Button(frm1, text="取消", width=12, bg='green', fg='gold', activebackground='sky blue', command=self.cancel)
+        btn1.grid(row=1, column=1, padx=5, pady=8, sticky=NE)
+        btn2 = Button(frm1, text="确定", width=12, bg='green', fg='gold', activebackground='sky blue', command=self.ok)
+        btn2.grid(row=1, column=0, padx=5, pady=8, sticky=NW)
+        e1.focus()
+
+    def ok(self):
+        global test_time
+        test_time = user_input.get()
+        self.destroy()  # 销毁窗口
+
+    def cancel(self):
+        global test_time
+        test_time = None
+        self.destroy()
+
+
+# 右键功能
 def catch_log_pck(event):
     b32.configure(text='过滤抓取中...', state=DISABLED)
     os.popen(
@@ -360,9 +429,15 @@ def catch_log_pck(event):
 def create_window():
     global root
     root = Tk()
-    root.title('AndroidTestTool')
+    root.title('测试小帮手')
     root.geometry('800x600')
     root.resizable(width=False, height=False)
+
+
+def ask_info():
+    input_dialog = MyDialog()
+    Tk.wait_window(input_dialog)  # 这一句很重要
+    return test_time
 
 
 app = APP()
@@ -375,7 +450,6 @@ battery = BatteryTest()
 desktop_path = get_info.get_desktop_path()
 BASE_PATH = os.path.abspath(os.path.dirname('__file__'))
 record_pid = ''
-stop_thread_flag = True
 
 create_window()
 # 左右显示屏
@@ -392,10 +466,12 @@ b11 = Button(frm2, text='获取设备信息', activebackground='sky blue', width
 b11.grid(row=0, column=0)
 
 b12 = Button(frm2, text='启动时间测试', activebackground='sky blue', width='15', height='1', bg='green', fg='gold',
-             command=get_info.get_launchable_activity)
+             command=get_info.get_start_time)
 b12.grid(row=0, column=1)
-b13 = Button(frm2, text='内存/CPU查看', activebackground='sky blue', width='15', height='1', bg='green', fg='gold').grid(
-    row=0, column=2)
+
+b13 = Button(frm2, text='内存/CPU测试', activebackground='sky blue', width='15', height='1', bg='green', fg='gold',
+             command=get_info.memory_cpu_monitor)
+b13.grid(row=0, column=2)
 # 图片
 img0 = PhotoImage(file=os.path.abspath(os.path.join(BASE_PATH, '1.gif')))
 label0 = Label(frm2, image=img0, width=97, height=50, bg='sky blue')
@@ -464,4 +540,4 @@ label1 = Label(frm, text='Auth:EternalSunshine', height='2', font=('粗体', 18)
 label1.pack(fill=BOTH)
 frm.pack(side=TOP, fill=BOTH, padx=3, pady=3)
 
-root.mainloop()
+mainloop()

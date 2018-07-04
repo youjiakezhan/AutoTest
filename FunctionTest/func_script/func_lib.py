@@ -569,38 +569,9 @@ class PopupHandle(object):
             else:
                 continue
 
-    # def app_alert(self):
-    #     """监控并处理应用弹窗"""
-    #     print('thread-2 is working')
-    #     global ap_alert
-    #     while ap_alert:
-    #         if 'com.excelliance.dualaid:id/ll_dialog' in self.gf.get_xml():
-    #             if '64位' in self.gf.get_xml():
-    #                 driver.find_element_by_id('com.excelliance.dualaid:id/bt_cancel').click()
-    #             elif '应用列表' in self.gf.get_xml():
-    #                 try:
-    #                     driver.find_element_by_xpath('//*[@text="不再提醒"]').click()
-    #                     driver.find_element_by_xpath('//*[@text="以后再说"]').click()
-    #                 except selenium.common.exceptions.NoSuchElementException:
-    #                     driver.find_element_by_id('com.excelliance.dualaid:id/tv_left').click()
-    #                 except selenium.common.exceptions.NoSuchElementException:
-    #                     driver.find_element_by_xpath('//*[@text="忽略"]').click()
-    #                 except selenium.common.exceptions.NoSuchElementException:
-    #                     driver.find_element_by_xpath('//*[@text="确定"]').click()
-    #                 except selenium.common.exceptions.NoSuchElementException:
-    #                     driver.find_element_by_xpath('//*[@text="以后再说"]').click()
-    #             elif '防封号' in self.gf.get_xml():
-    #                 try:
-    #                     driver.find_element_by_id('com.excelliance.dualaid:id/cb_noToast').click()
-    #                     driver.find_element_by_id('com.excelliance.dualaid:id/tv_left').click()
-    #                 except selenium.common.exceptions.NoSuchElementException:
-    #                     pass
-    #         else:
-    #             continue
-
     def android_alert(self):
         """监控并处理android弹窗"""
-        print('thread-3 is working')
+        print('thread-2 is working')
         global ad_alert
         while ad_alert:
             if "mFocusedApp" in os.popen('adb shell dumpsys window|find "permission"').read():
@@ -614,6 +585,12 @@ class PopupHandle(object):
 
 class CreateThread(object):
     """创建新线程"""
+    # def __init__(self, func):
+    #     threading.Thread.__init__(self)
+    #     self.func = func
+    #
+    # def run(self):
+    #     self.func()
 
     def start_thread(self, func):
         """开启一条执行func函数的新线程"""
