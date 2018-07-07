@@ -404,12 +404,13 @@ class AppOperation(object):
         """清除数据"""
         os.popen("adb shell pm clear com.excelliance.dualaid")
 
-    def force_stop(self, package_name):
+    def force_stop(self):
         """强行停止"""
-        os.popen("adb shell am force-stop " + package_name)
+        os.popen("adb shell am force-stop com.excelliance.dualaid")
 
     def start_app(self, choice=0):
         """启动APP（choice=0正常启动，choice=1时，启动并返回启动耗时）"""
+        # driver.start_activity('com.excelliance.dualaid', 'com.excelliance.kxqp.ui.HelloActivity')
         if choice == 0:
             os.popen("adb shell am start com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity")
         elif choice == 1:
@@ -437,14 +438,13 @@ class AppOperation(object):
 
     def set_app_status3(self):
         """启动APP至状态3（有banner，icon，无信息流，无钻石按钮的主界面）"""
-        i = 3
+        i = 1
         self.set_app_status2()
         self.op.back()
         self.wait.wait_for()
         self.start_app()
         self.wait.wait_for()
-        while i > 0:
-            i -= 1
+        while i < 4:
             try:
                 self.wait.wait_explicit_ele("com.excelliance.dualaid:id/ad_but", 10, 1)
                 break
@@ -454,6 +454,7 @@ class AppOperation(object):
                 self.wait.wait_for()
                 self.start_app()
                 self.wait.wait_for()
+                i += 1
 
     def set_app_status4(self):
         """启动APP至状态4（有banner，icon，信息流，钻石按钮的主界面）"""
@@ -553,7 +554,8 @@ class PopupHandle(object):
         print('thread-1 is working')
         global sys_alert
         while sys_alert:
-            if "SYSTEM_ALERT_WINDOW" in os.popen('adb shell dumpsys window|find "permission"').read():
+            data = os.popen('adb shell dumpsys window|find "permission"').read()
+            if "SYSTEM_ALERT_WINDOW" in data:
                 try:
                     driver.find_element_by_xpath('//*[@text="允许"]').click()
                 except selenium.common.exceptions.NoSuchElementException:
@@ -566,6 +568,11 @@ class PopupHandle(object):
                     driver.find_element_by_xpath('//*[@text="以后再说"]').click()
                 except selenium.common.exceptions.NoSuchElementException:
                     driver.find_element_by_xpath('//*[@text="同意并继续"]').click()
+            elif "mFocusedApp" in data:
+                try:
+                    driver.find_element_by_xpath('//*[@text="始终允许"]').click()
+                except selenium.common.exceptions.NoSuchElementException:
+                    pass
             else:
                 continue
 
