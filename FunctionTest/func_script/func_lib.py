@@ -400,6 +400,10 @@ class AppOperation(object):
     wait = Waiting()
     ps = PhoneSetting()
 
+    def uninstall_app(self):
+        """卸载app"""
+        os.popen('adb uninstall com.excelliance.dualaid')
+
     def clear_app(self):
         """清除数据"""
         os.popen("adb shell pm clear com.excelliance.dualaid")

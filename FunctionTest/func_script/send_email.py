@@ -85,13 +85,14 @@ class EmailSending(object):
         msg.attach(text)
 
         # 构造附件
-        with open(self.get_latest_file(self.file_path), 'rb') as file:
-            sendfile = file.read()
-        text_att = MIMEText(sendfile, 'base64', 'utf-8')
-        text_att["Content-Type"] = 'application/octet-stream'
-        # 以下附件可以重命名成aaa.txt
-        text_att["Content-Disposition"] = 'attachment; filename="test_report.zip"'
-        msg.attach(text_att)
+        if self.file_path is not None:
+            with open(self.get_latest_file(self.file_path), 'rb') as file:
+                sendfile = file.read()
+            text_att = MIMEText(sendfile, 'base64', 'utf-8')
+            text_att["Content-Type"] = 'application/octet-stream'
+            # 以下附件可以重命名成aaa.txt
+            text_att["Content-Disposition"] = 'attachment; filename="test_report.zip"'
+            msg.attach(text_att)
 
         # 发送邮件
         smtp = smtplib.SMTP()
