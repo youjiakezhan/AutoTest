@@ -27,8 +27,8 @@ class Compression(object):
             for file in files:
                 z.write(os.path.join(root, file), fpath + file)
         z.close()
-        # 保存本次测试apk
-        os.popen('move ' + fp.get_file_path() + ' ' + os.path.join(fp.apk_path, 'daily_review_files\\apk'))
+        # # 保存本次测试apk
+        # os.popen('move ' + fp.get_file_path() + ' ' + os.path.join(fp.apk_path, 'daily_review_files\\apk'))
 
 
 if __name__ == '__main__':

@@ -22,11 +22,11 @@ class AppiumServerCheck(object):
                     time.sleep(3)
                 except urllib.error.URLError:
                     time.sleep(3)
-            self.ap_opr.force_stop('com.excelliance.dualaid')
+            self.ap_opr.force_stop()
             print('测试环境OK，开始执行测试\n')
         else:
             os.popen("start appium")
-            print("正在启动appium服务程序，请稍后...\n")
+            print("正在启动appium服务程序，请稍等...\n")
             while True:
                 if 'node.exe' in os.popen('tasklist | findstr "node.exe"').read():
                     while True:
@@ -37,7 +37,7 @@ class AppiumServerCheck(object):
                             time.sleep(3)
                         except urllib.error.URLError:
                             time.sleep(3)
-                    self.ap_opr.force_stop('com.excelliance.dualaid')
+                    self.ap_opr.force_stop()
                     print('测试环境OK，开始执行测试\n')
                     break
                 else:

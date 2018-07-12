@@ -20,6 +20,8 @@ from appium.webdriver.webdriver import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC  # for find toast
 
 sys_alert = ap_alert = ad_alert = True
+pck_name = 'com.excelliance.dualaid'
+activity = 'com.excelliance.kxqp.ui.HelloActivity'
 
 
 class AppiumInit(object):
@@ -36,10 +38,12 @@ class AppiumInit(object):
         desired_cups['appPackage'] = 'com.excelliance.dualaid'
         desired_cups['appActivity'] = 'com.excelliance.kxqp.ui.HelloActivity'
         desired_cups['noReset'] = 'true'
+        # desired_cups['newCommandTimeout'] = '86400000'  # 命令超时时间24小时
         # desired_cups['unicodeKeyboard'] = 'true'
         # desired_cups['resetKeyboard'] = 'true'
         desired_cups['automationName'] = 'uiautomator2'  # define use uiautomator2 to find element,default is appium
         driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_cups)
+        return driver
 
     def quit(self):
         """to quit this session"""
@@ -134,7 +138,7 @@ class GetInfo(object):
         """获取当前时间并以自定义格式返回"""
         if display == 0:
             now = time.strftime('%y%m%d%H%M%S')
-        elif display ==1:
+        elif display == 1:
             now = time.strftime('%Y.%m.%d_%H:%M:%S')
         return now
 
@@ -337,7 +341,7 @@ class Waiting(object):
         """硬等待"""
         sleep(n)
 
-    def wait_explicit_ele(self, controlInfo, time=15, frequency=2):
+    def wait_explicit_ele(self, controlInfo, time=20, frequency=1):
         """显式等待元素出现（直到until方法执行完毕，或者等待10秒后等待取消）"""
         WebDriverWait(driver, time, frequency).until(lambda driver: self.ele.find_element(controlInfo))
 
@@ -402,23 +406,22 @@ class AppOperation(object):
 
     def uninstall_app(self):
         """卸载app"""
-        os.popen('adb uninstall com.excelliance.dualaid')
+        os.popen('adb uninstall ' + pck_name)
 
     def clear_app(self):
         """清除数据"""
-        os.popen("adb shell pm clear com.excelliance.dualaid")
+        os.popen("adb shell pm clear " + pck_name)
 
     def force_stop(self):
         """强行停止"""
-        os.popen("adb shell am force-stop com.excelliance.dualaid")
+        os.popen("adb shell am force-stop " + pck_name)
 
     def start_app(self, choice=0):
         """启动APP（choice=0正常启动，choice=1时，启动并返回启动耗时）"""
-        # driver.start_activity('com.excelliance.dualaid', 'com.excelliance.kxqp.ui.HelloActivity')
         if choice == 0:
-            os.popen("adb shell am start com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity")
+            os.popen("adb shell am start " + pck_name + '/' + activity)
         elif choice == 1:
-            t = os.popen("adb shell am start -W com.excelliance.dualaid/com.excelliance.kxqp.ui.HelloActivity")
+            t = os.popen("adb shell am start -W " + pck_name + '/' + activity)
             for line in t.readlines():
                 if "TotalTime" in line:
                     start_time = line.split()[1]
@@ -430,13 +433,13 @@ class AppOperation(object):
         """启动APP至状态1（添加引导页）"""
         self.wait.wait_for()
         self.ele.swipe_find_element('com.excelliance.dualaid:id/bt_explore', 300, 'L')
-        self.wait.wait_explicit_ele('com.excelliance.dualaid:id/first_start_ok')
+        self.wait.wait_explicit_ele('com.excelliance.dualaid:id/jump_to')
 
     def set_app_status2(self):
         """启动APP至状态2（无banner，icon，无信息流,无钻石按钮的主界面）"""
         self.set_app_status1()
         self.ele.find_element('com.excelliance.dualaid:id/jump_to').click()
-        self.wait.wait_explicit_ele('com.excelliance.dualaid:id/tv_bt_add')
+        self.wait.wait_explicit_ele('com.excelliance.dualaid:id/tv_bt_add', 30, 2)
         self.op.back()
         self.wait.wait_for()
 
@@ -447,38 +450,37 @@ class AppOperation(object):
         self.op.back()
         self.wait.wait_for()
         self.start_app()
-        self.wait.wait_for()
         while i < 4:
+            print("配置测试环境:第%d次" % i)
             try:
-                self.wait.wait_explicit_ele("com.excelliance.dualaid:id/ad_but", 10, 1)
+                self.wait.wait_explicit_ele("com.excelliance.dualaid:id/ad_but", 30, 2)
                 break
-            except Exception as e:
-                print(e, "尝试第%d次" % i)
+            except selenium.common.exceptions.TimeoutException:
+                print("环境配置失败")
                 self.op.back()
-                self.wait.wait_for()
+                self.wait.wait_for(3)
                 self.start_app()
-                self.wait.wait_for()
                 i += 1
 
     def set_app_status4(self):
         """启动APP至状态4（有banner，icon，信息流，钻石按钮的主界面）"""
         i = 3
         j = 3
-        self.wait.wait_for(2)
+        self.wait.wait_for()
         self.ele.swipe_find_element('com.excelliance.dualaid:id/bt_explore', 300, 'L')
         self.wait.wait_explicit_ele('com.excelliance.dualaid:id/first_start_ok')
         self.ele.find_element('com.excelliance.dualaid:id/jump_to').click()
         self.wait.wait_explicit_ele('com.excelliance.dualaid:id/tv_bt_add')
         self.op.back()
-        self.wait.wait_for(1)
+        self.wait.wait_for()
         self.op.back()
-        self.wait.wait_for(2)
+        self.wait.wait_for()
         self.start_app()
         self.wait.wait_explicit_ele("com.excelliance.dualaid:id/iv_icon")
         while i > 0:
             i -= 1
             try:
-                self.wait.wait_explicit_ele("com.excelliance.dualaid:id/ad_but", 10, 1)
+                self.wait.wait_explicit_ele("com.excelliance.dualaid:id/ad_but", 20, 2)
                 break
             except Exception as e:
                 print(e, "尝试第%d次" % i)
@@ -580,28 +582,65 @@ class PopupHandle(object):
             else:
                 continue
 
-    def android_alert(self):
-        """监控并处理android弹窗"""
-        print('thread-2 is working')
+    def install_alert(self):
+        """监控并处理应用安装弹窗"""
+        print('apk_start_time assistent thread is working')
         global ad_alert
         while ad_alert:
-            if "mFocusedApp" in os.popen('adb shell dumpsys window|find "permission"').read():
-                try:
-                    driver.find_element_by_xpath('//*[@text="始终允许"]').click()
-                except selenium.common.exceptions.NoSuchElementException:
-                    pass
-            else:
-                continue
+            try:
+                data = driver.page_source
+                if "com.android.packageinstaller:id/apk_info_view" in data:
+                    print('检测到apk安装提示，开始处理...')
+                    try:
+                        driver.find_element_by_id('com.android.packageinstaller:id/btn_continue_install').click()
+                        time.sleep(1)
+                        driver.find_element_by_xpath('//*[@text="安装"]').click()
+                        time.sleep(1)
+                        driver.find_element_by_xpath('//*[@text="完成"]').click()
+                        print('apk安装完成')
+                    except selenium.common.exceptions.NoSuchElementException:
+                        driver.find_element_by_xpath('//*[@text="继续安装"]').click()
+                        time.sleep(1)
+                        driver.find_element_by_xpath('//*[@text="安装"]').click()
+                        time.sleep(1)
+                        driver.find_element_by_xpath('//*[@text="完成"]').click()
+                        print('apk安装完成2')
+                elif "安全警告" in data:
+                    print('检测apk权限弹窗，开始处理...')
+                    try:
+                        driver.find_element_by_xpath('//*[@text="不再提醒"]').click()
+                        driver.find_element_by_id('android:id/button1').click()
+                        print('已同意apk获取权限')
+                    except selenium.common.exceptions.NoSuchElementException:
+                        driver.find_element_by_xpath('//*[@text="允许"]').click()
+                        print('已同意apk获取权限2')
+                elif 'com.excelliance.dualaid:id/ll_dialog' in data:
+                    print('检测到apk更新提示弹窗，开始处理...')
+                    try:
+                        driver.find_element_by_id('com.excelliance.dualaid:id/cb_noToast').click()
+                        driver.find_element_by_id('com.excelliance.dualaid:id/tv_left').click()
+                        print('已忽略apk更新')
+                    except selenium.common.exceptions.NoSuchElementException:
+                        driver.find_element_by_id('com.excelliance.dualaid:id/cb_noToast').click()
+                        driver.find_element_by_xpath('//*[@text="忽略"]').click()
+                        print('已忽略apk更新2')
+                else:
+                    continue
+            except:
+                pass
 
 
 class CreateThread(object):
     """创建新线程"""
-    # def __init__(self, func):
-    #     threading.Thread.__init__(self)
-    #     self.func = func
+    # 第一种方式开启新线程
+    # 继承threading类并重写其run()方法
+    # class NewThread(threading):
+    #   def __init__(self, func):
+    #       threading.Thread.__init__(self)
+    #       self.func = func
     #
-    # def run(self):
-    #     self.func()
+    #   def run(self):
+    #       self.func()
 
     def start_thread(self, func):
         """开启一条执行func函数的新线程"""

@@ -317,7 +317,7 @@ class PackageManage(object):
         if len(listbox.curselection()) > 0:
             try:
                 if askyesno('提示', '是否确认删除该应用？') is True:
-                    text.insert(END, '卸载成功,已重新加载应用列表')
+                    text.insert(END, '卸载成功,已重新加载应用列表\n')
                     os.popen('adb uninstall ' + listbox.get(listbox.curselection()))
                     self.app.clear_two()
                     self.display_installed_app()
