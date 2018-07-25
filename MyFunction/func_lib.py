@@ -24,7 +24,6 @@ pck_name = 'com.excelliance.dualaid'
 activity = 'com.excelliance.kxqp.ui.HelloActivity'
 
 
-# appium封装
 class AppiumInit(object):
     """appium server"""
 
@@ -51,7 +50,6 @@ class AppiumInit(object):
         driver.quit()
 
 
-# 图形图像
 class ScreenShot(object):
     """截图以及图片处理"""
 
@@ -100,7 +98,6 @@ class ScreenShot(object):
             print(e, "错误，图片位深度可能与要求不符！")
 
 
-# 获取信息
 class GetInfo(object):
     """信息获取"""
 
@@ -157,7 +154,6 @@ class GetInfo(object):
         return winreg.QueryValueEx(key, "Desktop")[0]
 
 
-# 用户操作
 class UserOperation(object):
     """用户操作"""
     gf = GetInfo()
@@ -250,7 +246,6 @@ class UserOperation(object):
         touch.long_press(ele1).wait(1000).move_to(ele2).wait(1000).release().perform()
 
 
-# 控件定位
 class FindElement(object):
     """查找并定位控件"""
     st = ScreenShot()
@@ -338,7 +333,6 @@ class FindElement(object):
                     print("argument error, you can only choose one word from (U,D,L,R)")
 
 
-# 等待
 class Waiting(object):
     """等待方式"""
     ele = FindElement()
@@ -365,7 +359,6 @@ class Waiting(object):
             return False
 
 
-# 手机设置
 class PhoneSetting(object):
     """手机系统相关设置(*****需要优化适配*****)"""
     ele = FindElement()
@@ -404,7 +397,6 @@ class PhoneSetting(object):
         self.op.home()
 
 
-# app操作
 class AppOperation(object):
     """app自身相关操作和设置"""
     op = UserOperation()
@@ -557,7 +549,6 @@ class AppOperation(object):
         self.wait.wait_for()
 
 
-# app运行时弹窗处理
 class PopupHandle(object):
     """处理测试过程中不定时出现的系统弹窗和app自身的弹窗"""
     ele = FindElement()
@@ -639,7 +630,6 @@ class PopupHandle(object):
                 pass
 
 
-# 创建线程
 class CreateThread(object):
     """创建新线程"""
     # 第一种方式开启新线程
@@ -667,7 +657,6 @@ class CreateThread(object):
                 break
 
 
-# 日志获取
 class Logcat(object):
     """手机日志"""
     getinfo = GetInfo()
@@ -701,4 +690,8 @@ class Logcat(object):
 
 
 # 设置基本路径
+getinfo = GetInfo()
 BASE_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+log_path = os.path.join(BASE_PATH, 'test_result2\\logs\\')
+img_path = os.path.join(BASE_PATH, 'test_result1\\error_img\\')
+report_path = os.path.join(BASE_PATH, 'test_result1\\双开助手测试报告%s.html' % getinfo.get_time())

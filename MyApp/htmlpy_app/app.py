@@ -2,7 +2,7 @@
 import os
 import htmlPy
 from PySide import QtGui
-from GUI_APP.htmlpy_app.back_end import BackEnd
+from MyApp.htmlpy_app.back_end import BackEnd
 
 app = htmlPy.AppGUI(title=u"安卓测试工具", maximized=False, plugins=True)
 
