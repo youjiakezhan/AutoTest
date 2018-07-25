@@ -6,7 +6,7 @@ import time
 import matplotlib.pyplot as plt
 import uiautomator2 as u2
 
-from MyFunction.send_email import SendEmail
+from myfunction.send_email import SendEmail
 
 """
 功能概述：
@@ -211,7 +211,6 @@ class GetData(object):
                             lbcore.append(0)
                         if len(mast) > len(lebian):
                             lebian.append(0)
-                    time.sleep(1)
                 except UnboundLocalError:
                     print('未检测到双开进程')
                     continue
@@ -266,7 +265,7 @@ class DataOperate(object):
         plt.legend()
         plt.grid()
         fig.add_subplot(224)
-        plt.plot(cpu_data, 'r--', label='cpu')
+        plt.plot(cpu_data, 'r', label='cpu')
         plt.legend()
         plt.grid()
         plt.savefig(path + '\\%s.png' % time.strftime('%Y%m%d%H%M%S'))
@@ -306,6 +305,12 @@ def run(path, num=10):
 if __name__ == "__main__":
     result_path = os.path.abspath(os.path.dirname('__file__'))
     sendemail = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', image_path=result_path)
-    run(result_path, int(input('输入各个场景的循环次数：')))    # 输入场景循环次数
-    # run(result_path)                                          # 默认循环次数（10次）
+    while True:
+        try:
+            run(result_path, int(input('输入各个场景的循环次数：')))    # 输入场景循环次数
+            # run(result_path)                                          # 默认循环次数（10次）
+            break
+        except Exception:
+            continue
     sendemail.create_email('双开助手性能测试：内存/cpu测试结果')
+    print(len(mast), len(lbcore), len(lebian), len(cpu_data))
