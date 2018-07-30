@@ -1,16 +1,10 @@
 # coding: utf-8
 import os
 import smtplib
-import time
 from email.header import Header
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-from bs4 import BeautifulSoup
-from selenium import webdriver
-
-from FunctionTest.func_script.func_lib import BASE_PATH
 
 
 class SendEmail(object):
@@ -50,7 +44,7 @@ class SendEmail(object):
 
         # 邮件正文内容
         mail_content = """
-        <p>%s</p>
+        <h2>%s</h2>
         """ % mail_name     # 邮件正文标题（及文本内容）
         text = MIMEText(mail_content, 'html', 'utf-8')
         msg.attach(text)

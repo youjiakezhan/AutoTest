@@ -53,11 +53,16 @@ class FilePath(object):
             return False
 
     def get_file_path(self):
-        """获取daily review安装包路径"""
+        """获取安装包路径"""
         for file in os.listdir(self.apk_path):
             file_path = os.path.join(self.apk_path, file)
+            print(file_path)
             if self.style in file_path and os.path.isfile(file_path):
-                return file_path
+                if ' ' in file_path:
+                    print(os.rename(file_path.replace(' ', ''), file_path))
+                    return file_path
+                else:
+                    return file_path
 
     def uninstall_apk(self):
         """卸载本机已有双开助手apk"""
@@ -71,7 +76,6 @@ class FilePath(object):
             try:
                 if d(resourceId="com.android.packageinstaller:id/apk_info_view").exists(10) is True:
                     print('检测到apk，正在安装...')
-                    # d.unlock()
                     d.screen_on()
                     d(text="继续安装").click(timeout=5)
                     time.sleep(1)
@@ -169,17 +173,18 @@ class SuperVision(object):
 
 # 邮件发送测试报告
 class EmailSending(object):
-    def __init__(self, username, password):
+    def __init__(self, username, password, state=None):
         self.username = username
         self.password = password
+        self.state = state
 
     # 创建并发送邮件
-    def create_email(self, state=None):
+    def create_email(self):
         username = self.username
         password = self.password
         smtpserver = 'smtp.ym.163.com'
         sender = username
-        if state == 'test':
+        if self.state == 'test':
             receiver = 'wangzhongchang@excelliance.cn'
         else:
             receiver = 'xuhe@excelliance.cn,wangzhe@excean.com,huanggao@excelliance.cn,liminde@excelliance.cn,\
@@ -396,7 +401,7 @@ class StartTimeTest(object):
             time.sleep(3)
         except uiautomator2.UiObjectNotFoundError:
             time.sleep(3)
-        if d(resourceId='com.excelliance.dualaid:id/fl_off_standard_position').exists(10):
+        if d(resourceId='com.excelliance.dualaid:id/fl_off_standard_position').exists(5):
             print('拉取到非标位版本，重新拉取')
             d.app_clear(pck_name)
             time.sleep(3)
@@ -704,7 +709,7 @@ class StartTimeTest(object):
 if __name__ == '__main__':
     thread = CreateThread()
     test = StartTimeTest()
-    e = EmailSending('wangzhongchang@excelliance.cn', 'wzc6851498')
+    e = EmailSending('wangzhongchang@excelliance.cn', 'wzc6851498', state='test')
     while True:
         if test.check_adb_connect() is True:
             try:
@@ -712,8 +717,7 @@ if __name__ == '__main__':
                 t = 1
                 test.run_test(t)
                 d.service("uiautomator").stop()
-                e.create_email('test')  # 测试邮件
-                # e.create_email()      # 正式邮件
+                e.create_email()
                 time.sleep(30)
             except http.client.RemoteDisconnected:
                 print('uiautomator error，try reconnect...')

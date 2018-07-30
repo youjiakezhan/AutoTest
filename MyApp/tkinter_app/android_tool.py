@@ -888,7 +888,7 @@ frm3.pack(side=TOP, fill=BOTH, padx=3, pady=3)
 
 frm = Frame(root)
 var_label1 = StringVar
-label1 = Label(frm, text='别点我！', height='2', font=('粗体', 18), bg='orchid', fg='gold')
+label1 = Label(frm, text='隐藏功能哟', height='2', font=('粗体', 18), bg='orchid', fg='gold')
 label1.pack(fill=BOTH)
 label1.bind('<ButtonPress-1>', hind_text)
 frm.pack(side=TOP, fill=BOTH, padx=3, pady=3)

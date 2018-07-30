@@ -3,10 +3,8 @@
 import os
 import time
 
-from FunctionTest.func_script.func_lib import getinfo
 
-
-class FilePath(object):
+class ApkInstall(object):
 
     def __init__(self, apk_path, style='.apk'):
         self.apk_path = apk_path
@@ -17,7 +15,6 @@ class FilePath(object):
         for file in os.listdir(self.apk_path):
             file_path = os.path.join(self.apk_path, file)
             if self.style in file_path and os.path.isfile(file_path):
-                # print(file_path)
                 return file_path
 
     def check_adb_connect(self):
@@ -67,10 +64,10 @@ class FilePath(object):
                         print('自动安装测试包失败，请手动进行安装\n')
                         continue
                 except TypeError:
-                    print('未检测到双开助手安装包\n本次检测时间：%s\n' % getinfo.get_time(1))
+                    print('未检测到双开助手安装包\n本次检测时间：%s\n' % time.strftime('%Y-%m-%d_%H:%M:%S'))
                     time.sleep(10)
 
 
 if __name__ == '__main__':
-    fp = FilePath(apk_path=r'Z:\daily_review_SKZS', style='.apk')
+    fp = ApkInstall(apk_path=r'Z:\daily_review_SKZS', style='.apk')
     fp.monitor()
