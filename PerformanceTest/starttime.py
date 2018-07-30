@@ -1,14 +1,16 @@
 import http
 import os
 import re
-import smtplib
 import sys
 import threading
 import time
-from email.header import Header
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+
+import requests
 import uiautomator2
+import urllib3
+
+from AutoTest.myfunction.send_email import SendEmail
+from AutoTest.myfunction.ui2 import UI2
 
 """
     脚本功能:
@@ -20,20 +22,11 @@ import uiautomator2
     测试环境:
             测试前请确保手机内至少装有一款热门应用(如微信等);
 """
-
 email_content_flag = 1
+mail_content = ''
 alert_flag = 1
 pck_name = 'com.excelliance.dualaid'
 activity = 'com.excelliance.kxqp.ui.HelloActivity'
-
-
-def __init__():
-    global d
-    d = uiautomator2.connect()
-    time.sleep(1)
-    d.screen_on()
-    d.healthcheck()
-    return d
 
 
 class FilePath(object):
@@ -56,13 +49,15 @@ class FilePath(object):
         """获取安装包路径"""
         for file in os.listdir(self.apk_path):
             file_path = os.path.join(self.apk_path, file)
-            print(file_path)
             if self.style in file_path and os.path.isfile(file_path):
                 if ' ' in file_path:
-                    print(os.rename(file_path.replace(' ', ''), file_path))
+                    file_path = os.rename(file_path, file_path.replace(' ', ''))
+                    # print(file_path)
                     return file_path
                 else:
                     return file_path
+            else:
+                continue
 
     def uninstall_apk(self):
         """卸载本机已有双开助手apk"""
@@ -71,10 +66,15 @@ class FilePath(object):
 
     def install_apk(self):
         """安装daily review包"""
-        os.popen('adb install -r ' + self.get_file_path())
+        try:
+            os.popen('adb install -r ' + self.get_file_path())
+        except FileExistsError:
+            os.remove(self.get_file_path())
+            time.sleep(2)
+            os.popen('adb install -r ' + self.get_file_path())
         while True:
             try:
-                if d(resourceId="com.android.packageinstaller:id/apk_info_view").exists(10) is True:
+                if d(resourceId="com.android.packageinstaller:id/apk_info_view").exists(15) is True:
                     print('检测到apk，正在安装...')
                     d.screen_on()
                     d(text="继续安装").click(timeout=5)
@@ -86,7 +86,7 @@ class FilePath(object):
                     break
                 else:
                     time.sleep(2)
-            except Exception:
+            except uiautomator2.UiObjectNotFoundError:
                 print('apk安装失败，正在尝试重新安装')
                 os.popen('adb install -r ' + self.get_file_path())
 
@@ -143,7 +143,6 @@ class SuperVision(object):
                         d(resourceId='com.excelliance.dualaid:id/tv_left').click(timeout=5)
                         print('已忽略apk更新')
                     else:
-                        # print('未检测到apk更新提示')
                         time.sleep(1)
                 except uiautomator2.UiObjectNotFoundError:
                     continue
@@ -169,109 +168,6 @@ class SuperVision(object):
             else:
                 print('监控2已停止')
                 break
-
-
-# 邮件发送测试报告
-class EmailSending(object):
-    def __init__(self, username, password, state=None):
-        self.username = username
-        self.password = password
-        self.state = state
-
-    # 创建并发送邮件
-    def create_email(self):
-        username = self.username
-        password = self.password
-        smtpserver = 'smtp.ym.163.com'
-        sender = username
-        if self.state == 'test':
-            receiver = 'wangzhongchang@excelliance.cn'
-        else:
-            receiver = 'xuhe@excelliance.cn,wangzhe@excean.com,huanggao@excelliance.cn,liminde@excelliance.cn,\
-                        zhuyao@excean.com,lixianzhuang@excelliance.cn,wangzhongchang@excelliance.cn,\
-                       gezhipeng@excelliance.cn'
-        # 通过Header对象编码的文本，包含utf-8编码信息和Base64编码信息。以下中文名测试ok
-        subject = '测试报告'
-        subject = Header(subject, 'utf-8').encode()
-        # 构造邮件对象MIMEMultipart对象
-        msg = MIMEMultipart('mixed')
-        msg['Subject'] = subject
-        msg['From'] = sender
-        msg['To'] = receiver
-        # 构造邮件内容（html形式）
-        # 判断是否拉取到信息流
-        if email_content_flag == 1:
-            mail_content = """
-            <div>
-            <p><strong>启动时间测试报告</strong></p>
-            <p>测试数据单位均为毫秒（ms）</p>
-            <div id="content">
-            <table border="1" bordercolor="#87ceeb" width="800">
-                <tr>
-                    <td>版本</td>
-                    <td>back(avg)</td>
-                    <td>back(max)</td>
-                    <td>home(avg)</td>
-                    <td>home(max)</td>
-                    <td>冷启动(avg)</td>
-                    <td>冷启动(max)</td>
-                </tr>
-                <tr>
-                    <td>新版本</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                </tr>
-                <tr>
-                    <td>3.0.6版本</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                    <td>%d</td>
-                </tr>
-                <tr>
-                    <td>均值差</td>
-                    <td>%d</td>
-                    <td bgcolor="#87ceeb">null</td>
-                    <td>%d</td>
-                    <td bgcolor="#87ceeb">null</td>
-                    <td>%d</td>
-                    <td bgcolor="#87ceeb">null</td>
-                </tr>
-            </table>
-            </div>
-            </div>
-            </body>
-            </html>
-            """ % (data_dict['新版back均值'], data_dict['新版back最大值'], data_dict['新版home均值'],
-                   data_dict['新版home最大值'], data_dict['新版force均值'], data_dict['新版force最大值'],
-                   data_dict['老版back均值'], data_dict['老版back最大值'], data_dict['老版home均值'],
-                   data_dict['老版home最大值'], data_dict['老版force均值'], data_dict['老版force最大值'],
-                   data_dict['back差值'], data_dict['home差值'], data_dict['force差值']
-                   )
-        elif email_content_flag == 2:
-            mail_content = """
-                        <h1>启动时间测试失败<h1>
-                        <p>失败原因：10次拉取banner和icon广告失败，该模块可能存在问题（已尝试往前和往后调节手机时间再拉取）</p>
-                        """
-        else:
-            mail_content = """
-                        <h1>启动时间测试失败<h1>
-                        <p>失败原因：10次拉取信息流失败，该模块可能存在问题（已尝试往前和往后调节手机时间再拉取）</p>
-                        """
-        text = MIMEText(mail_content, 'html', 'utf-8')
-        msg.attach(text)
-        # 发送邮件
-        smtp = smtplib.SMTP()
-        smtp.connect(smtpserver, 25)
-        smtp.login(username, password)
-        smtp.sendmail(sender, receiver.split(','), msg.as_string())
-        smtp.quit()
 
 
 # app启动时间测试类
@@ -313,7 +209,7 @@ class StartTimeTest(object):
         while True:
             try:
                 if kind == 'normal':
-                    print('正在设置系统时间')
+                    print('正在设置手机时间')
                     d.app_stop(pck_name)
                     time.sleep(1)
                     d.press('home')
@@ -348,7 +244,7 @@ class StartTimeTest(object):
                     d(resourceId='com.excelliance.dualaid:id/add_but').exists(15)
                     break
                 elif kind == 'recovery':
-                    print('正在恢复系统时间')
+                    print('正在恢复手机时间')
                     d.press('home')
                     time.sleep(1)
                     d.press('home')
@@ -367,14 +263,14 @@ class StartTimeTest(object):
                         time.sleep(2)
                         d.app_start(pck_name)
                         d(resourceId='com.excelliance.dualaid:id/add_but').exists(15)
-                        print('手机时间已恢复当前时间')
+                        print('手机时间已恢复至当前时间')
                         break
                     else:
                         d.press('home')
                         time.sleep(2)
                         d.app_start(pck_name)
                         d(resourceId='com.excelliance.dualaid:id/add_but').exists(15)
-                        print('手机时间已恢复当前时间')
+                        print('手机时间已经为当前时间')
                         break
             except uiautomator2.UiObjectNotFoundError:
                 continue
@@ -382,6 +278,7 @@ class StartTimeTest(object):
     # 设置app到指定状态，拉出banner和icon广告
     def set_app_status(self):
         """启动APP至状态（有banner，icon，无信息流，无钻石按钮的主界面）"""
+
         def set_step():
             d(text=u'点击加号，添加双开应用').exists(5)
             d(scrollable=True).fling.horiz.forward(100)
@@ -394,6 +291,7 @@ class StartTimeTest(object):
             d.press('back')
             time.sleep(2)
             d.app_start(pck_name)
+
         set_step()
         print('正在检测非标位')
         try:
@@ -431,7 +329,7 @@ class StartTimeTest(object):
                         print('测试失败，广告拉取部分可能有问题')
                         global email_content_flag
                         email_content_flag = 2
-                        em = EmailSending('wangzhongchang@excelliance.cn', 'wzc6851498')
+                        em = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498')
                         em.create_email(t)
                         time.sleep(5)
                         print('系统正在退出...')
@@ -491,9 +389,9 @@ class StartTimeTest(object):
                 # 10次拉取不到的话，邮件通知拉取不到信息流
                 elif i == 10:
                     global email_content_flag
-                    email_content_flag = 0
-                    em = EmailSending('wangzhongchang@excelliance.cn', 'wzc6851498')
-                    em.create_email(t)
+                    email_content_flag = 3
+                    em = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state='debug')
+                    em.create_email(mail_content)
                     time.sleep(5)
                     print('系统正在退出...')
                     sys.exit()
@@ -703,42 +601,129 @@ class StartTimeTest(object):
             'home差值': h_diff,
             'force差值': f_diff
         }
-        return data_dict
+
+        # 定义邮件的文本内容
+        print('邮件标志位为:', email_content_flag)
+        global mail_content
+        if email_content_flag == 1:
+            mail_content = """
+            <div>
+            <p><strong>启动时间测试报告</strong></p>
+            <p>测试数据单位均为毫秒（ms）</p>
+            <div id="content">
+            <table border="1" bordercolor="#87ceeb" width="800">
+                <tr>
+                    <td>版本</td>
+                    <td>back(avg)</td>
+                    <td>back(max)</td>
+                    <td>home(avg)</td>
+                    <td>home(max)</td>
+                    <td>冷启动(avg)</td>
+                    <td>冷启动(max)</td>
+                </tr>
+                <tr>
+                    <td>新版本</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                </tr>
+                <tr>
+                    <td>3.0.6版本</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                    <td>%d</td>
+                </tr>
+                <tr>
+                    <td>均值差</td>
+                    <td>%d</td>
+                    <td bgcolor="#87ceeb">null</td>
+                    <td>%d</td>
+                    <td bgcolor="#87ceeb">null</td>
+                    <td>%d</td>
+                    <td bgcolor="#87ceeb">null</td>
+                </tr>
+            </table>
+            </div>
+            </div>
+            </body>
+            </html>
+            """ % (data_dict['新版back均值'], data_dict['新版back最大值'], data_dict['新版home均值'],
+                   data_dict['新版home最大值'], data_dict['新版force均值'], data_dict['新版force最大值'],
+                   data_dict['老版back均值'], data_dict['老版back最大值'], data_dict['老版home均值'],
+                   data_dict['老版home最大值'], data_dict['老版force均值'], data_dict['老版force最大值'],
+                   data_dict['back差值'], data_dict['home差值'], data_dict['force差值']
+                   )
+        elif email_content_flag == 2:
+            mail_content = """
+                        <h1>启动时间测试失败<h1>
+                        <p>失败原因：10次拉取banner和icon广告失败，该模块可能存在问题（已尝试往前和往后调节手机时间再拉取）</p>
+                        """
+        elif email_content_flag == 3:
+            mail_content = """
+                        <h1>启动时间测试失败<h1>
+                        <p>失败原因：10次拉取信息流失败，该模块可能存在问题（已尝试往前和往后调节手机时间再拉取）</p>
+                        """
 
 
 if __name__ == '__main__':
+    # 初始化uiautomator2
+    ui2 = UI2()
     thread = CreateThread()
     test = StartTimeTest()
-    e = EmailSending('wangzhongchang@excelliance.cn', 'wzc6851498', state='test')
+    e = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state='send')
     while True:
         if test.check_adb_connect() is True:
             try:
-                __init__()
+                d = ui2.ui2_init()
                 t = 1
                 test.run_test(t)
                 d.service("uiautomator").stop()
-                e.create_email()
+                e.create_email(mail_content)
                 time.sleep(30)
-            except http.client.RemoteDisconnected:
-                print('uiautomator error，try reconnect...')
+            except http.client.RemoteDisconnected as e:
+                print(e)
                 d.service("uiautomator").stop()
                 thread.stop_thread()
                 time.sleep(5)
                 continue
-            except uiautomator2.GatewayError:
-                print('uiautomator error，try reconnect...')
+            except urllib3.exceptions.ProtocolError as e:
+                print(e)
                 d.service("uiautomator").stop()
                 thread.stop_thread()
                 time.sleep(5)
                 continue
-            except RuntimeError:
-                print('uiautomator error，try reconnect...')
+            except requests.exceptions.ConnectionError as e:
+                print(e)
                 d.service("uiautomator").stop()
                 thread.stop_thread()
                 time.sleep(5)
                 continue
-            except uiautomator2.UiAutomationNotConnectedError:
-                print('uiautomator error，try reconnect...')
+            except OSError as e:
+                print(e)
+                d.service("uiautomator").stop()
+                thread.stop_thread()
+                time.sleep(5)
+                continue
+            except uiautomator2.GatewayError as e:
+                print(e)
+                d.service("uiautomator").stop()
+                thread.stop_thread()
+                time.sleep(5)
+                continue
+            except RuntimeError as e:
+                print(e)
+                d.service("uiautomator").stop()
+                thread.stop_thread()
+                time.sleep(5)
+                continue
+            except uiautomator2.UiAutomationNotConnectedError as e:
+                print(e)
                 d.service("uiautomator").stop()
                 thread.stop_thread()
                 time.sleep(5)

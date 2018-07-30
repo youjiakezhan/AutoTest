@@ -5,15 +5,17 @@ from email.header import Header
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+email_content_flag = 1
 
 
 class SendEmail(object):
-    def __init__(self, username, password, file_path=None, html_path=None, image_path=None):
+    def __init__(self, username, password, state='debug', file_path=None, html_path=None, image_path=None):
         self.file_path = file_path
         self.image_path = image_path
         self.html_path = html_path
         self.username = username
         self.password = password
+        self.state = state
 
     def get_latest_file(self, get_path=None):
         """获取指定目录下按改动时间排序最新文件"""
@@ -25,13 +27,18 @@ class SendEmail(object):
         latest = os.path.join(get_path, lists[-1])
         return latest
 
-    def create_email(self, mail_name):
+    def create_email(self, mail_content):
         """创建并发送邮件，测试报告通过邮件附件的形式发出"""
         username = self.username
         password = self.password
         smtpserver = 'smtp.ym.163.com'
         sender = username
-        receiver = 'wangzhongchang@excelliance.cn'
+        if self.state == 'debug':
+            receiver = 'wangzhongchang@excelliance.cn'
+        elif self.state == 'send':
+            receiver = 'xuhe@excelliance.cn,wangzhe@excean.com,huanggao@excelliance.cn,liminde@excelliance.cn,\
+                        zhuyao@excean.com,lixianzhuang@excelliance.cn,wangzhongchang@excelliance.cn,\
+                       gezhipeng@excelliance.cn'
         # 通过Header对象编码的文本，包含utf-8编码信息和Base64编码信息。以下中文名测试ok
         subject = '测试报告'
         subject = Header(subject, 'utf-8').encode()
@@ -43,9 +50,6 @@ class SendEmail(object):
         msg['To'] = receiver
 
         # 邮件正文内容
-        mail_content = """
-        <h2>%s</h2>
-        """ % mail_name     # 邮件正文标题（及文本内容）
         text = MIMEText(mail_content, 'html', 'utf-8')
         msg.attach(text)
 
