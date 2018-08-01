@@ -2,7 +2,8 @@
 import os
 import threading
 import time
-import gevent
+from multiprocessing import Process
+
 import matplotlib.pyplot as plt
 import numpy as np
 import uiautomator2 as u2
@@ -77,9 +78,9 @@ class Case(object):
         while i < num:
             try:
                 d(resourceId="com.excelliance.dualaid:id/item_app_name", text=u"微信").click()
-                time.sleep(1)
+                d(text='登录').exists(10)
                 d.press('back')
-                time.sleep(1)
+                d(text='微信').exists(5)
                 i += 1
             except u2.UiObjectNotFoundError:
                 print('未找到控件3')
@@ -104,7 +105,7 @@ class Case(object):
                 d.press('back')
                 time.sleep(1)
                 d.app_start(self.pck)
-                d(resourceId='com.excelliance.dualaid:id/iv_icon').exists(5)
+                d(resourceId='com.excelliance.dualaid:id/iv_icon').exists(10)
                 i += 1
             except u2.UiObjectNotFoundError:
                 print('未找到控件4')
@@ -120,13 +121,25 @@ class Case(object):
         time.sleep(bgtime)
 
 
+# 创建、启动和停止进程
+class MyProcess(Process):
+    def __init__(self, func):
+        super().__init__()
+        self.func = func
+
+    def run(self):
+        global monitor_start_flag
+        monitor_start_flag = 1
+        self.func()
+
+
 # 创建、启动和停止线程
 class CreateThread(object):
-    def new_thread(self, func, args):
+    def new_thread(self, func, args=()):
         global monitor_start_flag
         monitor_start_flag = 1
         # 另起一条线程执行meminfo和cpuinfo方法
-        thread = threading.Thread(target=func, args=(args,))
+        thread = threading.Thread(target=func, args=args)
         thread.start()
 
     def stop_thread(self):
@@ -167,11 +180,10 @@ class GetData(object):
                     datas = os.popen('adb shell dumpsys meminfo | findstr com.excelliance.dualaid:lbcore').readlines()[0].split()[0]
                     if datas is not None:
                         lbcore.append(round(int(datas) / 1024))
-                except UnboundLocalError:
-                    print('未检测到双开进程')
-                    continue
+                except IndexError:
+                    lbcore.append(0)
             else:
-                print('memory监控关闭')
+                print('memory2监控关闭')
                 break
 
     def meminfo3(self):
@@ -184,14 +196,13 @@ class GetData(object):
                     datas = os.popen('adb shell dumpsys meminfo | findstr "com.excelliance.dualaid:lebian"').readlines()[0].split()[0]
                     if datas is not None:
                         lebian.append(round(int(datas) / 1024))
-                except UnboundLocalError:
-                    print('未检测到双开进程')
-                    continue
+                except IndexError:
+                    lebian.append(0)
             else:
-                print('memory监控关闭')
+                print('memory3监控关闭')
                 break
 
-    def cpuinfo(self, pck):
+    def cpuinfo(self):
         global cpu_data
         cpu_data = []
         cpu = []
@@ -200,7 +211,7 @@ class GetData(object):
             if monitor_start_flag == 1:
                 try:
                     # start = time.time()
-                    datas = os.popen('adb shell top -n 1 | findstr ' + pck).readlines()
+                    datas = os.popen('adb shell top -n 1 | findstr "com.excelliance.dualaid"').readlines()
                     for data in datas:
                         if 'excelliance' in data:
                             cpu.append(data.split()[2].replace('%', ''))
@@ -269,34 +280,28 @@ class DataOperate(object):
         plt.legend()
         plt.grid(color='skyblue')
         plt.tight_layout(h_pad=1)   # 设置子图片间的位置
-        plt.savefig(path + '\\%s.png' % time.strftime('%Y%m%d%H%M%S'))      # 保存生成的图片
+        plt.savefig(path + '\\cpumem_image\\%s.png' % time.strftime('%Y%m%d%H%M%S'))      # 保存生成的图片
 
 
 # 执行测试入口
 def run(path, num=30, bgtime=60):
     pck = 'com.excelliance.dualaid'
-    activity = 'com.excelliance.xkqp.ui.HelloActivity'
+    activity = 'com.excelliance.kxqp.ui.HelloActivity'
     case = Case(pck, activity)
     data = GetData()
     data_opr = DataOperate()
     create_thread = CreateThread()
-
     # 开启监控线程（开始获取数据）
-    gevent.joinall([
-        gevent.spawn(data.meminfo1),
-        gevent.spawn(data.meminfo2),
-        gevent.spawn(data.meminfo3),
-        gevent.spawn(data.cpuinfo),
-    ])
-    # create_thread.new_thread(data.cpuinfo, pck)
-    # create_thread.new_thread(data.meminfo, pck)
+    create_thread.new_thread(data.cpuinfo, args=(pck, ))
+    create_thread.new_thread(data.meminfo1)
+    create_thread.new_thread(data.meminfo2)
+    create_thread.new_thread(data.meminfo3)
     # 执行测试用例
     case.test01(num)
     case.test02(num)
     case.test03(num)
     case.test04(num)
     case.test05(bgtime)
-    # time.sleep(30)  # 等待app状态稳定
     # 停止监控线程（暂停获取数据）
     create_thread.stop_thread()
     # 根据当前获取的数据生成图表
@@ -309,17 +314,14 @@ def run(path, num=30, bgtime=60):
 if __name__ == "__main__":
     result_path = os.path.abspath(os.path.dirname('__file__'))
     ui2 = UI2()
-    sendemail = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', image_path=result_path)
-    while True:
-        try:
-            # 初始化uiautomator2
-            d = ui2.ui2_init()
-            # run(result_path, int(input('输入各个场景的循环次数：')), int(input('输入app置于后台的时间（s）：')))    # 参数设置
-            run(result_path)  # 测试场景默认循环30次，app置于后台时间默认为60s
-            break
-        except Exception as e:
-            print(e)
-            continue
+    sendemail = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state='debug', image_path=result_path)
+    d = ui2.ui2_init()
+    # run(result_path, int(input('输入各个场景的循环次数：')), int(input('输入app置于后台的时间（s）：')))    # 参数设置
+    run(result_path)  # 测试场景默认循环30次，app置于后台时间默认为60s
     mail_content = '双开助手性能测试：内存/cpu测试结果'
     sendemail.create_email(mail_content)
     print(len(mast), len(lbcore), len(lebian), len(cpu_data))
+
+
+
+

@@ -1,14 +1,14 @@
-import http
 import os
 import re
 import sys
 import threading
 import time
 
-import requests
+import numpy as np
 import uiautomator2
-import urllib3
+from matplotlib import pyplot as plt
 
+from AutoTest.myfunction.matplotlib_setting import __init__
 from AutoTest.myfunction.send_email import SendEmail
 from AutoTest.myfunction.ui2 import UI2
 
@@ -29,11 +29,13 @@ pck_name = 'com.excelliance.dualaid'
 activity = 'com.excelliance.kxqp.ui.HelloActivity'
 
 
-class FilePath(object):
+# 手机测试环境设置
+class ForwardSetting(object):
 
-    def __init__(self, apk_path, style='.apk'):
+    def __init__(self, apk_path, style='.apk', phone='oppoR7'):
         self.apk_path = apk_path
         self.style = style
+        self.phone = phone
 
     def check_adb_connect(self):
         """查看USB是否已连接"""
@@ -66,29 +68,41 @@ class FilePath(object):
 
     def install_apk(self):
         """安装daily review包"""
-        try:
-            os.popen('adb install -r ' + self.get_file_path())
-        except FileExistsError:
-            os.remove(self.get_file_path())
-            time.sleep(2)
-            os.popen('adb install -r ' + self.get_file_path())
-        while True:
-            try:
-                if d(resourceId="com.android.packageinstaller:id/apk_info_view").exists(15) is True:
-                    print('检测到apk，正在安装...')
-                    d.screen_on()
-                    d(text="继续安装").click(timeout=5)
+        app_version = ''
+        os.popen('adb install -r ' + self.get_file_path())
+        d.screen_on()
+        if self.phone == 'oppoR7':
+            while True:
+                try:
+                    if d(resourceId="com.android.packageinstaller:id/apk_info_view").exists(15) is True:
+                        print('检测到apk，正在安装...')
+                        time.sleep(1)
+                        d(text="继续安装").click(timeout=5)
+                        time.sleep(1)
+                        d(text="安装").click(timeout=5)
+                        time.sleep(1)
+                        d(text="完成").click(timeout=5)
+                        print('apk安装完成')
+                        # 获取apk的版本号
+                        app_version = os.popen(
+                            'adb shell pm dump com.excelliance.dualaid | findstr "versionName"').read().replace(
+                            'versionName=', '').strip()
+                        break
+                    else:
+                        time.sleep(2)
+                except uiautomator2.UiObjectNotFoundError:
+                    print('apk安装失败，正在尝试重新安装')
+                    self.install_apk()
+        elif self.phone == 'honor9':
+            while True:
+                try:
+                    os.popen('adb shell am start ' + pck_name + '/' + activity)
                     time.sleep(1)
-                    d(text="安装").click(timeout=5)
-                    time.sleep(1)
-                    d(text="完成").click(timeout=5)
-                    print('apk安装完成')
+                    d.app_stop(pck_name)
                     break
-                else:
-                    time.sleep(2)
-            except uiautomator2.UiObjectNotFoundError:
-                print('apk安装失败，正在尝试重新安装')
-                os.popen('adb install -r ' + self.get_file_path())
+                except Exception:
+                    print('apk安装失败，正在尝试重新安装')
+        return app_version
 
     def monitor(self):
         """
@@ -100,12 +114,13 @@ class FilePath(object):
             time.sleep(2)
             while True:
                 try:
-                    self.install_apk()
+                    app_version = self.install_apk()
                     print('开始配置测试环境')
                     break
                 except TypeError:
                     print('未检测到双开助手安装包\n本次检测时间：%s' % time.strftime('%Y.%m.%d_%H:%M:%S'))
                     time.sleep(10)
+            return app_version
 
 
 # 线程创建/结束
@@ -173,13 +188,25 @@ class SuperVision(object):
 # app启动时间测试类
 class StartTimeTest(object):
 
-    def __init__(self):
+    def __init__(self, phone='oppoR7'):
         self.list_back_test = []
         self.list_home_test = []
         self.list_force_test = []
         self.list_back_std = []
         self.list_home_std = []
         self.list_force_std = []
+        self.phone = phone
+
+    # 计算列表的中位数
+    def list_middle(self, lists):
+        lists.sort()
+        half = len(lists) // 2
+        return (lists[half] + lists[~half]) / 2
+
+    # 计算列表的差值
+    def diff_value(self, list1, list2):
+        import numpy as np
+        return list(np.array(list1) - np.array(list2))
 
     # 检查USB连接是否正常
     def check_adb_connect(self):
@@ -204,76 +231,176 @@ class StartTimeTest(object):
         #         app_start_time = i.split(':')[1].strip()
         #         return int(app_start_time)
 
-    # 设置手机（oppoR7）系统时间
+    # 设置手机（oppoR7/honor9）系统时间
     def set_phone_time(self, kind='normal'):
         while True:
-            try:
-                if kind == 'normal':
-                    print('正在设置手机时间')
-                    d.app_stop(pck_name)
-                    time.sleep(1)
-                    d.press('home')
-                    time.sleep(1)
-                    d.press('home')
-                    time.sleep(1)
-                    d(text='设置').click()
-                    time.sleep(1)
-                    d(scrollable=True).fling()
-                    time.sleep(2)
-                    d(text='日期和时间').click(timeout=5)
-                    time.sleep(1)
-                    if d(text='设置日期').info['enabled'] is False:
-                        d(resourceId='android:id/checkbox')[0].click(timeout=5)
+            if self.phone == 'oppoR7':
+                try:
+                    if kind == 'normal':
+                        print('正在设置手机时间')
+                        d.app_stop(pck_name)
                         time.sleep(1)
-                        d(text='设置日期').click(timeout=5)
+                        d.press('home')
                         time.sleep(1)
-                        d(resourceId='oppo:id/increment')[1].click(timeout=5)
+                        d.press('home')
                         time.sleep(1)
-                        d(resourceId='android:id/button1').click(timeout=5)
+                        d(text='设置').click()
                         time.sleep(1)
-                    else:
-                        d(text='设置日期').click(timeout=5)
+                        d(scrollable=True).fling()
+                        time.sleep(2)
+                        d(text='日期和时间').click(timeout=5)
                         time.sleep(1)
-                        d(resourceId='oppo:id/increment')[1].click(timeout=5)
-                        time.sleep(1)
-                        d(resourceId='android:id/button1').click(timeout=5)
-                        time.sleep(1)
-                    d.press('home')
-                    time.sleep(2)
-                    d.app_start(pck_name)
-                    d(resourceId='com.excelliance.dualaid:id/add_but').exists(15)
-                    break
-                elif kind == 'recovery':
-                    print('正在恢复手机时间')
-                    d.press('home')
-                    time.sleep(1)
-                    d.press('home')
-                    time.sleep(1)
-                    d(text='设置').click(timeout=5)
-                    time.sleep(1)
-                    d(scrollable=True).fling()
-                    time.sleep(2)
-                    d(text='日期和时间').click(timeout=5)
-                    time.sleep(1)
-                    if d(text='设置日期').info['enabled'] is True:
-                        time.sleep(1)
-                        d(resourceId='android:id/checkbox')[0].click(timeout=5)
-                        time.sleep(1)
+                        if d(text='设置日期').info['enabled'] is False:
+                            d(resourceId='android:id/checkbox')[0].click(timeout=5)
+                            time.sleep(1)
+                            d(text='设置日期').click(timeout=5)
+                            time.sleep(1)
+                            d(resourceId='oppo:id/increment')[1].click(timeout=5)
+                            time.sleep(1)
+                            d(resourceId='android:id/button1').click(timeout=5)
+                            time.sleep(1)
+                        else:
+                            d(text='设置日期').click(timeout=5)
+                            time.sleep(1)
+                            d(resourceId='oppo:id/increment')[1].click(timeout=5)
+                            time.sleep(1)
+                            d(resourceId='android:id/button1').click(timeout=5)
+                            time.sleep(1)
                         d.press('home')
                         time.sleep(2)
                         d.app_start(pck_name)
-                        d(resourceId='com.excelliance.dualaid:id/add_but').exists(15)
-                        print('手机时间已恢复至当前时间')
+                        d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                        d.press('back')
+                        time.sleep(2)
+                        d.app_start(pck_name)
+                        d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
                         break
-                    else:
+                    elif kind == 'recovery':
+                        print('正在恢复手机时间')
+                        d.press('home')
+                        time.sleep(1)
+                        d.press('home')
+                        time.sleep(1)
+                        d(text='设置').click(timeout=5)
+                        time.sleep(1)
+                        d(scrollable=True).fling()
+                        time.sleep(2)
+                        d(text='日期和时间').click(timeout=5)
+                        time.sleep(1)
+                        if d(text='设置日期').info['enabled'] is True:
+                            time.sleep(1)
+                            d(resourceId='android:id/checkbox')[0].click(timeout=5)
+                            time.sleep(1)
+                            d.press('home')
+                            time.sleep(2)
+                            d.app_start(pck_name)
+                            d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                            d.press('back')
+                            time.sleep(2)
+                            d.app_start(pck_name)
+                            d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                            print('手机时间已恢复至当前时间')
+                            break
+                        else:
+                            d.press('home')
+                            time.sleep(2)
+                            d.app_start(pck_name)
+                            d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                            d.press('back')
+                            time.sleep(2)
+                            d.app_start(pck_name)
+                            d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                            print('手机时间已经为当前时间')
+                            break
+                except uiautomator2.UiObjectNotFoundError:
+                    continue
+            elif self.phone == 'honor9':
+                try:
+                    if kind == 'normal':
+                        print('正在设置手机时间')
+                        d.app_stop(pck_name)
+                        time.sleep(1)
+                        d.press('home')
+                        time.sleep(1)
+                        d.press('home')
+                        time.sleep(1)
+                        d(text='设置').click()
+                        time.sleep(1)
+                        d(scrollable=True).fling()
+                        time.sleep(2)
+                        d(text='系统').click(timeout=5)
+                        d(text='日期和时间').click(timeout=5)
+                        time.sleep(1)
+                        if d(text="日期").info['enabled'] is False:
+                            d(resourceId="android:id/switch_widget").click(timeout=5)
+                            time.sleep(1)
+                            d(text='日期').click(timeout=5)
+                            time.sleep(1)
+                            d.click(800, 1500)
+                            time.sleep(0.5)
+                            d.click(800, 1500)
+                            time.sleep(0.5)
+                            d.click(800, 1500)
+                            time.sleep(1)
+                            d(text='确定').click(timeout=5)
+                            time.sleep(1)
+                        else:
+                            d(text='日期').click(timeout=5)
+                            time.sleep(1)
+                            d(800, 1500).click(timeout=3)
+                            d(800, 1500).click(timeout=3)
+                            d(800, 1500).click(timeout=3)
+                            time.sleep(1)
+                            d(text='确定').click(timeout=5)
+                            time.sleep(1)
                         d.press('home')
                         time.sleep(2)
                         d.app_start(pck_name)
-                        d(resourceId='com.excelliance.dualaid:id/add_but').exists(15)
-                        print('手机时间已经为当前时间')
+                        d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                        d.press('back')
+                        time.sleep(2)
+                        d.app_start(pck_name)
+                        d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
                         break
-            except uiautomator2.UiObjectNotFoundError:
-                continue
+                    elif kind == 'recovery':
+                        print('正在恢复手机时间')
+                        d.press('home')
+                        time.sleep(1)
+                        d.press('home')
+                        time.sleep(1)
+                        d(text='设置').click(timeout=5)
+                        time.sleep(1)
+                        d(scrollable=True).fling()
+                        time.sleep(2)
+                        d(text='系统').click(timeout=5)
+                        time.sleep(1)
+                        if d(text='日期').info['enabled'] is True:
+                            time.sleep(1)
+                            d(resourceId="android:id/switch_widget").click(timeout=5)
+                            time.sleep(1)
+                            d.press('home')
+                            time.sleep(2)
+                            d.app_start(pck_name)
+                            d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                            d.press('back')
+                            time.sleep(2)
+                            d.app_start(pck_name)
+                            d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                            print('手机时间已恢复至当前时间')
+                            break
+                        else:
+                            d.press('home')
+                            time.sleep(2)
+                            d.app_start(pck_name)
+                            d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                            d.press('back')
+                            time.sleep(2)
+                            d.app_start(pck_name)
+                            d(resourceId='com.excelliance.dualaid:id/add_but').exists(10)
+                            print('手机时间已经为当前时间')
+                            break
+                except uiautomator2.UiObjectNotFoundError:
+                    continue
 
     # 设置app到指定状态，拉出banner和icon广告
     def set_app_status(self):
@@ -291,15 +418,16 @@ class StartTimeTest(object):
             d.press('back')
             time.sleep(2)
             d.app_start(pck_name)
+            time.sleep(1)
+            d.press('back')
+            time.sleep(2)
+            d.app_start(pck_name)
 
         set_step()
         print('正在检测非标位')
-        try:
-            d(resourceId="com.excelliance.dualaid:id/add_but").exists(5)
-            time.sleep(3)
-        except uiautomator2.UiObjectNotFoundError:
-            time.sleep(3)
-        if d(resourceId='com.excelliance.dualaid:id/fl_off_standard_position').exists(5):
+        d(resourceId="com.excelliance.dualaid:id/add_but").exists(10)
+        time.sleep(3)
+        if d(resourceId='com.excelliance.dualaid:id/fl_off_standard_position').exists(10):
             print('拉取到非标位版本，重新拉取')
             d.app_clear(pck_name)
             time.sleep(3)
@@ -354,62 +482,77 @@ class StartTimeTest(object):
             self.set_app_status()
             d(resourceId='com.excelliance.dualaid:id/iv_close').click(timeout=5)
             print('主界面引导关闭成功')
-        except Exception:
+        except uiautomator2.UiObjectNotFoundError:
             print('主界面引导关闭失败')
         time.sleep(2)
         # 添加微信
         print('正在添加微信')
-        d(resourceId="com.excelliance.dualaid:id/item_app_name", text=u"微信").click()
-        time.sleep(5)
+        try:
+            d(text="微信").click()
+        except uiautomator2.UiObjectNotFoundError:
+            time.sleep(5)
+            d(text="微信").click()
         if d(resourceId='com.excelliance.dualaid:id/tv_app_add').exists(10) is True:
             print('微信添加成功')
             d.press('back')
         else:
             print('微信添加失败')
         # 调出信息流
-        self.set_phone_time()
-        i = 1
-        while i <= 10:
-            print('第%s次拉取信息流' % i)
-            d(text='双开助手').exists(15)
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is True or d(text='双开资讯').exists(
-                    5) is True:
-                d.press('back')
-                print('信息流拉取成功，开始进行调试')
-                time.sleep(2)
-                break
-            else:
-                print('拉取信息流失败，尝试重新拉取')
-                # 3次拉取失败的话，恢复系统时间再试
-                if i == 3:
-                    self.set_phone_time(kind='recovery')
-                # 6次拉取失败的话，恢复系统时间再试
-                elif i == 6:
-                    self.set_phone_time(kind='recovery')
-                # 10次拉取不到的话，邮件通知拉取不到信息流
-                elif i == 10:
-                    global email_content_flag
-                    email_content_flag = 3
-                    em = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state='debug')
-                    em.create_email(mail_content)
-                    time.sleep(5)
-                    print('系统正在退出...')
-                    sys.exit()
+        if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is not True:
+            self.set_phone_time()
+            i = 1
+            while i <= 10:
+                print('第%s次拉取信息流' % i)
+                d(text='双开助手').exists(15)
+                if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is True:
+                    d.press('back')
+                    print('信息流拉取成功，开始进行调试')
+                    time.sleep(2)
+                    break
                 else:
-                    self.set_phone_time(kind='normal')
+                    print('拉取信息流失败，尝试重新拉取')
+                    # 3次拉取失败的话，恢复系统时间再试
+                    if i == 3:
+                        self.set_phone_time(kind='recovery')
+                    # 6次拉取失败的话，恢复系统时间再试
+                    elif i == 6:
+                        self.set_phone_time(kind='recovery')
+                    # 10次拉取不到的话，邮件通知拉取不到信息流
+                    elif i == 10:
+                        global email_content_flag
+                        email_content_flag = 3
+                        em = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state='debug')
+                        em.create_email(mail_content)
+                        time.sleep(5)
+                        print('系统正在退出...')
+                        sys.exit()
+                    else:
+                        self.set_phone_time(kind='normal')
+                i += 1
+        else:
+            print('信息流已存在，开始进行调试')
+
+    # 测试前调试
+    def set(self, state):
+        i = 0
+        d.app_stop(pck_name)
+        while i < 3:
+            time.sleep(t)
+            d.app_start(pck_name)
+            d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10)
+            if state == 'force_stop':
+                d.app_stop(pck_name)
+            else:
+                d.press(state)
+            time.sleep(t)
             i += 1
 
     # back场景测试
     def test_back(self, t):
         list_back = []
-        d.press('back')
-        time.sleep(t)
-        d.app_start(pck_name)
-        time.sleep(t)
-        d.press('back')
-        time.sleep(t)
+        self.set('back')
         print('调试结束，测试开始\n场景一：back')
-        while len(list_back) < 22:
+        while len(list_back) < 102:
             start_time = self.start_and_get_date()
             if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is True and 0 < start_time < 500:
                 list_back.append(start_time)
@@ -422,21 +565,15 @@ class StartTimeTest(object):
         list_back.remove(max(list_back))
         list_back.remove(min(list_back))
         print(sum(list_back) / len(list_back))
+        # print(self.list_middle(list_back))
         return list_back
 
     # home场景测试
     def test_home(self, t):
         list_home = []
-        d.press('home')
-        time.sleep(t)
-        d.press('home')
-        time.sleep(t)
-        d.app_start(pck_name)
-        time.sleep(t)
-        d.press('home')
-        time.sleep(t)
+        self.set('home')
         print('调试结束，测试开始\n场景二：home')
-        while len(list_home) < 22:
+        while len(list_home) < 102:
             start_time = self.start_and_get_date()
             if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is True and 0 < start_time < 500:
                 list_home.append(start_time)
@@ -449,19 +586,15 @@ class StartTimeTest(object):
         list_home.remove(max(list_home))
         list_home.remove(min(list_home))
         print(sum(list_home) / len(list_home))
+        # print(self.list_middle(list_home))
         return list_home
 
     # 冷启动场景测试
     def test_force(self, t):
         list_force = []
-        d.app_stop(pck_name)
-        time.sleep(t)
-        d.app_start(pck_name)
-        time.sleep(t)
-        d.app_stop(pck_name)
-        time.sleep(t)
+        self.set('force_stop')
         print('调试结束，测试开始\n场景三：冷启动')
-        while len(list_force) < 22:
+        while len(list_force) < 102:
             start_time = self.start_and_get_date()
             if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is True and 0 < start_time:
                 list_force.append(start_time)
@@ -474,6 +607,7 @@ class StartTimeTest(object):
         list_force.remove(max(list_force))
         list_force.remove(min(list_force))
         print(sum(list_force) / len(list_force))
+        # print(self.list_middle(list_force))
         return list_force
 
     # 启动并收集测试数据（新版本）
@@ -482,10 +616,10 @@ class StartTimeTest(object):
         self.set_until_find_ad()
         d.app_start(pck_name)
         time.sleep(2)
-        # 开始场景一测试
-        global new_thread
-        new_thread.stop_thread()  # 停止监控线程
+        # 停止监控线程
+        new_thread.stop_thread()
         time.sleep(5)
+        # 开始场景一测试
         self.list_back_test = self.test_back(t)
         time.sleep(2)
         # 开始场景二测试
@@ -501,10 +635,10 @@ class StartTimeTest(object):
         self.set_until_find_ad()
         d.app_start(pck_name)
         time.sleep(2)
-        # 开始场景一测试
-        global new_thread
-        new_thread.stop_thread()  # 停止监控线程
+        # 停止监控线程
+        new_thread.stop_thread()
         time.sleep(5)
+        # 开始场景一测试
         self.list_back_std = self.test_back(t)
         time.sleep(2)
         # 开始场景二测试
@@ -513,6 +647,23 @@ class StartTimeTest(object):
         # 开始场景三测试
         self.list_force_std = self.test_force(t)
         time.sleep(2)
+
+    def create_image(self, save_path):
+        # 解决matplotlib显示中文问题
+        __init__()
+        plt.figure(dpi=120)
+        plt.title('新老版本均值差')
+        plt.xlabel('样本数(20组)')
+        plt.ylabel('均值差(ms)')
+        y_ticks = np.arange(0, 200, 10)
+        plt.yticks(y_ticks)
+        plt.plot(image_list1, 'r', label='back')
+        plt.plot(image_list2, 'g', label='home')
+        plt.plot(image_list3, 'b', label='force')
+        plt.legend()
+        plt.grid(color='skyblue')
+        plt.savefig(save_path + '\\time_image\\%s.png' % time.strftime('%Y%m%d%H%M%S'))
+        plt.show()
 
     # 启动测试入口
     def run_test(self, t):
@@ -524,9 +675,10 @@ class StartTimeTest(object):
         new_thread.start_thread(alert.pemission_alert)
 
         # apk安装检测
-        install = FilePath(r'Z:\start_time_SKZS')
+        install = ForwardSetting(r'Z:\start_time_SKZS', style='.apk', phone='oppoR7')
         try:
-            install.monitor()
+            global new_app_version
+            new_app_version = install.monitor()
         except FileNotFoundError:
             print('未连接到公盘')
             thread.stop_thread()
@@ -545,7 +697,7 @@ class StartTimeTest(object):
         new_thread.start_thread(alert.pemission_alert)
 
         # 切换app版本至比对版本(3.0.6)
-        install = FilePath(r'Z:\start_time_SKZS\start_time_files\apk', style='3.0.6')
+        install = ForwardSetting(r'Z:\start_time_SKZS\start_time_files\apk', style='3.0.6', phone='oppoR7')
         install.monitor()
         time.sleep(2)
 
@@ -602,8 +754,16 @@ class StartTimeTest(object):
             'force差值': f_diff
         }
 
-        # 定义邮件的文本内容
-        print('邮件标志位为:', email_content_flag)
+        # 收集数据用于生成图表
+        global image_list1, image_list2, image_list3
+        image_list1 = self.diff_value(self.list_back_test, self.list_back_std)
+        image_list2 = self.diff_value(self.list_home_test, self.list_home_std)
+        image_list3 = self.diff_value(self.list_force_test, self.list_force_std)
+        print(image_list1)
+        print(image_list2)
+        print(image_list3)
+
+        # 定义邮件正文内容
         global mail_content
         if email_content_flag == 1:
             mail_content = """
@@ -613,7 +773,7 @@ class StartTimeTest(object):
             <div id="content">
             <table border="1" bordercolor="#87ceeb" width="800">
                 <tr>
-                    <td>版本</td>
+                    <td>版本号</td>
                     <td>back(avg)</td>
                     <td>back(max)</td>
                     <td>home(avg)</td>
@@ -622,7 +782,7 @@ class StartTimeTest(object):
                     <td>冷启动(max)</td>
                 </tr>
                 <tr>
-                    <td>新版本</td>
+                    <td>%s</td>
                     <td>%d</td>
                     <td>%d</td>
                     <td>%d</td>
@@ -631,7 +791,7 @@ class StartTimeTest(object):
                     <td>%d</td>
                 </tr>
                 <tr>
-                    <td>3.0.6版本</td>
+                    <td>3.0.6</td>
                     <td>%d</td>
                     <td>%d</td>
                     <td>%d</td>
@@ -653,7 +813,7 @@ class StartTimeTest(object):
             </div>
             </body>
             </html>
-            """ % (data_dict['新版back均值'], data_dict['新版back最大值'], data_dict['新版home均值'],
+            """ % (new_app_version, data_dict['新版back均值'], data_dict['新版back最大值'], data_dict['新版home均值'],
                    data_dict['新版home最大值'], data_dict['新版force均值'], data_dict['新版force最大值'],
                    data_dict['老版back均值'], data_dict['老版back最大值'], data_dict['老版home均值'],
                    data_dict['老版home最大值'], data_dict['老版force均值'], data_dict['老版force最大值'],
@@ -674,8 +834,9 @@ class StartTimeTest(object):
 if __name__ == '__main__':
     # 初始化uiautomator2
     ui2 = UI2()
+    test = StartTimeTest(phone='oppoR7')
+    path = os.path.abspath(os.path.dirname('__file__'))
     thread = CreateThread()
-    test = StartTimeTest()
     e = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state='send')
     while True:
         if test.check_adb_connect() is True:
@@ -683,50 +844,26 @@ if __name__ == '__main__':
                 d = ui2.ui2_init()
                 t = 1
                 test.run_test(t)
+                test.create_image(path)
                 d.service("uiautomator").stop()
                 e.create_email(mail_content)
                 time.sleep(30)
-            except http.client.RemoteDisconnected as e:
-                print(e)
-                d.service("uiautomator").stop()
-                thread.stop_thread()
-                time.sleep(5)
-                continue
-            except urllib3.exceptions.ProtocolError as e:
-                print(e)
-                d.service("uiautomator").stop()
-                thread.stop_thread()
-                time.sleep(5)
-                continue
-            except requests.exceptions.ConnectionError as e:
-                print(e)
-                d.service("uiautomator").stop()
-                thread.stop_thread()
-                time.sleep(5)
-                continue
-            except OSError as e:
-                print(e)
-                d.service("uiautomator").stop()
-                thread.stop_thread()
-                time.sleep(5)
-                continue
-            except uiautomator2.GatewayError as e:
-                print(e)
-                d.service("uiautomator").stop()
-                thread.stop_thread()
-                time.sleep(5)
-                continue
-            except RuntimeError as e:
-                print(e)
-                d.service("uiautomator").stop()
-                thread.stop_thread()
-                time.sleep(5)
-                continue
-            except uiautomator2.UiAutomationNotConnectedError as e:
-                print(e)
-                d.service("uiautomator").stop()
-                thread.stop_thread()
-                time.sleep(5)
+            except Exception:
+                print('\nERROR!!! ————> System restarting...')
                 continue
         else:
             sys.exit()
+    # 单项数据采集分析
+    # while True:
+    #     d = ui2.ui2_init()
+    #     t = 1
+    #     b = test.test_back(t)
+    #     h = test.test_home(t)
+    #     f = test.test_force(t)
+    #     d.service("uiautomator").stop()
+    #     with open(r'C:\Users\BAIWAN\Desktop\b.txt', 'a') as fp1:
+    #         fp1.write('\n' + str(b))
+    #     with open(r'C:\Users\BAIWAN\Desktop\h.txt', 'a') as fp2:
+    #         fp2.write('\n' + str(h))
+    #     with open(r'C:\Users\BAIWAN\Desktop\f.txt', 'a') as fp3:
+    #         fp3.write('\n' + str(f))
