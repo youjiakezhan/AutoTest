@@ -5,6 +5,7 @@ from email.header import Header
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
 email_content_flag = 1
 
 
@@ -33,6 +34,7 @@ class SendEmail(object):
         password = self.password
         smtpserver = 'smtp.ym.163.com'
         sender = username
+        receiver = ''
         if self.state == 'debug':
             receiver = 'wangzhongchang@excelliance.cn'
         elif self.state == 'send':
@@ -63,8 +65,8 @@ class SendEmail(object):
             show_image = """
             <p><img src='cid:%s'></p>
             """ % self.image_path
-            text = MIMEText(show_image, 'html', 'utf-8')
-            msg.attach(text)
+            img = MIMEText(show_image, 'html', 'utf-8')
+            msg.attach(img)
 
         # 邮件添加附件
         if self.file_path is not None:

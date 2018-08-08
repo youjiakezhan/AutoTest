@@ -14,15 +14,6 @@ activity = ''
 # appium封装
 class AppiumServerCheck(object):
 
-    # 查看USB连接状态
-    def check_adb_connect(self):
-        text = os.popen('adb devices').readlines()
-        if 'device' in text[1]:
-            return True
-        else:
-            print('USB未连接')
-            return False
-
     def appium_init(self):
         """to initialise appium session"""
         desired_cups = {}
@@ -41,21 +32,6 @@ class AppiumServerCheck(object):
     def quit(self):
         """to quit this session"""
         driver.quit()
-
-    def app_start(self):
-        os.popen('adb shell am start ' + pck_name + '/' + activity)
-
-    def app_back(self):
-        os.popen('adb shell input keyevent 4')
-
-    def app_home(self):
-        os.popen('adb shell input keyevent 3')
-
-    def app_force_stop(self):
-        os.popen('adb shell am force-stop ' + pck_name)
-
-    def app_data_clear(self):
-        os.popen('adb shell pm clear ' + pck_name)
 
     def wait_for(self, n=2):
         """硬等待"""
@@ -183,9 +159,3 @@ class AppiumServerCheck(object):
                 elif direction == 'R':
                     self.swipe_right(t)
                     self.wait_for(1)
-
-
-if __name__ == '__main__':
-    ap_ser_che = AppiumServerCheck()
-    ap_ser_che.check_appium_server()
-    ap_ser_che.stop_appium_server()

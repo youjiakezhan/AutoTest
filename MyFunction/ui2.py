@@ -15,6 +15,3 @@ class UI2(object):
         # 启动uiautomator2的守护进程
         d.healthcheck()
         return d
-
-    def first(self):
-        pass

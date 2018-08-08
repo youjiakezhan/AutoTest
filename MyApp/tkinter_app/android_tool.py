@@ -99,26 +99,18 @@ class GetInfo(object):
 
     def get_launchable_activity(self):
         """获取选中包名的启动入口"""
-        # package = PackageManage()
+        activity = ''
+        launch_activity = ''
         if len(listbox.curselection()) > 0:
             pck_name = listbox.get(listbox.curselection())
-            try:
-                # package.pull_app()
-                app_path = os.popen('adb shell pm path ' + pck_name).read().replace('package:', '').strip()
-                os.popen('adb pull ' + app_path + ' ' + desktop_path + '\\%s.apk' % pck_name.strip())
-                time.sleep(5)
-                flag = 1
-            except Exception:
-                flag = 0
-            if flag == 1:
-                apk_path = self.get_latest_apk()
-                # print(apk_path)
-                activity = os.popen('aapt dump badging %s | findstr "launchable-activity"' % apk_path).read()
-                # print(activity)
-                launchable_activity = pck_name.strip() + '/' + activity.split()[1].replace('name=', '').replace("'", '')
-                # print(launchable_activity)
-                os.popen('erase ' + apk_path)
-                return launchable_activity
+            data = os.popen('adb shell monkey -v -v -v 0').readlines()
+            for i in data:
+                if pck_name.strip() in i:
+                    activity = i.split()[5]
+            if activity is not None:
+                launch_activity = pck_name.strip() + '/' + activity
+                print(launch_activity)
+            return launch_activity
         else:
             text.insert(END, '请先选择一个包名\n')
             text.see(END)
@@ -149,6 +141,7 @@ class GetInfo(object):
                 text.insert(END, '请检查USB连接或是否已开启调试模式\n')
             b12.configure(text='启动时间测试', state=NORMAL, bg='green')
             text.insert(END, '测试结束\n')
+
         start_time_test_thread = MyThread(input_start_time_test_info)
         start_time_test_thread.start()
 
@@ -268,6 +261,7 @@ class PackageManage(object):
 
     def pull_app(self):
         """导出手机安装包"""
+
         def pull():
             try:
                 pck_name = listbox.get(listbox.curselection())
@@ -283,10 +277,11 @@ class PackageManage(object):
             if flag == 1:
                 try:
                     os.popen('adb pull ' + app_path + ' ' + desktop_path + '\\%s.apk' % pck_name.strip())
-                    time.sleep(5)   # 需要优化（科学判断是否已导出完毕）
+                    time.sleep(5)  # 需要优化（科学判断是否已导出完毕）
                     text.insert(END, 'ok!\n已导出至桌面\n')
                 except Exception:
                     text.insert(END, '导出apk失败,请重新尝试\n')
+
         pull_app_thread = MyThread(pull)
         pull_app_thread.start()
         # pull_app_thread.join(10)
@@ -764,7 +759,7 @@ def get_current_app_name(event):
 def create_window():
     global root
     root = Tk()
-    root.title('测试小帮手')
+    root.title('搭把手')
     root.geometry('800x600')
     root.resizable(width=False, height=False)
 
@@ -776,12 +771,12 @@ def ask_info():
     return test_time
 
 
-def hind_text(event):
+def hide_text(event):
     def change_label1_text():
-        label1.configure(text='右键点击导出安装包可使用隐藏功能(查看当前应用的包名)')
+        label1.configure(text='右键"导出安装包"可查看当前应用包名')
         time.sleep(5)
         label1.configure(text='惊不惊喜,意不意外')
-        time.sleep(5)
+        time.sleep(2)
         label1.configure(text='Auth: EtenalSunshine')
 
     change_label1_text_thread = MyThread(change_label1_text)
@@ -814,11 +809,11 @@ b11 = Button(frm2, text='设备信息', activebackground='sky blue', width='15',
              command=get_info.get_device_info)
 b11.grid(row=0, column=0)
 
-b12 = Button(frm2, text='启动时间测试', activebackground='sky blue', width='15', height='1', bg='green', fg='gold',
+b12 = Button(frm2, text='备用1', activebackground='sky blue', width='15', height='1', bg='green', fg='gold',
              command=get_info.app_start_time_test)
 b12.grid(row=0, column=1)
 
-b13 = Button(frm2, text='内存/CPU测试', activebackground='sky blue', width='15', height='1', bg='green', fg='gold',
+b13 = Button(frm2, text='app性能测试', activebackground='sky blue', width='15', height='1', bg='green', fg='gold',
              command=get_info.memory_cpu_monitor)
 b13.grid(row=0, column=2)
 # 图片
@@ -840,7 +835,7 @@ b21 = Button(frm2, text='微信官网版本', activebackground='sky blue', width
              command=get_info.check_wechart_version)
 b21.grid(row=1, column=0)
 
-b22 = Button(frm2, text='耗电量测试', activebackground='sky blue', width='15', height='1', bg='green', fg='gold',
+b22 = Button(frm2, text='备用2', activebackground='sky blue', width='15', height='1', bg='green', fg='gold',
              command=battery.battery_test)
 b22.grid(row=1, column=1)
 
@@ -888,9 +883,9 @@ frm3.pack(side=TOP, fill=BOTH, padx=3, pady=3)
 
 frm = Frame(root)
 var_label1 = StringVar
-label1 = Label(frm, text='隐藏功能哟', height='2', font=('粗体', 18), bg='orchid', fg='gold')
+label1 = Label(frm, text='其他功能', height='2', font=('粗体', 18), bg='orchid', fg='gold')
 label1.pack(fill=BOTH)
-label1.bind('<ButtonPress-1>', hind_text)
+label1.bind('<ButtonPress-1>', hide_text)
 frm.pack(side=TOP, fill=BOTH, padx=3, pady=3)
 
 mainloop()

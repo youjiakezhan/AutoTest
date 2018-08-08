@@ -2,13 +2,13 @@
 import os
 import threading
 import time
-from multiprocessing import Process
 
 import matplotlib.pyplot as plt
 import numpy as np
 import uiautomator2 as u2
+
 from AutoTest.myfunction.send_email import SendEmail
-from AutoTest.myfunction.ui2 import UI2
+from AutoTest.performancetest.comman import d, pkg_name
 
 """
 功能概述：
@@ -25,22 +25,20 @@ from AutoTest.myfunction.ui2 import UI2
 
 # 测试场景
 class Case(object):
-    def __init__(self, pck, activity):
-        self.pck = pck
-        self.activity = activity
 
     # 测试场景一：主界面点击个人中心跳转至二级页面
     def test01(self, num):
         # 测试环境配置
         d.press('back')
         d.press('home')
-        d.app_start(self.pck)
+        d.app_start(pkg_name)
         d(resourceId='com.excelliance.dualaid:id/iv_icon').exists(10)
         # 测试场景循环，次数为num
         i = 0
         while i < num:
             try:
                 d(resourceId='com.excelliance.dualaid:id/iv_icon').click(timeout=3)
+                time.sleep(1)
                 d(resourceId='com.excelliance.dualaid:id/iv_back').click(timeout=3)
                 i += 1
             except u2.UiObjectNotFoundError:
@@ -57,6 +55,7 @@ class Case(object):
         while i < num:
             try:
                 d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=3)
+                time.sleep(1)
                 d(resourceId="com.excelliance.dualaid:id/iv_back").click(timeout=3)
                 i += 1
             except u2.UiObjectNotFoundError:
@@ -92,7 +91,7 @@ class Case(object):
         # 测试环境配置
         d.press('back')
         time.sleep(1)
-        d.app_start(self.pck)
+        d.app_start(pkg_name)
         while True:
             if d(resourceId='com.excelliance.dualaid:id/iv_icon').exists(5) is True:
                 break
@@ -104,7 +103,7 @@ class Case(object):
             try:
                 d.press('back')
                 time.sleep(1)
-                d.app_start(self.pck)
+                d.app_start(pkg_name)
                 d(resourceId='com.excelliance.dualaid:id/iv_icon').exists(10)
                 i += 1
             except u2.UiObjectNotFoundError:
@@ -119,18 +118,6 @@ class Case(object):
         # app置于后台时间为bgtime（s）
         d.press('home')
         time.sleep(bgtime)
-
-
-# 创建、启动和停止进程
-class MyProcess(Process):
-    def __init__(self, func):
-        super().__init__()
-        self.func = func
-
-    def run(self):
-        global monitor_start_flag
-        monitor_start_flag = 1
-        self.func()
 
 
 # 创建、启动和停止线程
@@ -160,7 +147,7 @@ class GetData(object):
                     for data in list(set(datas)):
                         i = data.strip()
                         if 'activities' in i and 'platform' not in i:
-                            mast.append(round(int(i.split()[0]) / 1024))
+                            mast.append(round(int(i.split()[0].replace(',', '').replace('K:', '')) / 1024))
                         else:
                             continue
                 except UnboundLocalError:
@@ -177,9 +164,10 @@ class GetData(object):
         while True:
             if monitor_start_flag == 1:
                 try:
-                    datas = os.popen('adb shell dumpsys meminfo | findstr com.excelliance.dualaid:lbcore').readlines()[0].split()[0]
+                    datas = os.popen('adb shell dumpsys meminfo | findstr com.excelliance.dualaid:lbcore').readlines()[
+                        0].split()[0]
                     if datas is not None:
-                        lbcore.append(round(int(datas) / 1024))
+                        lbcore.append(round(int(datas.replace(',', '').replace('K:', '')) / 1024))
                 except IndexError:
                     lbcore.append(0)
             else:
@@ -193,9 +181,11 @@ class GetData(object):
         while True:
             if monitor_start_flag == 1:
                 try:
-                    datas = os.popen('adb shell dumpsys meminfo | findstr "com.excelliance.dualaid:lebian"').readlines()[0].split()[0]
+                    datas = \
+                        os.popen('adb shell dumpsys meminfo | findstr "com.excelliance.dualaid:lebian"').readlines()[
+                            0].split()[0]
                     if datas is not None:
-                        lebian.append(round(int(datas) / 1024))
+                        lebian.append(round(int(datas.replace(',', '').replace('K:', '')) / 1024))
                 except IndexError:
                     lebian.append(0)
             else:
@@ -219,9 +209,6 @@ class GetData(object):
                             cpu.append(0)
                     cpu_data.append(round(sum(list(float(i) for i in cpu))))
                     cpu = []  # 清空过度容器
-                    # end = time.time()
-                    # t = round((end - start), 1)
-                    # print('耗时2：%s' % t)
                 except UnboundLocalError:
                     print('未检测到双开进程')
                     continue
@@ -230,7 +217,7 @@ class GetData(object):
                 break
 
 
-# 处理数据
+# 数据处理
 class DataOperate(object):
     def __init__(self):
         # 解决matplotlib显示中文问题
@@ -239,16 +226,16 @@ class DataOperate(object):
 
     # 数据可视化
     def create_picture(self, path):
-        plt.figure(figsize=(10, 14), dpi=120)   # 设置图片框架
-        plt.subplot(411)    # 设置子图片
-        plt.title('内存——主进程')    # 设置图片标题
-        plt.xlabel('时间(s)')     # 设置x轴标签
-        plt.ylabel('内存值(单位Mb)')     # 设置y轴标签
+        plt.figure(figsize=(8, 12), dpi=120)  # 设置图片框架
+        plt.subplot(411)  # 设置子图片
+        plt.title('内存——主进程')  # 设置图片标题
+        plt.xlabel('时间(s)')  # 设置x轴标签
+        plt.ylabel('内存值(单位Mb)')  # 设置y轴标签
         my_y_ticks = np.arange(0, max(mast), 10)
-        plt.yticks(my_y_ticks)      # 设置y轴刻度
+        plt.yticks(my_y_ticks)  # 设置y轴刻度
         plt.plot(mast, 'purple', label='主进程')
-        plt.legend()    # 显示标注
-        plt.grid(color='skyblue')   # 显示网格线
+        plt.legend()  # 显示标注
+        plt.grid(color='skyblue')  # 显示网格线
 
         plt.subplot(412)
         plt.title('内存——lbcore')
@@ -279,20 +266,20 @@ class DataOperate(object):
         plt.plot(cpu_data, 'r', label='cpu')
         plt.legend()
         plt.grid(color='skyblue')
-        plt.tight_layout(h_pad=1)   # 设置子图片间的位置
-        plt.savefig(path + '\\cpumem_image\\%s.png' % time.strftime('%Y%m%d%H%M%S'))      # 保存生成的图片
+        plt.tight_layout(h_pad=1)  # 设置子图片间的位置
+        plt.savefig(path + '\\cpumem_image\\%s.png' % time.strftime('%Y%m%d%H%M%S'))  # 保存生成的图片
 
 
 # 执行测试入口
-def run(path, num=30, bgtime=60):
-    pck = 'com.excelliance.dualaid'
-    activity = 'com.excelliance.kxqp.ui.HelloActivity'
-    case = Case(pck, activity)
+def run_cpu_mem(num=30, bgtime=60, state='debug'):
+    path = os.path.abspath(os.path.dirname('__file__'))
+    case = Case()
     data = GetData()
     data_opr = DataOperate()
     create_thread = CreateThread()
+    sendemail = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state, image_path=path + r'\cpumem_image')
     # 开启监控线程（开始获取数据）
-    create_thread.new_thread(data.cpuinfo, args=(pck, ))
+    create_thread.new_thread(data.cpuinfo)
     create_thread.new_thread(data.meminfo1)
     create_thread.new_thread(data.meminfo2)
     create_thread.new_thread(data.meminfo3)
@@ -306,22 +293,52 @@ def run(path, num=30, bgtime=60):
     create_thread.stop_thread()
     # 根据当前获取的数据生成图表
     data_opr.create_picture(path)
-
     # 关闭uiautomator2的守护进程
     d.service("uiautomator").stop()
+    mail_content = '''
+    <html>
+    <body>
+    <h2>双开助手性能测试：内存/cpu</h2>
+    <div>
+    <table border="1" bordercolor="#87ceeb" width="450">   
+    <tr>
+    <td><strong>监控项</strong></td>
+    <td><strong>均值（Mb）</strong></td>
+    <td><strong>方差</strong></td>
+    </tr> 
+    <tr>
+    <td>主进程</td>
+    <td>% d</td>
+    <td>% d</td>
+    </tr>
+    <tr>
+    <td>lbcore</td>
+    <td>% d</td>
+    <td>% d</td>
+    </tr>
+    <tr>
+    <td>lebian</td>
+    <td>% d</td>
+    <td>% d</td>
+    </tr>
+    <tr>
+    <td>cpu</td>
+    <td>% d</td>
+    <td>% d</td>
+    </tr>
+    </table>
+    </div>
+    </body>
+    </html>
+    ''' % (
+        sum(mast) / len(mast), np.array(mast).var(),
+        sum(lbcore) / len(lbcore), np.array(lbcore).var(),
+        sum(lebian) / len(lebian), np.array(lebian).var(),
+        sum(cpu_data) / len(cpu_data), np.array(cpu_data).var(),
+    )
+    sendemail.create_email(mail_content)
 
 
 if __name__ == "__main__":
-    result_path = os.path.abspath(os.path.dirname('__file__'))
-    ui2 = UI2()
-    sendemail = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state='debug', image_path=result_path)
-    d = ui2.ui2_init()
-    # run(result_path, int(input('输入各个场景的循环次数：')), int(input('输入app置于后台的时间（s）：')))    # 参数设置
-    run(result_path)  # 测试场景默认循环30次，app置于后台时间默认为60s
-    mail_content = '双开助手性能测试：内存/cpu测试结果'
-    sendemail.create_email(mail_content)
-    print(len(mast), len(lbcore), len(lebian), len(cpu_data))
-
-
-
-
+    # run()
+    run_cpu_mem(int(input('输入各个场景的循环次数：')), int(input('输入app置于后台的时间（s）：')))  # 参数设置
