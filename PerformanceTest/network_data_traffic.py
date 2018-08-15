@@ -1,11 +1,10 @@
 # coding=utf-8
 
-import os
 import time
 
 from AutoTest.myfunction.send_email import SendEmail
 # 数据获取与处理
-from AutoTest.performancetest.comman import d, pkg_name
+from AutoTest.performancetest.comman import *
 
 
 class GetData(object):
@@ -109,10 +108,10 @@ class TestCase(GetData):
             d(text='QQ').click(timeout=10)
             d(resourceId="com.tencent.mobileqq:id/btn_login").click(timeout=30)
             d(text='QQ号/手机号/邮箱').click(timeout=5)
-            d.send_keys(self._QQ_username)
+            send_text(self._QQ_username)
             time.sleep(2)
             d(resourceId="com.tencent.mobileqq:id/password").click(timeout=5)
-            d.send_keys(self._QQ_key)
+            send_text(self._QQ_key)
             d(resourceId="com.tencent.mobileqq:id/login").click(timeout=10)
             time.sleep(10)
             if d(resourceId="android:id/content").exists(5):
@@ -125,7 +124,6 @@ class TestCase(GetData):
             time.sleep(3)
             d(resourceId="com.tencent.mobileqq:id/name", text=u"消息").click(timeout=5)
             time.sleep(3)
-
         add_QQ_and_login()
         d.press('home')
         start_flow = self.diff()
@@ -137,7 +135,7 @@ class TestCase(GetData):
     # 场景四：添加并登录一个微信，挂后台10分钟
     # def test4(self):
     #     d.app_stop(self.pkg_name)
-    #     time.sleep(2)
+    #     time.sleep(bad_path)
     #     d.app_start(self.pkg_name)
     #     d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10)
     #     d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=5)
@@ -145,7 +143,7 @@ class TestCase(GetData):
     #     d(text='私密空间').click(timeout=10)
     #     while True:
     #         d.app_stop(self.pkg_name)
-    #         time.sleep(2)
+    #         time.sleep(bad_path)
     #         d.app_start(self.pkg_name)
     #         if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
     #             d.press('home')
@@ -173,14 +171,9 @@ class TestCase(GetData):
 
 
 # 测试结果展示
-class ResultDisplay(object):
-    def create_table(self):
-        pass
-
-
-def run_network():
+def run_network(state):
     test = TestCase()
-    e = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state='debug')
+    e = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state)
     s1 = test.test1()
     s2 = test.test2()
     s3 = test.test3()
@@ -188,10 +181,9 @@ def run_network():
                     <html>
                     <body>
                     <div>
-                    <p><strong>双开助手性能测试：流量</strong></p>
-                    <p>版本号：%s</p>
+                    <h2>双开助手性能测试：流量测试</h2>
                     <div id="content">
-                        <table border="1" bordercolor="#87ceeb" width="300">
+                        <table border="path" bordercolor="#87ceeb" width="300">
                             <tr>
                                 <td><strong>测试场景</strong></td>
                                 <td><strong>消耗流量(KB)</strong></td>
@@ -201,23 +193,19 @@ def run_network():
                                 <td>%d</td>
                             </tr>
                             <tr>
-                                <td>场景一</td>
+                                <td>场景二</td>
                                 <td>%d</td>
                             </tr>
                             <tr>
-                                <td>场景一</td>
+                                <td>场景三</td>
                                 <td>%d</td>
                             </tr>
                             <tr>
-                                <td>场景一</td>
+                                <td>场景四</td>
                                 <td>%d</td>
                             </tr>
                             <tr>
-                                <td>场景一</td>
-                                <td>%d</td>
-                            </tr>
-                            <tr>
-                                <td>场景一</td>
+                                <td>场景五</td>
                                 <td>%d</td>
                             </tr>
                         </table>
@@ -225,9 +213,10 @@ def run_network():
                 </div>
                 </body>
                 </html>
-            """ % ('version', s1, s2, s3, 0, 0, 0)
+            """ % (s1, s2, s3, 0, 0)
     e.create_email(mail_content)
+    print('流量模块测试结束，准备开始测试功耗模块')
 
 
 if __name__ == '__main__':
-    run_network()
+    run_network(state='debug')

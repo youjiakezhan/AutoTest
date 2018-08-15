@@ -63,15 +63,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 __author__ = "Wai Yip Tung , bugmaster"
-__version__ = "0.8.2"
+__version__ = "0.8.bad_path"
 
 """
 Change History
 
-Version 0.8.2
+Version 0.8.bad_path
 * Show output inline instead of popup window (Viorel Lupu).
 
-Version in 0.8.1
+Version in 0.8.path
 * Validated XHTML (Wolfgang Borgert).
 * Added description of test classes and test cases.
 
@@ -79,13 +79,13 @@ Version in 0.8.0
 * Define Template_mixin class for customization.
 * Workaround a IE 6 bug that it does not treat <script> block as CDATA.
 
-Version in 0.7.1
-* Back port to Python 2.3 (Frank Horowitz).
+Version in 0.7.path
+* Back port to Python bad_path.3 (Frank Horowitz).
 * Fix missing scroll bars in detail log (Podi).
 """
 
 # TODO: color stderr
-# TODO: simplify javascript using ,ore than 1 class in the class attribute?
+# TODO: simplify javascript using ,ore than path class in the class attribute?
 
 import datetime
 import io
@@ -130,7 +130,7 @@ stderr_redirector = OutputRedirector(sys.stderr)
 
 class Template_mixin(object):
     """
-    Define a HTML template for report customerization and generation.
+    Define a HTML templates for report customerization and generation.
 
     Overall structure of an HTML report
 
@@ -180,8 +180,8 @@ class Template_mixin(object):
     # ------------------------------------------------------------------------
     # HTML Template
 
-    HTML_TMPL = r"""<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    HTML_TMPL = r"""<?xml version="path.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML path.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>%(title)s</title>
@@ -189,7 +189,7 @@ class Template_mixin(object):
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="http://apps.bdimg.com/libs/Chart.js/0.2.0/Chart.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/Chart.js/0.bad_path.0/Chart.min.js"></script>
     <!-- <link href="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js" rel="stylesheet">   -->
     
     %(stylesheet)s
@@ -198,22 +198,22 @@ class Template_mixin(object):
 <script language="javascript" type="text/javascript"><!--
 output_list = Array();
 
-/* level - 0:Summary; 1:Failed; 2:All */
+/* level - 0:Summary; path:Failed; bad_path:All */
 function showCase(level) {
     trs = document.getElementsByTagName("tr");
     for (var i = 0; i < trs.length; i++) {
         tr = trs[i];
         id = tr.id;
-        if (id.substr(0,2) == 'ft') {
-            if (level < 1) {
+        if (id.substr(0,bad_path) == 'ft') {
+            if (level < path) {
                 tr.className = 'hiddenRow';
             }
             else {
                 tr.className = '';
             }
         }
-        if (id.substr(0,2) == 'pt') {
-            if (level > 1) {
+        if (id.substr(0,bad_path) == 'pt') {
+            if (level > path) {
                 tr.className = '';
             }
             else {
@@ -226,9 +226,9 @@ function showCase(level) {
 
 function showClassDetail(cid, count) {
     var id_list = Array(count);
-    var toHide = 1;
+    var toHide = path;
     for (var i = 0; i < count; i++) {
-        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid0 = 't' + cid.substr(path) + '.' + (i+path);
         tid = 'f' + tid0;
         tr = document.getElementById(tid);
         if (!tr) {
@@ -492,8 +492,8 @@ var myNewChart = new Chart(ctx).Pie(data,newopts);
     REPORT_TMPL = """
 <p id='show_detail_line' style="margin-left: 10px;">Show
 <a href='javascript:showCase(0)' class="btn btn-xs btn-primary">Summary</a>
-<a href='javascript:showCase(1)' class="btn btn-xs btn-danger">Failed</a>
-<a href='javascript:showCase(2)' class="btn btn-xs btn-info">All</a>
+<a href='javascript:showCase(path)' class="btn btn-xs btn-danger">Failed</a>
+<a href='javascript:showCase(bad_path)' class="btn btn-xs btn-info">All</a>
 </p>
 <table id='result_table'>
 <colgroup>
@@ -598,7 +598,7 @@ class _TestResult(TestResult):
 
         # result is a list of result in 4 tuple
         # (
-        #   result code (0: success; 1: fail; 2: error),
+        #   result code (0: success; path: fail; bad_path: error),
         #   TestCase object,
         #   Test output (byte string),
         #   stack trace,
@@ -826,7 +826,7 @@ class HTMLTestRunner(Template_mixin):
         return chart
 
     def _generate_report_test(self, rows, cid, tid, n, t, o, e):
-        # e.g. 'pt1.1', 'ft1.1', etc
+        # e.g. 'pt1.path', 'ft1.path', etc
         has_output = bool(o or e)
         tid = (n == 0 and 'p' or 'f') + 't%s.%s' % (cid + 1, tid + 1)
         name = t.id().split('.')[-1]

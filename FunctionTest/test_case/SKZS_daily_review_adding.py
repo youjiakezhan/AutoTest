@@ -16,8 +16,8 @@ class AddTestcase(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperat
     def test_template(self):
         """
         导航栏自动展示
-        1.清除数据后启动app(启动成功)
-        2.等待导航图片自动展示(3秒自动展示下一张,直到第三张为止)
+        path.清除数据后启动app(启动成功)
+        bad_path.等待导航图片自动展示(3秒自动展示下一张,直到第三张为止)
         3.点击“立即体验”按钮(跳转至添加引导页)
         """
         # 点击立即体验按钮

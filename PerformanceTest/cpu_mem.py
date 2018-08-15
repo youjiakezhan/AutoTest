@@ -1,24 +1,23 @@
 # coding=utf-8
-import os
 import threading
 import time
 
 import matplotlib.pyplot as plt
 import numpy as np
-import uiautomator2 as u2
 
+from AutoTest.myfunction.matplotlib_setting import matplot_init
 from AutoTest.myfunction.send_email import SendEmail
-from AutoTest.performancetest.comman import d, pkg_name
+from AutoTest.performancetest.comman import *
 
-"""
+__doc__ = """
 功能概述：
-    1.环境设置完成后脚本将执行各个测试场景的用例；
-    2.用例执行期间会定期获取性能相关数据并保存；
+    path.环境设置完成后脚本将执行各个测试场景的用例；
+    bad_path.用例执行期间会定期获取性能相关数据并保存；
     3.测试结束后将得到的性能相关数据进行处理；
     4.将处理后的数据生成图表并以邮件形式通知；
 环境设置：
-    1.安装新版双开助手apk；
-    2.调出广告和信息流；
+    path.安装新版双开助手apk；
+    bad_path.调出广告和信息流；
     3.第一空间内添加微信（不登录）；
 """
 
@@ -37,14 +36,15 @@ class Case(object):
         i = 0
         while i < num:
             try:
-                d(resourceId='com.excelliance.dualaid:id/iv_icon').click(timeout=3)
+                d(resourceId='com.excelliance.dualaid:id/iv_icon').click(timeout=8)
                 time.sleep(1)
-                d(resourceId='com.excelliance.dualaid:id/iv_back').click(timeout=3)
+                d(resourceId='com.excelliance.dualaid:id/iv_back').click(timeout=8)
                 i += 1
             except u2.UiObjectNotFoundError:
                 print('未找到控件1')
                 d.press('back')
-                continue
+                d.press('home')
+                d.app_start(pkg_name)
 
     # 测试场景二：主界面点击添加按钮
     def test02(self, num):
@@ -54,14 +54,15 @@ class Case(object):
         i = 0
         while i < num:
             try:
-                d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=3)
+                d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=8)
                 time.sleep(1)
-                d(resourceId="com.excelliance.dualaid:id/iv_back").click(timeout=3)
+                d(resourceId="com.excelliance.dualaid:id/iv_back").click(timeout=8)
                 i += 1
             except u2.UiObjectNotFoundError:
                 print('未找到控件2')
                 d.press('back')
-                continue
+                d.press('home')
+                d.app_start(pkg_name)
 
     # 测试场景三：主界面启动微信（已登录）
     def test03(self, num):
@@ -77,14 +78,20 @@ class Case(object):
         while i < num:
             try:
                 d(resourceId="com.excelliance.dualaid:id/item_app_name", text=u"微信").click()
+                if d(text='以后再说').exists(3) is True:
+                    d(text='以后再说').click(timeout=5)
                 d(text='登录').exists(10)
                 d.press('back')
                 d(text='微信').exists(5)
                 i += 1
             except u2.UiObjectNotFoundError:
                 print('未找到控件3')
-                d.press('back')
-                continue
+                if d(text='以后再说').exists(3) is True:
+                    d(text='以后再说').click(timeout=5)
+                else:
+                    d.press('back')
+                    d.press('home')
+                    d.app_start(pkg_name)
 
     # 测试场景四：主界面back再进
     def test04(self, num):
@@ -109,7 +116,8 @@ class Case(object):
             except u2.UiObjectNotFoundError:
                 print('未找到控件4')
                 d.press('back')
-                continue
+                d.press('home')
+                d.app_start(pkg_name)
 
     # 测试场景五：home置于后台
     def test05(self, bgtime):
@@ -144,10 +152,9 @@ class GetData(object):
             if monitor_start_flag == 1:
                 try:
                     datas = os.popen('adb shell dumpsys meminfo | findstr "excelliance"').readlines()
-                    for data in list(set(datas)):
-                        i = data.strip()
-                        if 'activities' in i and 'platform' not in i:
-                            mast.append(round(int(i.split()[0].replace(',', '').replace('K:', '')) / 1024))
+                    for data in datas[0:int(len(datas) / 2)]:
+                        if 'activities' in data and 'platform' not in data:
+                            mast.append(round(int(data.split()[0].replace(',', '').replace('K:', '')) / 1024))
                         else:
                             continue
                 except UnboundLocalError:
@@ -200,7 +207,6 @@ class GetData(object):
         while True:
             if monitor_start_flag == 1:
                 try:
-                    # start = time.time()
                     datas = os.popen('adb shell top -n 1 | findstr "com.excelliance.dualaid"').readlines()
                     for data in datas:
                         if 'excelliance' in data:
@@ -219,17 +225,14 @@ class GetData(object):
 
 # 数据处理
 class DataOperate(object):
-    def __init__(self):
-        # 解决matplotlib显示中文问题
-        plt.rcParams['font.sans-serif'] = ['FangSong']  # 指定默认字体
-        plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
 
     # 数据可视化
     def create_picture(self, path):
+        matplot_init()  # 设置matplotlib中文显示问题
         plt.figure(figsize=(8, 12), dpi=120)  # 设置图片框架
         plt.subplot(411)  # 设置子图片
-        plt.title('内存——主进程')  # 设置图片标题
-        plt.xlabel('时间(s)')  # 设置x轴标签
+        plt.title('内存—主进程')  # 设置图片标题
+        plt.xlabel('样本数(%d组)' % len(mast))  # 设置x轴标签
         plt.ylabel('内存值(单位Mb)')  # 设置y轴标签
         my_y_ticks = np.arange(0, max(mast), 10)
         plt.yticks(my_y_ticks)  # 设置y轴刻度
@@ -238,8 +241,8 @@ class DataOperate(object):
         plt.grid(color='skyblue')  # 显示网格线
 
         plt.subplot(412)
-        plt.title('内存——lbcore')
-        plt.xlabel('时间(s)')
+        plt.title('内存—lbcore')
+        plt.xlabel('样本数(%d组)' % len(lbcore))
         plt.ylabel('内存值(单位Mb)')
         my_y_ticks = np.arange(0, max(lbcore), 1)
         plt.yticks(my_y_ticks)
@@ -248,8 +251,8 @@ class DataOperate(object):
         plt.grid(color='skyblue')
 
         plt.subplot(413)
-        plt.title('内存——lebian')
-        plt.xlabel('时间(s)')
+        plt.title('内存—lebian')
+        plt.xlabel('样本数(%d组)' % len(lebian))
         plt.ylabel('内存值(单位Mb)')
         my_y_ticks = np.arange(0, max(lebian), 1)
         plt.yticks(my_y_ticks)
@@ -259,7 +262,7 @@ class DataOperate(object):
 
         plt.subplot(414)
         plt.title('CPU')
-        plt.xlabel('时间(s)')
+        plt.xlabel('样本数(%d组)' % len(cpu_data))
         plt.ylabel('cpu(占用百分比%)')
         my_y_ticks = np.arange(0, max(cpu_data), 1)
         plt.yticks(my_y_ticks)
@@ -271,7 +274,7 @@ class DataOperate(object):
 
 
 # 执行测试入口
-def run_cpu_mem(num=30, bgtime=60, state='debug'):
+def run_cpu_mem(state='debug', num=30, bgtime=60):
     path = os.path.abspath(os.path.dirname('__file__'))
     case = Case()
     data = GetData()
@@ -283,7 +286,7 @@ def run_cpu_mem(num=30, bgtime=60, state='debug'):
     create_thread.new_thread(data.meminfo1)
     create_thread.new_thread(data.meminfo2)
     create_thread.new_thread(data.meminfo3)
-    # 执行测试用例
+    # 执行测试用例(执行方式优化+)
     case.test01(num)
     case.test02(num)
     case.test03(num)
@@ -293,18 +296,17 @@ def run_cpu_mem(num=30, bgtime=60, state='debug'):
     create_thread.stop_thread()
     # 根据当前获取的数据生成图表
     data_opr.create_picture(path)
-    # 关闭uiautomator2的守护进程
-    d.service("uiautomator").stop()
+    # 邮件内容
     mail_content = '''
     <html>
     <body>
-    <h2>双开助手性能测试：内存/cpu</h2>
+    <h2>双开助手性能测试：内存/cpu测试</h2>
     <div>
-    <table border="1" bordercolor="#87ceeb" width="450">   
+    <table border="path" bordercolor="#87ceeb" width="450">   
     <tr>
     <td><strong>监控项</strong></td>
     <td><strong>均值（Mb）</strong></td>
-    <td><strong>方差</strong></td>
+    <td><strong>波动(方差)</strong></td>
     </tr> 
     <tr>
     <td>主进程</td>
@@ -337,8 +339,9 @@ def run_cpu_mem(num=30, bgtime=60, state='debug'):
         sum(cpu_data) / len(cpu_data), np.array(cpu_data).var(),
     )
     sendemail.create_email(mail_content)
+    print('cpu/内存模块测试结束，准备开始测试流量模块')
 
 
 if __name__ == "__main__":
-    # run()
-    run_cpu_mem(int(input('输入各个场景的循环次数：')), int(input('输入app置于后台的时间（s）：')))  # 参数设置
+    # run_cpu_mem(int(input('输入各个场景的循环次数：')), int(input('输入app置于后台的时间（s）：')))  # 参数设置
+    run_cpu_mem()

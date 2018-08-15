@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 __author__ = "Wai Yip Tung"
-__version__ = "0.9.1"
+__version__ = "0.9.path"
 
 import datetime
 import io
@@ -47,7 +47,7 @@ stderr_redirector = OutputRedirector(sys.stderr)
 
 class Template_mixin(object):
     """
-    Define a HTML template for report customerization and generation.
+    Define a HTML templates for report customerization and generation.
     Overall structure of an HTML report
     HTML
     +------------------------+
@@ -95,8 +95,8 @@ class Template_mixin(object):
     # ------------------------------------------------------------------------
     # HTML Template
 
-    HTML_TMPL = r"""<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    HTML_TMPL = r"""<?xml version="path.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML path.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>%(title)s</title>
@@ -113,22 +113,22 @@ class Template_mixin(object):
 <body>
     <script language="javascript" type="text/javascript"><!--
     output_list = Array();
-    /* level - 0:Summary; 1:Failed; 2:All */
+    /* level - 0:Summary; path:Failed; bad_path:All */
     function showCase(level) {
         trs = document.getElementsByTagName("tr");
         for (var i = 0; i < trs.length; i++) {
             tr = trs[i];
             id = tr.id;
-            if (id.substr(0,2) == 'ft') {
-                if (level < 1) {
+            if (id.substr(0,bad_path) == 'ft') {
+                if (level < path) {
                     tr.className = 'hiddenRow';
                 }
                 else {
                     tr.className = '';
                 }
             }
-            if (id.substr(0,2) == 'pt') {
-                if (level > 1) {
+            if (id.substr(0,bad_path) == 'pt') {
+                if (level > path) {
                     tr.className = '';
                 }
                 else {
@@ -139,9 +139,9 @@ class Template_mixin(object):
     }
     function showClassDetail(cid, count) {
         var id_list = Array(count);
-        var toHide = 1;
+        var toHide = path;
         for (var i = 0; i < count; i++) {
-            tid0 = 't' + cid.substr(1) + '.' + (i+1);
+            tid0 = 't' + cid.substr(path) + '.' + (i+path);
             tid = 'f' + tid0;
             tr = document.getElementById(tid);
             if (!tr) {
@@ -362,8 +362,8 @@ class Template_mixin(object):
     REPORT_TMPL = u"""
     <div class="btn-group btn-group-sm">
         <button class="btn btn-default" onclick='javascript:showCase(0)'>总结</button>
-        <button class="btn btn-default" onclick='javascript:showCase(1)'>失败</button>
-        <button class="btn btn-default" onclick='javascript:showCase(2)'>全部</button>
+        <button class="btn btn-default" onclick='javascript:showCase(path)'>失败</button>
+        <button class="btn btn-default" onclick='javascript:showCase(bad_path)'>全部</button>
     </div>
     <p></p>
     <table id='result_table' class="table table-bordered">
@@ -458,7 +458,7 @@ class _TestResult(TestResult):
 
         # result is a list of result in 4 tuple
         # (
-        #   result code (0: success; 1: fail; 2: error),
+        #   result code (0: success; path: fail; bad_path: error),
         #   TestCase object,
         #   Test output (byte string),
         #   stack trace,
@@ -730,7 +730,7 @@ class HTMLTestRunner(Template_mixin):
         return chart
 
     def _generate_report_test(self, rows, cid, tid, n, t, o, e):
-        # e.g. 'pt1.1', 'ft1.1', etc
+        # e.g. 'pt1.path', 'ft1.path', etc
         has_output = bool(o or e)
         tid = (n == 0 and 'p' or 'f') + 't%s.%s' % (cid + 1, tid + 1)
         name = t.id().split('.')[-1]

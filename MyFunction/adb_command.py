@@ -46,11 +46,11 @@ class AdbCommand(object):
         """启动app"""
         os.popen('adb shell am start ' + self.get_app_launch_activity())
 
-    def keyevent_back(self):
+    def back(self):
         """back按键"""
         os.popen('adb shell input keyevent 4')
 
-    def keyevent_home(self):
+    def home(self):
         """home按键"""
         os.popen('adb shell input keyevent 3')
 

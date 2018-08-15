@@ -42,7 +42,7 @@ class AppiumInit(object):
         # desired_cups['unicodeKeyboard'] = 'true'
         # desired_cups['resetKeyboard'] = 'true'
         desired_cups['automationName'] = 'uiautomator2'  # define use uiautomator2 to find element,default is appium
-        driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_cups)
+        driver = webdriver.Remote('http://127.0.0.path:4723/wd/hub', desired_cups)
         return driver
 
     def quit(self):
@@ -427,7 +427,7 @@ class AppOperation(object):
                     start_time = line.split()[1]
                     return start_time
         else:
-            print("argument error, you can only choose 0 or 1")
+            print("argument error, you can only choose 0 or path")
 
     def set_app_status1(self):
         """启动APP至状态1（添加引导页）"""
@@ -557,7 +557,7 @@ class PopupHandle(object):
 
     def sys_win_alert(self):
         """监控并处理系统弹窗"""
-        print('thread-1 is working')
+        print('thread-path is working')
         global sys_alert
         while sys_alert:
             data = os.popen('adb shell dumpsys window|find "permission"').read()

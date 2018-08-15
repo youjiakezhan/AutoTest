@@ -24,8 +24,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test001(self):
         """
         导航栏自动展示
-        1.清除数据后启动app
-        2.等待导航图片自动展示
+        path.清除数据后启动app
+        bad_path.等待导航图片自动展示
         3.点击“立即体验”按钮
         """
         # 对点击立即体验后的结果断言
@@ -43,8 +43,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test002(self):
         """
         添加引导页选择微信,进入主界面,启动双开微信
-        1.启动app至添加引导页
-        2.只选择微信复选框
+        path.启动app至添加引导页
+        bad_path.只选择微信复选框
         3.点击“开启”按钮
         4.点击back
         5.点击微信图标启动微信
@@ -92,8 +92,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test003(self):
         """
         从主界面点击添加推荐应用(微信)并启动
-        1.启动app至主界面
-        2.点击主界面上的推荐添加应用微信
+        path.启动app至主界面
+        bad_path.点击主界面上的推荐添加应用微信
         3.选择微信并点击启动
         """
         try:
@@ -129,8 +129,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test004(self):
         """
         从主界面添加按钮进入添加应用列表页添加一款应用(微信)并从主界面启动
-        1.启动app至主界面
-        2.点击添加按钮
+        path.启动app至主界面
+        bad_path.点击添加按钮
         3.选择微信并点击添加
         4.点击微信图标启动微信
         """
@@ -180,8 +180,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test005(self):
         """
         非VIP账号登录
-        1.启动app至添加引导页
-        2.点击登录/注册
+        path.启动app至添加引导页
+        bad_path.点击登录/注册
         3.输入正确的非VIP账号
         4.点击下一步
         5.输入正确的密码
@@ -254,8 +254,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test006(self):
         """
         退出登录
-        1.启动app至已登陆状态的主界面
-        2.点击个人中心图标
+        path.启动app至已登陆状态的主界面
+        bad_path.点击个人中心图标
         3.点击头像图标
         4.点击退出按钮
         5.选择确认退出并点击
@@ -315,8 +315,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test007(self):
         """
         登录VIP账户
-        1.启动app至添加引导页
-        2.点击登录/注册
+        path.启动app至添加引导页
+        bad_path.点击登录/注册
         3.输入正确的VIP账号
         4.点击下一步
         5.输入正确的密码
@@ -393,8 +393,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test008(self):
         """
         登录VIP账户后,单独添加应用(微信)至第二空间并启动
-        1.启动app至状态（登陆VIP账号后的主界面）
-        2.点击添加按钮
+        path.启动app至状态（登陆VIP账号后的主界面）
+        bad_path.点击添加按钮
         3.选择微信并点击添加
         4.选择添加至第二空间
         5.点击微信图标启动微信
@@ -454,8 +454,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test009(self):
         """
         登录VIP账户后,在平铺界面添加一款应用(微信)并启动
-        1.首次启动app至状态（登录VIP账号后的平铺界面）
-        2.点击添加按钮
+        path.首次启动app至状态（登录VIP账号后的平铺界面）
+        bad_path.点击添加按钮
         3.选择微信并点击添加
         4.点击微信图标启动微信
         """
@@ -501,8 +501,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test010(self):
         """
         登录VIP账户,先后添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
-        1.启动app至状态（登录VIP账号后的主界面）
-        2.点击空间切换按钮
+        path.启动app至状态（登录VIP账号后的主界面）
+        bad_path.点击空间切换按钮
         3.点击添加按钮
         4.选择微信并点击添加
         5.点击添加按钮
@@ -607,8 +607,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test011(self):
         """
         登录VIP账户,在平铺界面先后添加一款应用(微信)至第一,第二空间,再启动第二空间内的应用
-        1.首次启动app至状态（登录VIP账号后的平铺界面）
-        2.点击添加按钮
+        path.首次启动app至状态（登录VIP账号后的平铺界面）
+        bad_path.点击添加按钮
         3.选择微信并点击添加
         4.点击添加按钮
         5.选择微信并点击添加
@@ -698,8 +698,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test012(self):
         """
         主界面添加一款应用(微信),长按弹出菜单的遍历
-        1.首次启动app至状态(未登录账号的主界面)
-        2.点击推荐添加应用微信图标
+        path.首次启动app至状态(未登录账号的主界面)
+        bad_path.点击推荐添加应用微信图标
         3.点击back
         4.长按微信图标
         5.选择删除应用按钮并点击
@@ -847,8 +847,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test013(self):
         """
         登录VIP账户后,在平铺界面添加一款应用(微信),长按该应用图标并拖动以遍历顶部三个隐藏功能区域
-        1.首次启动app至状态(登录VIP账号后的平铺界面)
-        2.长按微信图标
+        path.首次启动app至状态(登录VIP账号后的平铺界面)
+        bad_path.长按微信图标
         3.拖动微信图标至删除区域
         4.选择删除
         """
@@ -953,8 +953,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test014(self):
         """
         主界面长按数据迁移图标并在弹出框内选择删除该图标
-        1.启动app至状态（未登录账号的主界面）
-        2.长按换机数据迁移图标
+        path.启动app至状态（未登录账号的主界面）
+        bad_path.长按换机数据迁移图标
         3.选择删除按钮并点击
         """
         try:
@@ -988,8 +988,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test015(self):
         """
         支付宝支付前提下,点击确认支付按钮
-        1.启动app至状态（登录非VIP账号的个人中心界面）
-        2.点击开通VIP会员按钮
+        path.启动app至状态（登录非VIP账号的个人中心界面）
+        bad_path.点击开通VIP会员按钮
         3.点击确认支付按钮
         """
         try:
@@ -1024,8 +1024,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test016(self):
         """
         选择微信支付,点击确认支付按钮
-        1.启动app至状态（登录非VIP账号的个人中心界面）
-        2.点击开通VIP会员按钮
+        path.启动app至状态（登录非VIP账号的个人中心界面）
+        bad_path.点击开通VIP会员按钮
         3.下滑找到微信支付并选择该支付方式
         4.点击确认支付按钮
         """
@@ -1081,8 +1081,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test017(self):
         """
         免注册登录按钮
-        1.启动app至状态（添加引导页）
-        2.点击登录/注册按钮
+        path.启动app至状态（添加引导页）
+        bad_path.点击登录/注册按钮
         3.点击免注册登录
         """
         try:
@@ -1122,8 +1122,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test018(self):
         """
         未登录情况下的个人中心按钮遍历
-        1.启动app至状态（未登录时的个人中心页）
-        2.点击消息按钮
+        path.启动app至状态（未登录时的个人中心页）
+        bad_path.点击消息按钮
         3.点击返回按钮
         4.点击开通VIP会员
         5.点击返回
@@ -1430,8 +1430,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test019(self):
         """
         非VIP用户添加多开应用弹窗提示
-        1.启动app至状态（三无主界面）
-        2.点击推荐添加微信
+        path.启动app至状态（三无主界面）
+        bad_path.点击推荐添加微信
         3.back退出引导
         4.点击添加按钮
         5.点击微信进行添加
@@ -1502,8 +1502,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test020(self):
         """
         登录非VIP账户情况下的个人中心按钮遍历
-        1.
-        2.
+        path.
+        bad_path.
         """
         try:
             self.set_app_status5()
@@ -1559,8 +1559,8 @@ class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, F
     def test021(self):
         """
         登录VIP账户情况下的个人中心按钮遍历
-        1.
-        2.
+        path.
+        bad_path.
         """
         try:
             self.set_app_status7()

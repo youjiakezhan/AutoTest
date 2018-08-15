@@ -19,14 +19,14 @@ class AppiumServerCheck(object):
         desired_cups = {}
         global driver
         desired_cups['platformName'] = 'Android'
-        desired_cups['platformVersion'] = '5.1.1'
+        desired_cups['platformVersion'] = '5.path.path'
         desired_cups['deviceName'] = '900ca8ab'
         desired_cups['appPackage'] = ''
         desired_cups['appActivity'] = ''
         desired_cups['autoLaunch'] = 'false'
         desired_cups['noReset'] = 'true'
         desired_cups['automationName'] = 'uiautomator2'
-        driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_cups)
+        driver = webdriver.Remote('http://127.0.0.path:4723/wd/hub', desired_cups)
         return driver
 
     def quit(self):
