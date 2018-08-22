@@ -1,4 +1,3 @@
-import os
 import re
 
 import numpy as np
@@ -12,13 +11,13 @@ from AutoTest.performancetest.comman import *
 # 脚本功能文档
 __doc__ = """
     脚本功能:
-            检测指定目录下是否有apk文件,有的话自动执行安装过程(自动安装仅限oppoR7),如果没有则继续等待直到apk文件出现;
+            检测指定目录下是否有apk文件,有的话自动执行安装过程(自动安装仅限oppoR7),如果没有则继续等待直到待测apk文件出现（不支持中文包名）;
             安装后调出广告和信息流,然后执行back,home,冷启动的时间测试;
             首轮测试结束后卸载apk,安装比对版本的apk进行第二轮测试;
             测试完毕后收集测试数据输出图形报告;
             测试报告邮件发送;
     测试环境:
-            测试前请确保手机内至少装有一款热门应用(如微信等);
+            测试前请确保手机内已安装QQ和微信两款测试依赖app;
 """
 
 
@@ -49,7 +48,7 @@ class ForwardSetting(object):
         except Exception:
             print('本机未安装双开助手')
 
-    # 非通用方法（支持oppoR7）
+    # 非通用方法（自动安装仅支持oppoR7和允许静默安装应用的手机）
     def install_apk(self):
         """安装daily review包"""
         os.popen('adb install -r ' + self.get_file_path())
@@ -100,7 +99,7 @@ class ForwardSetting(object):
                 break
             else:
                 print('未检测到双开助手安装包\n本次检测时间：%s' % time.strftime('%Y.%m.%d_%H:%M:%S'))
-                time.sleep(5)
+                time.sleep(10)
 
 
 # 弹窗监控处理
@@ -385,35 +384,41 @@ class StartTimeTest(object):
             d.app_clear(pkg_name)
             time.sleep(3)
             set_step()
-        if d(resourceId='com.excelliance.dualaid:id/iv_close').exists(5) is True:
-            d(resourceId='com.excelliance.dualaid:id/iv_close').click(timeout=5)
-            print('关闭banner上部提示成功')
+        try:
+            if d(resourceId='com.excelliance.dualaid:id/iv_close').exists(5):
+                d(resourceId='com.excelliance.dualaid:id/iv_close').click(timeout=5)
+                print('关闭banner上部提示成功')
+        except Exception as e:
+            print(e)
         if app_version != '3.0.6':
             print('正在检测非标位')
-            if d(resourceId='com.excelliance.dualaid:id/fl_off_standard_position').exists(10) is True:
-                print('拉取到非标位版本，重新拉取')
-                d.app_clear(pkg_name)
-                time.sleep(3)
-                d.app_start(pkg_name)
-                self.set_app_status()
+            try:
+                if d(resourceId='com.excelliance.dualaid:id/fl_off_standard_position').exists(10):
+                    print('拉取到非标位版本，重新拉取')
+                    d.app_clear(pkg_name)
+                    time.sleep(3)
+                    d.app_start(pkg_name)
+                    self.set_app_status()
+            except Exception as e:
+                print(e)
         i = 1
         while i <= 10:
             try:
-                if d(resourceId="com.excelliance.dualaid:id/iv_ad_alimama").exists(3) is False and d(
-                        resourceId="com.excelliance.dualaid:id/ad_but").exists(3) is False:
+                if not d(resourceId="com.excelliance.dualaid:id/iv_ad_alimama").exists(3) and not d(
+                        resourceId="com.excelliance.dualaid:id/ad_but").exists(3):
                     print("广告拉取失败%d次" % i)
                     if i == 3:
                         print('尝试设置手机时间后拉取')
                         self.set_phone_time()
-                        if d(resourceId="com.excelliance.dualaid:id/iv_ad_alimama").exists(3) is True or d(
-                                resourceId="com.excelliance.dualaid:id/ad_but").exists(3) is True:
+                        if d(resourceId="com.excelliance.dualaid:id/iv_ad_alimama").exists(3) or d(
+                                resourceId="com.excelliance.dualaid:id/ad_but").exists(3):
                             print('广告拉取成功')
                             break
                     elif i == 5:
                         print('尝试恢复手机时间后拉取')
                         self.set_phone_time('recovery')
-                        if d(resourceId="com.excelliance.dualaid:id/iv_ad_alimama").exists(3) is True or d(
-                                resourceId="com.excelliance.dualaid:id/ad_but").exists(3) is True:
+                        if d(resourceId="com.excelliance.dualaid:id/iv_ad_alimama").exists(3) or d(
+                                resourceId="com.excelliance.dualaid:id/ad_but").exists(3):
                             print('广告拉取成功')
                             break
                     elif i == 10:
@@ -444,7 +449,7 @@ class StartTimeTest(object):
         except uiautomator2.UiObjectNotFoundError:
             time.sleep(5)
             d(text="微信").click()
-        if d(resourceId='com.excelliance.dualaid:id/tv_app_add').exists(10) is True:
+        if d(resourceId='com.excelliance.dualaid:id/tv_app_add').exists(10):
             print('微信添加成功')
             d.press('back')
         else:
@@ -459,12 +464,12 @@ class StartTimeTest(object):
         time.sleep(2)
         # 调出信息流
         if app_version == '3.0.6':
-            if d(resourceId="com.excelliance.dualaid:id/tv_news").exists(10) is not True:
+            if not d(resourceId="com.excelliance.dualaid:id/tv_news").exists(10):
                 self.set_phone_time()
                 i = 1
                 while i <= 10:
                     print('第%s次拉取信息流' % i)
-                    if d(resourceId="com.excelliance.dualaid:id/tv_news").exists(10) is True:
+                    if d(resourceId="com.excelliance.dualaid:id/tv_news").exists(10):
                         self.add_wechat()
                         time.sleep(1)
                         d.press('back')
@@ -493,13 +498,13 @@ class StartTimeTest(object):
                 print('信息流已存在，开始进行调试')
                 self.add_wechat()
         else:
-            if d(text='双开资讯').exists(10) is not True:
+            if not d(text='双开资讯').exists(10):
                 self.set_phone_time()
                 i = 1
                 while i <= 10:
                     print('第%s次拉取信息流' % i)
                     d(resourceId='com.excelliance.dualaid:id/add_btn').exists(10)
-                    if d(text='双开资讯').exists(10) is True:
+                    if d(text='双开资讯').exists(10):
                         self.add_wechat()
                         time.sleep(1)
                         d.press('back')
@@ -553,7 +558,7 @@ class StartTimeTest(object):
         while len(list_back) < n:
             j += 1
             start_time = self.start_and_get_date()
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is True and 0 < start_time < 500:
+            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) and 0 < start_time < 500:
                 list_back.append(start_time)
                 i += 1
             d.press('back')
@@ -579,7 +584,7 @@ class StartTimeTest(object):
         while len(list_home) < n:
             j += 1
             start_time = self.start_and_get_date()
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is True and 0 < start_time < 500:
+            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) and 0 < start_time < 500:
                 list_home.append(start_time)
                 i += 1
             d.press('home')
@@ -605,7 +610,7 @@ class StartTimeTest(object):
         while len(list_force) < n:
             j += 1
             start_time = self.start_and_get_date()
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) is True and 0 < start_time:
+            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10) and 0 < start_time:
                 list_force.append(start_time)
                 i += 1
             d.app_stop(pkg_name)
@@ -872,7 +877,7 @@ def run_start_time(state, n=22):
     email_content_flag = 1
     thread_flag = 1
     while True:
-        if adb.check_adb_connect() is True:
+        if adb.check_adb_connect():
             # 设置app启动的时间间隔
             t = 1
             test.run_test(t, n)

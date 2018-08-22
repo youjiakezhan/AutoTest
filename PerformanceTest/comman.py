@@ -103,8 +103,11 @@ class U2(object):
         d.app_start('com.excelliance.dualaid')
         if d(text='QQ').exists(5):
             d(text='QQ').long_click()
-            d(text=u"删除应用").click(timeout=5)
-            d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
+            if d(text=u"删除应用").exists(3):
+                d(text=u"删除应用").click(timeout=5)
+                d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
+            else:
+                d(resourceId="com.excelliance.dualaid:id/delete_item").click_exists(5)
             d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=5)
             d(text='QQ').click(timeout=5)
             time.sleep(5)
@@ -112,8 +115,11 @@ class U2(object):
             d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=5)
             d(text='QQ').click(timeout=5)
         d(text='QQ').click(timeout=5)
-        if d(resourceId="com.excelliance.dualaid:id/bt_vanish").exists(5):
-            d(resourceId="com.excelliance.dualaid:id/bt_vanish").click(timeout=5)
+        try:
+            if d(resourceId="com.excelliance.dualaid:id/bt_vanish").exists(5):
+                d(resourceId="com.excelliance.dualaid:id/bt_vanish").click(timeout=5)
+        except Exception as e:
+            print(e)
         d(resourceId="com.tencent.mobileqq:id/btn_login").click(timeout=30)
         d(text='QQ号/手机号/邮箱').click(timeout=5)
         self.input_text(user)
@@ -364,7 +370,6 @@ class PhoneSetting(object):
 
 # 初始化uiautomator2连接服务
 d = u2.connect()
-d.healthcheck()
 
 
 if __name__ == '__main__':

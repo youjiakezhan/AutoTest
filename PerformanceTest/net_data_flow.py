@@ -1,5 +1,4 @@
 # coding=utf-8
-import os
 
 from AutoTest.funclib.adb_command import AdbCommand
 from AutoTest.funclib.send_email import SendEmail
@@ -42,24 +41,30 @@ class GetData(object):
 # 场景设计
 class TestCase(GetData):
     # 场景一：不添加任何应用挂后台5分钟
+    def __init__(self, ti):
+        self.ti = ti
+
     def test1(self):
         while True:
             d.app_stop(pkg_name)
             time.sleep(2)
             d.app_start(pkg_name)
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
-                d(text='微信').long_click()
-                d(text=u"删除应用").click(timeout=5)
-                d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
-                d.press('home')
-                start_flow = self.diff()
-                time.sleep(300)
-                end_flow = self.diff()
-                d.app_stop(pkg_name)
-                print('流量消耗：%sKb' % (end_flow - start_flow))
-                return end_flow - start_flow
-            else:
-                continue
+            try:
+                if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
+                    d(text='微信').long_click()
+                    d(text=u"删除应用").click(timeout=5)
+                    d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
+                    d.press('home')
+                    start_flow = self.diff()
+                    time.sleep(self.ti)
+                    end_flow = self.diff()
+                    d.app_stop(pkg_name)
+                    print('流量消耗：%sKb' % (end_flow - start_flow))
+                    return end_flow - start_flow
+                else:
+                    continue
+            except Exception as e:
+                print(e)
 
     # 场景二：主界面back再进至页面加载完成并停留5分钟
     def test2(self):
@@ -67,18 +72,21 @@ class TestCase(GetData):
             d.app_stop(pkg_name)
             time.sleep(2)
             d.app_start(pkg_name)
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
-                d.press('back')
-                start_flow = self.diff()
-                d.app_start(pkg_name)
-                d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10)
-                time.sleep(300)
-                end_flow = self.diff()
-                d.app_stop(pkg_name)
-                print('流量消耗：%sKb' % (end_flow - start_flow))
-                return end_flow - start_flow
-            else:
-                continue
+            try:
+                if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
+                    d.press('back')
+                    start_flow = self.diff()
+                    d.app_start(pkg_name)
+                    d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10)
+                    time.sleep(self.ti)
+                    end_flow = self.diff()
+                    d.app_stop(pkg_name)
+                    print('流量消耗：%sKb' % (end_flow - start_flow))
+                    return end_flow - start_flow
+                else:
+                    continue
+            except Exception as e:
+                print(e)
 
     # 场景三：对比本机和双开QQ登录并置于后台5分钟的流量消耗
     def test3(self):
@@ -87,7 +95,7 @@ class TestCase(GetData):
         start_flow1 = self.diff(pkg='com.tencent.mobileqq')
         u2.local_QQ_login(QQ_user, QQ_key)
         d.press('home')
-        time.sleep(5)
+        time.sleep(self.ti)
         d.app_stop('com.tencent.mobileqq')
         end_flow1 = self.diff(pkg='com.tencent.mobileqq')
         d.app_clear('com.tencent.mobileqq')
@@ -96,7 +104,7 @@ class TestCase(GetData):
         start_flow2 = self.diff()
         u2.multi_QQ_login(QQ_user, QQ_key)
         d.press('home')
-        time.sleep(5)
+        time.sleep(self.ti)
         d.app_stop(pkg_name)
         end_flow2 = self.diff()
         flow2 = end_flow2 - start_flow2
@@ -114,8 +122,8 @@ class TestCase(GetData):
 
 
 # 测试结果展示
-def run_network(state):
-    test = TestCase()
+def run_network(state, t=300):
+    test = TestCase(t)
     e = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state)
     s1 = test.test1()
     s2 = test.test2()
@@ -159,6 +167,4 @@ def run_network(state):
 
 
 if __name__ == '__main__':
-    # run_network(state='debug')
-    t = TestCase()
-    t.test3()
+    run_network(state='debug')

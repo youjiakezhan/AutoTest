@@ -11,13 +11,14 @@ from AutoTest.performancetest.comman import *
 # 脚本功能说明文档
 __doc__ = """
 功能概述：
-    path.环境设置完成后脚本将执行各个测试场景的用例；
-    bad_path.用例执行期间会定期获取性能相关数据并保存；
+    1.环境设置完成后脚本将执行各个测试场景的用例；
+    2.用例执行期间会定期获取性能相关数据并保存；
     3.测试结束后将得到的性能相关数据进行处理；
     4.将处理后的数据生成图表并以邮件形式通知；
+    
 环境设置：
-    path.安装新版双开助手apk；
-    bad_path.调出广告和信息流；
+    1.安装新版双开助手apk；
+    2.调出广告和信息流；
     3.第一空间内添加微信（不登录）；
 """
 
@@ -40,7 +41,7 @@ class Case(object):
                 time.sleep(1)
                 d(resourceId='com.excelliance.dualaid:id/iv_back').click(timeout=8)
                 i += 1
-            except u2.UiObjectNotFoundError:
+            except Exception:
                 print('未找到控件1')
                 d.press('back')
                 d.press('home')
@@ -254,7 +255,7 @@ class DataOperate(object):
 
 
 # 执行测试入口
-def run_cpu_mem(state='debug', num=1, bgtime=2):
+def run_cpu_mem(state='debug', num=30, bgtime=60):
     global thread_flag
     thread_flag = 1
     path = os.path.abspath(os.path.dirname('__file__'))
@@ -264,12 +265,10 @@ def run_cpu_mem(state='debug', num=1, bgtime=2):
     data = GetData()
     sendemail = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state, image_path=path + r'\cpumem_image')
     # 开启监控线程（开始获取数据）
-    print(threading.active_count())
     new_thread.start_thread(data.cpuinfo)
     new_thread.start_thread(data.meminfo1)
     new_thread.start_thread(data.meminfo2)
     new_thread.start_thread(data.meminfo3)
-    print(threading.active_count())
     # 执行测试用例(执行方式优化+)
     case.test01(num)
     case.test02(num)
@@ -279,8 +278,6 @@ def run_cpu_mem(state='debug', num=1, bgtime=2):
     # 停止监控线程
     thread_flag = 0
     time.sleep(5)
-    print(threading.active_count())
-    print(thread_flag)
     # 根据当前获取的数据生成图表
     data_opr.create_picture(path)
     # 邮件内容

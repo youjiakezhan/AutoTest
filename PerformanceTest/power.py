@@ -1,5 +1,4 @@
 # coding=utf-8
-import os
 
 from AutoTest.funclib.adb_command import AdbCommand
 from AutoTest.funclib.send_email import SendEmail
@@ -50,6 +49,9 @@ class BatteryTest(object):
 
 # 测试用例（场景设计）
 class TestCase(BatteryTest):
+    def __init__(self, ti):
+        self.ti = ti
+
     # 场景一：不添加应用挂后台5分钟(调出广告和信息流)
     def test01(self):
         while True:
@@ -63,7 +65,8 @@ class TestCase(BatteryTest):
         d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
         self.reset_batteryinfo()
         self.set_usb_status()
-        time.sleep(300)
+        d.press('home')
+        time.sleep(self.ti)
         self.reset_usb_status()
         return self.get_batteryinfo()
 
@@ -77,12 +80,30 @@ class TestCase(BatteryTest):
                 break
         self.reset_batteryinfo()
         self.set_usb_status()
-        time.sleep(300)
+        time.sleep(self.ti)
         self.reset_usb_status()
         return self.get_batteryinfo()
 
-    # 场景三：对比本机和双开QQ登录并置于后台5分钟的功耗(调出广告和信息流)
+    # 场景三：双开内浏览信息流5分钟
     def test03(self):
+        while True:
+            d.app_stop(pkg_name)
+            time.sleep(2)
+            d.app_start(pkg_name)
+            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
+                break
+        self.reset_batteryinfo()
+        self.set_usb_status()
+        now = time.time()
+        while True:
+            d(scrollable=True).fling.vert.forward()
+            time.sleep(5)
+            if time.time() - now >= self.ti:
+                break
+        self.reset_usb_status()
+
+    # 场景四：对比本机和双开QQ登录并置于后台5分钟的功耗(调出广告和信息流)
+    def test04(self):
         u2 = U2()
         # 本机QQ功耗
         d.app_clear('com.tencent.mobileqq')
@@ -90,7 +111,7 @@ class TestCase(BatteryTest):
         self.set_usb_status()
         u2.local_QQ_login(QQ_user, QQ_key)
         d.press('home')
-        time.sleep(300)
+        time.sleep(self.ti)
         self.reset_usb_status()
         power1 = int(self.get_batteryinfo())
         d.app_clear('com.tencent.mobileqq')
@@ -100,22 +121,18 @@ class TestCase(BatteryTest):
         self.set_usb_status()
         u2.local_QQ_login(QQ_user, QQ_key)
         d.press('home')
-        time.sleep(300)
+        time.sleep(self.ti)
         self.reset_usb_status()
         power2 = int(self.get_batteryinfo())
         return power2 - power1
-
-    # 场景四：
-    def test04(self):
-        return 0
 
     # 场景五：
     def test05(self):
         return 0
 
 
-def run_power(state):
-    test = TestCase()
+def run_power(state, t=300):
+    test = TestCase(t)
     e = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state)
     mail_content = """
             <html>
@@ -124,7 +141,8 @@ def run_power(state):
                 <h2>双开助手性能测试：功耗测试</h2>
                 <p>场景一：不添加应用挂后台5分钟(调出广告和信息流)</p>
                 <p>场景二：不添加应用停留主界面5分钟(调出广告和信息流)</p>
-                <p>场景三：对比本机和双开QQ登录并置于后台5分钟的功耗(调出广告和信息流)</p>
+                <p>场景三：双开内浏览信息流5分钟</p>
+                <p>场景四：对比本机和双开QQ登录并置于后台5分钟的功耗(调出广告和信息流)</p>
                 <div id="content">
                     <table border="path" bordercolor="#87ceeb" width="300">
                         <tr>
@@ -143,12 +161,16 @@ def run_power(state):
                             <td>场景三</td>
                             <td>%s</td>
                         </tr>
+                        <tr>
+                            <td>场景四</td>
+                            <td>%s</td>
+                        </tr>
                     </table>
                 </div>
             </div>
             </body>
             </html>
-    """ % (test.test03(), test.test02(), test.test01())
+    """ % (test.test01(), test.test02(), test.test03(), test.test04())
     e.create_email(mail_content)
     print('功耗模块测试结束，性能测试完成')
 
@@ -156,4 +178,4 @@ def run_power(state):
 if __name__ == '__main__':
     # run_power(state='debug')
     test = TestCase()
-    test.test01()
+    test.test04()
