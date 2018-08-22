@@ -1,11 +1,11 @@
 # coding=utf-8
 import time
 
-from AutoTest.performancetest.app_launch_time import run_start_time
+from AutoTest.performancetest.launch_time import run_start_time
 from AutoTest.performancetest.comman import d
 from AutoTest.performancetest.cpu_mem import run_cpu_mem
-from AutoTest.performancetest.network_data_traffic import run_network
-from AutoTest.performancetest.power_consumption import run_power
+from AutoTest.performancetest.net_data_flow import run_network
+from AutoTest.performancetest.power import run_power
 
 
 def unlock():
@@ -25,7 +25,6 @@ def run(state):
         d.service('uiautomator').stop()
         time.sleep(2)
         d.healthcheck()
-    unlock()
     run_start_time(state)
     time.sleep(30)
     run_cpu_mem(state)

@@ -1,14 +1,14 @@
 # coding=utf-8
-import threading
-import time
+import os
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-from AutoTest.myfunction.matplotlib_setting import matplot_init
-from AutoTest.myfunction.send_email import SendEmail
+from AutoTest.funclib.matplotlib_setting import matplot_init
+from AutoTest.funclib.send_email import SendEmail
 from AutoTest.performancetest.comman import *
 
+# 脚本功能说明文档
 __doc__ = """
 功能概述：
     path.环境设置完成后脚本将执行各个测试场景的用例；
@@ -25,7 +25,7 @@ __doc__ = """
 # 测试场景
 class Case(object):
 
-    # 测试场景一：主界面点击个人中心跳转至二级页面
+    # 测试场景一：主界面点击个人中心按钮
     def test01(self, num):
         # 测试环境配置
         d.press('back')
@@ -64,17 +64,12 @@ class Case(object):
                 d.press('home')
                 d.app_start(pkg_name)
 
-    # 测试场景三：主界面启动微信（已登录）
+    # 测试场景三：主界面启动微信（未登录）
     def test03(self, num):
         # 测试环境配置
         d(resourceId='com.excelliance.dualaid:id/iv_icon').exists(5)
-        # 首次冷启动微信单独处理
-        d(resourceId="com.excelliance.dualaid:id/item_app_name", text=u"微信").click()
-        time.sleep(5)
-        d.press('back')
-        time.sleep(1)
         # 测试场景循环，次数为num
-        i = 1  # 循环次数减少1
+        i = 0
         while i < num:
             try:
                 d(resourceId="com.excelliance.dualaid:id/item_app_name", text=u"微信").click()
@@ -128,28 +123,14 @@ class Case(object):
         time.sleep(bgtime)
 
 
-# 创建、启动和停止线程
-class CreateThread(object):
-    def new_thread(self, func, args=()):
-        global monitor_start_flag
-        monitor_start_flag = 1
-        # 另起一条线程执行meminfo和cpuinfo方法
-        thread = threading.Thread(target=func, args=args)
-        thread.start()
-
-    def stop_thread(self):
-        global monitor_start_flag
-        monitor_start_flag = 0
-
-
 # 数据获取
 class GetData(object):
     def meminfo1(self):
-        global monitor_start_flag, mast
+        global thread_flag, mast
         mast = []
         print('memory1监控开启')
         while True:
-            if monitor_start_flag == 1:
+            if thread_flag == 1:
                 try:
                     datas = os.popen('adb shell dumpsys meminfo | findstr "excelliance"').readlines()
                     for data in datas[0:int(len(datas) / 2)]:
@@ -165,11 +146,11 @@ class GetData(object):
                 break
 
     def meminfo2(self):
-        global monitor_start_flag, lbcore
+        global thread_flag, lbcore
         lbcore = []
         print('memory2监控开启')
         while True:
-            if monitor_start_flag == 1:
+            if thread_flag == 1:
                 try:
                     datas = os.popen('adb shell dumpsys meminfo | findstr com.excelliance.dualaid:lbcore').readlines()[
                         0].split()[0]
@@ -182,11 +163,11 @@ class GetData(object):
                 break
 
     def meminfo3(self):
-        global monitor_start_flag, lebian
+        global thread_flag, lebian
         lebian = []
         print('memory3监控开启')
         while True:
-            if monitor_start_flag == 1:
+            if thread_flag == 1:
                 try:
                     datas = \
                         os.popen('adb shell dumpsys meminfo | findstr "com.excelliance.dualaid:lebian"').readlines()[
@@ -200,12 +181,12 @@ class GetData(object):
                 break
 
     def cpuinfo(self):
-        global cpu_data
+        global thread_flag, cpu_data
         cpu_data = []
         cpu = []
         print('cpu监控开启')
         while True:
-            if monitor_start_flag == 1:
+            if thread_flag == 1:
                 try:
                     datas = os.popen('adb shell top -n 1 | findstr "com.excelliance.dualaid"').readlines()
                     for data in datas:
@@ -225,7 +206,6 @@ class GetData(object):
 
 # 数据处理
 class DataOperate(object):
-
     # 数据可视化
     def create_picture(self, path):
         matplot_init()  # 设置matplotlib中文显示问题
@@ -274,26 +254,33 @@ class DataOperate(object):
 
 
 # 执行测试入口
-def run_cpu_mem(state='debug', num=30, bgtime=60):
+def run_cpu_mem(state='debug', num=1, bgtime=2):
+    global thread_flag
+    thread_flag = 1
     path = os.path.abspath(os.path.dirname('__file__'))
     case = Case()
-    data = GetData()
     data_opr = DataOperate()
-    create_thread = CreateThread()
+    new_thread = NewThread()
+    data = GetData()
     sendemail = SendEmail('wangzhongchang@excelliance.cn', 'wzc6851498', state, image_path=path + r'\cpumem_image')
     # 开启监控线程（开始获取数据）
-    create_thread.new_thread(data.cpuinfo)
-    create_thread.new_thread(data.meminfo1)
-    create_thread.new_thread(data.meminfo2)
-    create_thread.new_thread(data.meminfo3)
+    print(threading.active_count())
+    new_thread.start_thread(data.cpuinfo)
+    new_thread.start_thread(data.meminfo1)
+    new_thread.start_thread(data.meminfo2)
+    new_thread.start_thread(data.meminfo3)
+    print(threading.active_count())
     # 执行测试用例(执行方式优化+)
     case.test01(num)
     case.test02(num)
     case.test03(num)
     case.test04(num)
     case.test05(bgtime)
-    # 停止监控线程（暂停获取数据）
-    create_thread.stop_thread()
+    # 停止监控线程
+    thread_flag = 0
+    time.sleep(5)
+    print(threading.active_count())
+    print(thread_flag)
     # 根据当前获取的数据生成图表
     data_opr.create_picture(path)
     # 邮件内容
@@ -301,6 +288,11 @@ def run_cpu_mem(state='debug', num=30, bgtime=60):
     <html>
     <body>
     <h2>双开助手性能测试：内存/cpu测试</h2>
+    <p>测试场景一：主界面点击个人中心按钮30次</p>
+    <p>测试场景二：主界面点击添加按钮30次</p>
+    <p>测试场景三：主界面启动微信30次（未登录）</p>
+    <p>测试场景四：主界面back再进30次</p>
+    <p>测试场景五：home置于后台1分钟</p>
     <div>
     <table border="path" bordercolor="#87ceeb" width="450">   
     <tr>

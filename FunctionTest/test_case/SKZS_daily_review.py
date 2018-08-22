@@ -1,8 +1,8 @@
 # coding=utf-8
 import unittest
 
-from FunctionTest.func_script.func_lib import *
-from FunctionTest.page.page import *
+from AutoTest.FunctionTest.func_script.func_lib import *
+from AutoTest.FunctionTest.page.page import *
 
 
 class Cases(unittest.TestCase, AppiumInit, ScreenShot, GetInfo, UserOperation, FindElement,

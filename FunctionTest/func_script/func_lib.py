@@ -675,7 +675,7 @@ class Logcat(object):
         adb_pid = os.popen('tasklist | findstr "adb.exe"')
         if arg == 1:
             for i in adb_pid:
-                if adb_pid_host not in i:
+                if adb_pid_host != i:
                     os.popen('taskkill /f /pid ' + i.split()[1])
                     time.sleep(5)
         elif arg == 0:

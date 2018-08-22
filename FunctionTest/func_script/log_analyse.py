@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from FunctionTest.func_script.func_lib import *
+from AutoTest.FunctionTest.func_script.func_lib import *
 
 
 class LogAnalyse(object):
