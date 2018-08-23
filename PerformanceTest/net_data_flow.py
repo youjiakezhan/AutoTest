@@ -44,6 +44,7 @@ class TestCase(GetData):
     def __init__(self, ti):
         self.ti = ti
 
+    # 场景一：空载(不添加应用)挂后台5分钟
     def test1(self):
         while True:
             d.app_stop(pkg_name)
@@ -51,9 +52,10 @@ class TestCase(GetData):
             d.app_start(pkg_name)
             try:
                 if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
-                    d(text='微信').long_click()
-                    d(text=u"删除应用").click(timeout=5)
-                    d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
+                    if d(text='微信').exists(3):
+                        d(text='微信').long_click()
+                        d(text=u"删除应用").click(timeout=5)
+                        d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
                     d.press('home')
                     start_flow = self.diff()
                     time.sleep(self.ti)
@@ -167,4 +169,4 @@ def run_network(state, t=300):
 
 
 if __name__ == '__main__':
-    run_network(state='debug')
+    run_network(state='debug', t=10)

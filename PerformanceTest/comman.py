@@ -7,6 +7,8 @@ import time
 import uiautomator2
 import uiautomator2 as u2
 
+from AutoTest.funclib.adb_command import AdbCommand
+
 pkg_name = 'com.excelliance.dualaid'
 activity = 'com.excelliance.kxqp.ui.HelloActivity'
 QQ_user = '1037287177'
@@ -70,20 +72,8 @@ class U2(object):
     def local_QQ_login(self, user, key):
         d.press('home')
         d.app_clear('com.tencent.mobileqq')
-        if d(text='QQ').exists(2):
-            d(text='QQ').click(timeout=5)
-        else:
-            while True:
-                if d(scrollable=True).fling.horiz.backward() is True:
-                    time.sleep(1)
-                else:
-                    break
-            while True:
-                if d(text='QQ').exists(2):
-                    d(text='QQ').click(timeout=5)
-                    break
-                else:
-                    d(scrollable=True).fling.horiz.forward()
+        time.sleep(2)
+        d.app_start('com.tencent.mobileqq')
         d(resourceId="com.tencent.mobileqq:id/btn_login").click(timeout=25)
         d(text='QQ号/手机号/邮箱').click(timeout=5)
         self.input_text(user)
@@ -101,20 +91,25 @@ class U2(object):
         d.app_stop('com.excelliance.dualaid')
         time.sleep(2)
         d.app_start('com.excelliance.dualaid')
-        if d(text='QQ').exists(5):
-            d(text='QQ').long_click()
-            if d(text=u"删除应用").exists(3):
-                d(text=u"删除应用").click(timeout=5)
-                d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
-            else:
-                d(resourceId="com.excelliance.dualaid:id/delete_item").click_exists(5)
-            d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=5)
+        try:
+            if d(resourceId="com.excelliance.dualaid:id/add_but").exists(8):
+                if d(text='QQ').exists():
+                    d(text='QQ').long_click()
+                    if d(text=u"删除应用").exists(3):
+                        d(text=u"删除应用").click(timeout=5)
+                        d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
+                    else:
+                        d(resourceId="com.excelliance.dualaid:id/delete_item").click_exists(5)
+                    d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=5)
+                    d(text='QQ').click(timeout=5)
+                    time.sleep(5)
+                else:
+                    d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=5)
+                    d(text='QQ').click(timeout=5)
+                    time.sleep(5)
             d(text='QQ').click(timeout=5)
-            time.sleep(5)
-        else:
-            d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=5)
-            d(text='QQ').click(timeout=5)
-        d(text='QQ').click(timeout=5)
+        except Exception as e:
+            print(e)
         try:
             if d(resourceId="com.excelliance.dualaid:id/bt_vanish").exists(5):
                 d(resourceId="com.excelliance.dualaid:id/bt_vanish").click(timeout=5)
@@ -370,10 +365,17 @@ class PhoneSetting(object):
 
 # 初始化uiautomator2连接服务
 d = u2.connect()
+while True:
+    try:
+        d.healthcheck()
+        break
+    except Exception as e:
+        print(e)
+        d.service('uiautomator').stop()
+        d.healthcheck()
+        break
 
 
 if __name__ == '__main__':
-    log = Log()
-    pid = log.start_log(r'C:\Users\BAIWAN\PycharmProjects\AutoTest\specialtest\exception_log\111.txt')
-    time.sleep(10)
-    log.stop_log(pid)
+    a = U2()
+    a.multi_QQ_login(QQ_user, QQ_key)

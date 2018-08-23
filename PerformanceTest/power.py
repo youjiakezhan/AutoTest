@@ -10,8 +10,8 @@ class BatteryTest(object):
 
     # 清空手机耗电记录
     def reset_batteryinfo(self):
-        os.popen('adb shell dumpsys batterystats --enable full-wake-history')
-        time.sleep(1)
+        # os.popen('adb shell dumpsys batterystats --enable full-wake-history')
+        # time.sleep(1)
         os.popen('adb shell dumpsys batterystats --reset')
 
     # 检查usb连接状态
@@ -35,22 +35,23 @@ class BatteryTest(object):
             print('恢复usb充电状态失败')
 
     # 获取设置usb连接状态和恢复usb默认连接状态期间的应用耗电量数据
-    def get_batteryinfo(self):
-        adb = AdbCommand(pkg_name)
+    def get_batteryinfo(self, pkg):
+        adb = AdbCommand(pkg)
         uid = adb.get_app_uid()
         content = os.popen('adb shell dumpsys batterystats|findstr "Uid"|findstr ' + uid).readlines()
         # android8.0
         # batteryinfo = (str(re.findall('(?<=[(])[^()]+\.[^()]+(?=[)])', content)).replace('[', '')).replace(']', '')
         for i in content[:int(len(content) / 2)]:
             batteryinfo = i.replace('Uid ' + uid + ': ', '').strip()
-            print(batteryinfo)
-            return batteryinfo
+            print('消耗电量%0.2f' % float(batteryinfo))
+            return round(float(batteryinfo), 2)
 
 
 # 测试用例（场景设计）
 class TestCase(BatteryTest):
     def __init__(self, ti):
         self.ti = ti
+        os.popen('adb shell dumpsys batterystats --enable full-wake-history')
 
     # 场景一：不添加应用挂后台5分钟(调出广告和信息流)
     def test01(self):
@@ -58,17 +59,24 @@ class TestCase(BatteryTest):
             d.app_stop(pkg_name)
             time.sleep(1)
             d.app_start(pkg_name)
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
-                break
-        d(text='QQ').long_click()
-        d(text=u"删除应用").click(timeout=5)
-        d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
+            try:
+                if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
+                    break
+            except Exception as e:
+                print(e)
+        try:
+            if d(text='QQ').exists(3):
+                d(text='QQ').long_click()
+                d(text=u"删除应用").click(timeout=5)
+                d(resourceId="com.excelliance.dualaid:id/tv_left").click(timeout=5)
+        except Exception as e:
+            print(e)
         self.reset_batteryinfo()
         self.set_usb_status()
         d.press('home')
         time.sleep(self.ti)
         self.reset_usb_status()
-        return self.get_batteryinfo()
+        return self.get_batteryinfo(pkg_name)
 
     # 场景二：不添加应用停留主界面5分钟(调出广告和信息流)
     def test02(self):
@@ -76,13 +84,16 @@ class TestCase(BatteryTest):
             d.app_stop(pkg_name)
             time.sleep(2)
             d.app_start(pkg_name)
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
-                break
+            try:
+                if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
+                    break
+            except Exception as e:
+                print(e)
         self.reset_batteryinfo()
         self.set_usb_status()
         time.sleep(self.ti)
         self.reset_usb_status()
-        return self.get_batteryinfo()
+        return self.get_batteryinfo(pkg_name)
 
     # 场景三：双开内浏览信息流5分钟
     def test03(self):
@@ -90,8 +101,11 @@ class TestCase(BatteryTest):
             d.app_stop(pkg_name)
             time.sleep(2)
             d.app_start(pkg_name)
-            if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
-                break
+            try:
+                if d(resourceId='com.excelliance.dualaid:id/tv_title').exists(10):
+                    break
+            except Exception as e:
+                print(e)
         self.reset_batteryinfo()
         self.set_usb_status()
         now = time.time()
@@ -101,6 +115,7 @@ class TestCase(BatteryTest):
             if time.time() - now >= self.ti:
                 break
         self.reset_usb_status()
+        return self.get_batteryinfo(pkg_name)
 
     # 场景四：对比本机和双开QQ登录并置于后台5分钟的功耗(调出广告和信息流)
     def test04(self):
@@ -113,17 +128,17 @@ class TestCase(BatteryTest):
         d.press('home')
         time.sleep(self.ti)
         self.reset_usb_status()
-        power1 = int(self.get_batteryinfo())
+        power1 = self.get_batteryinfo('com.tencent.mobileqq')
         d.app_clear('com.tencent.mobileqq')
         # 双开QQ功耗
         d.app_stop('com.tencent.mobileqq')
         self.reset_batteryinfo()
         self.set_usb_status()
-        u2.local_QQ_login(QQ_user, QQ_key)
+        u2.multi_QQ_login(QQ_user, QQ_key)
         d.press('home')
         time.sleep(self.ti)
         self.reset_usb_status()
-        power2 = int(self.get_batteryinfo())
+        power2 = self.get_batteryinfo(pkg_name)
         return power2 - power1
 
     # 场景五：
@@ -139,10 +154,10 @@ def run_power(state, t=300):
             <body>
             <div>
                 <h2>双开助手性能测试：功耗测试</h2>
-                <p>场景一：不添加应用挂后台5分钟(调出广告和信息流)</p>
-                <p>场景二：不添加应用停留主界面5分钟(调出广告和信息流)</p>
+                <p>场景一：不添加应用挂后台5分钟</p>
+                <p>场景二：不添加应用停留主界面5分钟</p>
                 <p>场景三：双开内浏览信息流5分钟</p>
-                <p>场景四：对比本机和双开QQ登录并置于后台5分钟的功耗(调出广告和信息流)</p>
+                <p>场景四：对比本机和双开QQ登录并置于后台5分钟的功耗(双开-本机)</p>
                 <div id="content">
                     <table border="path" bordercolor="#87ceeb" width="300">
                         <tr>
@@ -172,10 +187,9 @@ def run_power(state, t=300):
             </html>
     """ % (test.test01(), test.test02(), test.test03(), test.test04())
     e.create_email(mail_content)
+    os.popen('adb shell dumpsys batterystats --disable full-wake-history')
     print('功耗模块测试结束，性能测试完成')
 
 
 if __name__ == '__main__':
-    # run_power(state='debug')
-    test = TestCase()
-    test.test04()
+    run_power(state='debug', t=30)

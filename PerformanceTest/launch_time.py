@@ -165,16 +165,16 @@ class StartTimeTest(object):
     # 启动并获取启动时间
     def start_and_get_date(self):
         # 正则匹配方式获取
-        time_data = os.popen('adb shell am start -W ' + pkg_name + '/' + activity)
-        b = re.search(r'(TotalTime:)\s(\d+)', time_data.read())
-        app_start_time = int(b.group(2))
-        return app_start_time
-        # # 循环方式获取
-        # time_data = os.popen('adb shell am start -W ' + pkg_name + '/' + activity).readlines()
-        # for i in time_data:
-        #     if 'TotalTime' in i:
-        #         app_start_time = i.split(':')[path].strip()
-        #         return int(app_start_time)
+        # time_data = os.popen('adb shell am start -W ' + pkg_name + '/' + activity)
+        # b = re.search(r'(TotalTime:)\s(\d+)', time_data.read())
+        # app_start_time = int(b.group(2))
+        # return app_start_time
+        # 循环方式获取
+        time_data = os.popen('adb shell am start -W ' + pkg_name + '/' + activity).readlines()
+        for i in time_data:
+            if 'TotalTime' in i:
+                app_start_time = i.split(':')[1].strip()
+                return int(app_start_time)
 
     # 设置手机（oppoR7/honor9）系统时间
     def set_phone_time(self, kind='normal'):
@@ -191,10 +191,14 @@ class StartTimeTest(object):
                         time.sleep(1)
                         d(text='设置').click()
                         time.sleep(1)
-                        d(scrollable=True).fling()
-                        time.sleep(2)
-                        d(text='日期和时间').click(timeout=5)
-                        time.sleep(1)
+                        if d(text='日期和时间').exists(3):
+                            d(text='日期和时间').click(timeout=5)
+                            time.sleep(1)
+                        else:
+                            d(scrollable=True).fling()
+                            time.sleep(2)
+                            d(text='日期和时间').click(timeout=5)
+                            time.sleep(1)
                         if d(text='设置日期').info['enabled'] is False:
                             d(resourceId='android:id/checkbox')[0].click(timeout=5)
                             time.sleep(1)
@@ -354,7 +358,7 @@ class StartTimeTest(object):
 
         def set_step():
             while True:
-                if d(text=u'点击加号，添加双开应用').exists(15) is True:
+                if d(text=u'点击加号，添加双开应用').exists(15):
                     d(scrollable=True).fling.horiz.forward(100)
                     time.sleep(1)
                     d(scrollable=True).fling.horiz.forward(100)
@@ -367,16 +371,20 @@ class StartTimeTest(object):
                     d.app_stop(pkg_name)
                     time.sleep(2)
                     d.app_start(pkg_name)
-            d(resourceId='com.excelliance.dualaid:id/tv_bt_add').exists(10)
-            d.press('back')
-            time.sleep(2)
-            d.press('back')
-            time.sleep(2)
-            d.app_start(pkg_name)
-            time.sleep(2)
-            d.press('back')
-            time.sleep(3)
-            d.app_start(pkg_name)
+            try:
+                if d(resourceId='com.excelliance.dualaid:id/tv_bt_add').exists(10):
+                    d.press('back')
+                    time.sleep(2)
+                    self.add_wechat()
+                    d.press('back')
+                    time.sleep(2)
+                    d.app_start(pkg_name)
+                    time.sleep(2)
+                    d.press('back')
+                    time.sleep(3)
+                    d.app_start(pkg_name)
+            except Exception as e:
+                print(e)
 
         try:
             set_step()
@@ -445,15 +453,20 @@ class StartTimeTest(object):
         # 添加微信
         print('正在添加微信')
         try:
-            d(text="微信").click()
-        except uiautomator2.UiObjectNotFoundError:
-            time.sleep(5)
-            d(text="微信").click()
+            d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=5)
+            d(text='微信').click(timeout=5)
+            time.sleep(3)
+        except Exception as e:
+            print(e)
         if d(resourceId='com.excelliance.dualaid:id/tv_app_add').exists(10):
             print('微信添加成功')
             d.press('back')
         else:
-            print('微信添加失败')
+            print('微信添加失败,重新添加')
+            d.app_stop(pkg_name)
+            time.sleep(2)
+            d.app_start(pkg_name)
+            self.add_wechat()
 
     # 设置测试环境（拉取信息流）
     def set_until_find_ad(self):
@@ -470,8 +483,6 @@ class StartTimeTest(object):
                 while i <= 10:
                     print('第%s次拉取信息流' % i)
                     if d(resourceId="com.excelliance.dualaid:id/tv_news").exists(10):
-                        self.add_wechat()
-                        time.sleep(1)
                         d.press('back')
                         print('信息流拉取成功，开始进行调试')
                         break
@@ -496,7 +507,6 @@ class StartTimeTest(object):
                     i += 1
             else:
                 print('信息流已存在，开始进行调试')
-                self.add_wechat()
         else:
             if not d(text='双开资讯').exists(10):
                 self.set_phone_time()
@@ -505,8 +515,6 @@ class StartTimeTest(object):
                     print('第%s次拉取信息流' % i)
                     d(resourceId='com.excelliance.dualaid:id/add_btn').exists(10)
                     if d(text='双开资讯').exists(10):
-                        self.add_wechat()
-                        time.sleep(1)
                         d.press('back')
                         print('信息流拉取成功，开始进行调试')
                         break
@@ -531,7 +539,6 @@ class StartTimeTest(object):
                     i += 1
             else:
                 print('信息流已存在，开始进行调试')
-                self.add_wechat()
 
     # 各场景测试前调试
     def set(self, state):
