@@ -11,7 +11,7 @@ from AutoTest.performancetest.power import run_power
 def run(state):
     run_start_time(state, 22)
     time.sleep(5)
-    run_cpu_mem(state, 30, 60)
+    run_cpu_mem(state, 50, 100)
     time.sleep(5)
     run_network(state, 300)
     time.sleep(5)

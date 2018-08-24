@@ -1,5 +1,6 @@
 # coding=utf-8
 import os
+import re
 
 
 class AdbCommand(object):
@@ -15,6 +16,27 @@ class AdbCommand(object):
 
     def command_list(self):
         print(self.__adb_command)
+
+    def get_device_id(self):
+        texts = os.popen('adb devices').readlines()
+        # print(texts)
+        text = []
+        for i in texts:
+            if len(i) > 1:
+                text.append(i)
+        if len(text) == 1:
+            print('未检测到已连接设备')
+        elif len(text) == 2:
+            device = text[1].split()[0]
+            print(device)
+            return device
+        else:
+            print('检测到已连接多台设备')
+            device_list = []
+            for i in list(range(1, len(text))):
+                device_list.append(text[i].split()[0])
+            print(device_list)
+            return device_list
 
     def check_adb_connect(self):
         """查看USB连接状态"""
@@ -89,7 +111,4 @@ class AdbCommand(object):
 
 if __name__ == '__main__':
     a = AdbCommand('com.excelliance.dualaid')
-    a.get_app_version()
-    a.get_app_uid()
-    a.get_app_launch_activity()
-    a.get_phone_ip()
+    a.get_device_id()

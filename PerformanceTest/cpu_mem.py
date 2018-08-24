@@ -31,20 +31,23 @@ class Case(object):
         # 测试环境配置
         d.press('back')
         d.press('home')
+        time.sleep(.5)
         d.app_start(pkg_name)
         d(resourceId='com.excelliance.dualaid:id/iv_icon').exists(10)
         # 测试场景循环，次数为num
         i = 0
         while i < num:
             try:
-                d(resourceId='com.excelliance.dualaid:id/iv_icon').click(timeout=8)
-                time.sleep(1)
-                d(resourceId='com.excelliance.dualaid:id/iv_back').click(timeout=8)
+                d(resourceId='com.excelliance.dualaid:id/iv_icon').click(timeout=10)
+                time.sleep(.5)
+                d(resourceId='com.excelliance.dualaid:id/iv_back').click(timeout=10)
                 i += 1
-            except Exception:
-                print('未找到控件1')
+            except Exception as e:
+                print('未找到控件1:%s' % e)
                 d.press('back')
+                time.sleep(.5)
                 d.press('home')
+                time.sleep(.5)
                 d.app_start(pkg_name)
 
     # 测试场景二：主界面点击添加按钮
@@ -56,13 +59,14 @@ class Case(object):
         while i < num:
             try:
                 d(resourceId="com.excelliance.dualaid:id/add_but").click(timeout=8)
-                time.sleep(1)
+                time.sleep(.5)
                 d(resourceId="com.excelliance.dualaid:id/iv_back").click(timeout=8)
                 i += 1
             except u2.UiObjectNotFoundError:
                 print('未找到控件2')
                 d.press('back')
                 d.press('home')
+                time.sleep(.5)
                 d.app_start(pkg_name)
 
     # 测试场景三：主界面启动微信（未登录）
@@ -76,8 +80,10 @@ class Case(object):
                 d(resourceId="com.excelliance.dualaid:id/item_app_name", text=u"微信").click()
                 if d(text='以后再说').exists(3) is True:
                     d(text='以后再说').click(timeout=5)
+                time.sleep(.5)
                 d(text='登录').exists(10)
                 d.press('back')
+                time.sleep(.5)
                 d(text='微信').exists(5)
                 i += 1
             except u2.UiObjectNotFoundError:
@@ -87,6 +93,7 @@ class Case(object):
                 else:
                     d.press('back')
                     d.press('home')
+                    time.sleep(.5)
                     d.app_start(pkg_name)
 
     # 测试场景四：主界面back再进
@@ -99,7 +106,7 @@ class Case(object):
             if d(resourceId='com.excelliance.dualaid:id/iv_icon').exists(5) is True:
                 break
             else:
-                time.sleep(2)
+                time.sleep(.5)
         # 测试场景循环，次数为num
         i = 1
         while i < num:
@@ -113,6 +120,7 @@ class Case(object):
                 print('未找到控件4')
                 d.press('back')
                 d.press('home')
+                time.sleep(.5)
                 d.app_start(pkg_name)
 
     # 测试场景五：home置于后台

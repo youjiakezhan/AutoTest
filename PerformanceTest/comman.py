@@ -364,7 +364,14 @@ class PhoneSetting(object):
 
 
 # 初始化uiautomator2连接服务
-d = u2.connect()
+adb = AdbCommand(pkg_name)
+try:
+    d = u2.connect(adb.get_device_id())
+except TypeError:
+    device_name = input('请输入要使用的设备号：')
+    d = u2.connect(device_name)
+# 解决出现坐标偏移问题
+d.jsonrpc.setConfigurator({"waitForIdleTimeout": 100})
 while True:
     try:
         d.healthcheck()

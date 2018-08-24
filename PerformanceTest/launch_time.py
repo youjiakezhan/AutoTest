@@ -113,10 +113,14 @@ class SuperVision(object):
                 try:
                     if d(resourceId='com.excelliance.dualaid:id/ll_dialog').exists(10):
                         print('检测到apk更新提示，正在处理...')
+                        time.sleep(.5)
                         d(resourceId='com.excelliance.dualaid:id/cb_noToast').click(timeout=5)
+                        time.sleep(.5)
                         d(resourceId='com.excelliance.dualaid:id/tv_left').click(timeout=5)
                         print('已忽略apk更新')
-                except Exception:
+                except Exception as e:
+                    print(e)
+                    time.sleep(1)
                     continue
             else:
                 print('监控1已停止')
@@ -129,10 +133,14 @@ class SuperVision(object):
                 try:
                     if d(resourceId='oppo:id/permission_prompt').exists(10):
                         print('检测到apk权限弹窗，正在处理...')
+                        time.sleep(.5)
                         d(text='不再提醒').click(timeout=5)
+                        time.sleep(.5)
                         d(text='允许').click(timeout=5)
                         print('已同意apk获取权限')
-                except Exception:
+                except Exception as e:
+                    print(e)
+                    time.sleep(1)
                     continue
             else:
                 print('监控2已停止')
@@ -165,16 +173,16 @@ class StartTimeTest(object):
     # 启动并获取启动时间
     def start_and_get_date(self):
         # 正则匹配方式获取
-        # time_data = os.popen('adb shell am start -W ' + pkg_name + '/' + activity)
-        # b = re.search(r'(TotalTime:)\s(\d+)', time_data.read())
-        # app_start_time = int(b.group(2))
-        # return app_start_time
+        time_data = os.popen('adb shell am start -W ' + pkg_name + '/' + activity)
+        b = re.search(r'(TotalTime:)\s(\d+)', time_data.read())
+        app_start_time = int(b.group(2))
+        return app_start_time
         # 循环方式获取
-        time_data = os.popen('adb shell am start -W ' + pkg_name + '/' + activity).readlines()
-        for i in time_data:
-            if 'TotalTime' in i:
-                app_start_time = i.split(':')[1].strip()
-                return int(app_start_time)
+        # time_data = os.popen('adb shell am start -W ' + pkg_name + '/' + activity).readlines()
+        # for i in time_data:
+        #     if 'TotalTime' in i:
+        #         app_start_time = i.split(':')[1].strip()
+        #         return int(app_start_time)
 
     # 设置手机（oppoR7/honor9）系统时间
     def set_phone_time(self, kind='normal'):
@@ -360,7 +368,7 @@ class StartTimeTest(object):
             while True:
                 if d(text=u'点击加号，添加双开应用').exists(15):
                     d(scrollable=True).fling.horiz.forward(100)
-                    time.sleep(1)
+                    time.sleep(.5)
                     d(scrollable=True).fling.horiz.forward(100)
                     d(text='开始体验').click(timeout=8)
                     d(text='跳过').click_exists(8)
@@ -458,15 +466,18 @@ class StartTimeTest(object):
             time.sleep(3)
         except Exception as e:
             print(e)
-        if d(resourceId='com.excelliance.dualaid:id/tv_app_add').exists(10):
-            print('微信添加成功')
-            d.press('back')
-        else:
-            print('微信添加失败,重新添加')
-            d.app_stop(pkg_name)
-            time.sleep(2)
-            d.app_start(pkg_name)
-            self.add_wechat()
+        try:
+            if d(resourceId='com.excelliance.dualaid:id/tv_app_add').exists(10):
+                print('微信添加成功')
+                d.press('back')
+            else:
+                print('微信添加失败,重新添加')
+                d.app_stop(pkg_name)
+                time.sleep(2)
+                d.app_start(pkg_name)
+                self.add_wechat()
+        except Exception as e:
+            print(e)
 
     # 设置测试环境（拉取信息流）
     def set_until_find_ad(self):
@@ -577,8 +588,8 @@ class StartTimeTest(object):
         # 去掉一个最大值和一个最小值
         list_back.remove(max(list_back))
         list_back.remove(min(list_back))
-        print(round(sum(list_back) / len(list_back), 1))
-        # print(self.list_middle(list_back))
+        print('平均值：%s' % round(sum(list_back) / len(list_back), 1))
+        print('中位数：%s' % self.list_middle(list_back))
         return list_back
 
     # home场景测试
@@ -603,8 +614,8 @@ class StartTimeTest(object):
         # 去掉一个最大值和一个最小值
         list_home.remove(max(list_home))
         list_home.remove(min(list_home))
-        print(round(sum(list_home) / len(list_home), 1))
-        # print(self.list_middle(list_home))
+        print('平均值：%s' % round(sum(list_home) / len(list_home), 1))
+        print('中位数：%s' % self.list_middle(list_home))
         return list_home
 
     # 冷启动场景测试
@@ -628,8 +639,8 @@ class StartTimeTest(object):
         # 去掉一个最大值和一个最小值
         list_force.remove(max(list_force))
         list_force.remove(min(list_force))
-        print(round(sum(list_force) / len(list_force), 1))
-        # print(self.list_middle(list_force))
+        print('平均值：%s' % round(sum(list_force) / len(list_force), 1))
+        print('中位数：%s' % self.list_middle(list_force))
         return list_force
 
     # 启动并收集测试数据（3.0.6版本）
